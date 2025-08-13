@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: devopslab
+
+resources:
+  - ../../k8s/namespace.yaml
+  - ../../k8s/database/
+  - ../../k8s/backend/
+  - ../../k8s/frontend/
+
+commonLabels:
+  app: devopslab
+  version: v1.0.0

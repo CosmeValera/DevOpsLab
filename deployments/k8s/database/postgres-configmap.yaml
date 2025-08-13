@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: devopslab
+data:
+  POSTGRES_DB: devopslab
+  POSTGRES_USER: postgres

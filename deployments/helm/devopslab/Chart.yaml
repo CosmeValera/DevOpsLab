@@ -1,0 +1,18 @@
+apiVersion: v2
+name: devopslab
+description: A comprehensive DevOps portfolio showcase application
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - devops
+  - portfolio
+  - showcase
+  - docker
+  - kubernetes
+home: https://github.com/yourusername/devopslab
+sources:
+  - https://github.com/yourusername/devopslab
+maintainers:
+  - name: DevOpsLab Team
+    email: team@devopslab.com

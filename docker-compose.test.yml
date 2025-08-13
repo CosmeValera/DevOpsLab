@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Test Database
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: devopslab-postgres-test
+    environment:
+      POSTGRES_DB: devopslab_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    networks:
+      - devopslab-test-network
+
+  # Test Backend
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: devopslab-backend-test
+    environment:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://postgres:password@postgres-test:5432/devopslab_test
+      PORT: 3001
+    ports:
+      - "3002:3001"
+    depends_on:
+      - postgres-test
+    networks:
+      - devopslab-test-network
+    command: ["npm", "test"]
+
+  # Test Frontend
+  frontend-test:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: devopslab-frontend-test
+    environment:
+      VITE_API_URL: http://localhost:3002
+    ports:
+      - "3003:3000"
+    depends_on:
+      - backend-test
+    networks:
+      - devopslab-test-network
+    command: ["npm", "test"]
+
+networks:
+  devopslab-test-network:
+    driver: bridge

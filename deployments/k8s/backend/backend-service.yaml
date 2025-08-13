@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: devopslab
+  labels:
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 3001
+    protocol: TCP
+  type: ClusterIP
