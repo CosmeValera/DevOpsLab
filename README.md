@@ -104,23 +104,34 @@ docker image prune -f
 # Start minikube (if using local cluster)
 minikube start
 
+# Load the images inside the Minikube
+minikube image load devopslab-frontend
+minikube image load devopslab-jenkins
+minikube image load devopslab-backend
+minikube image load postgres:15-alpine
+
+minikube ssh -- docker images # Check
+
+# Create the Postgres init ConfigMap for the database
+kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
+
 # Apply all Kubernetes manifests
-kubectl apply -f deployments/k8s/
+kubectl apply -f deployments/k8s/namespace.yaml
+kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
 
 # Check deployment status
-kubectl get pods
-kubectl get services
-
-# Access the application
-kubectl port-forward svc/frontend-service 3000:80
-kubectl port-forward svc/backend-service 3001:80
-
-# View logs
-kubectl logs -f deployment/frontend
-kubectl logs -f deployment/backend
+kubectl get all -n devopslab
 
 # Delete deployment
-kubectl delete -f deployments/k8s/
+kubectl delete all --all -n devopslab
+
+# Access the application
+kubectl port-forward svc/frontend-service 3000:80 -n devopslab
+kubectl port-forward svc/backend-service 3001:80 -n devopslab
+
+# View logs
+kubectl logs -f deployment/frontend -n devopslab
+kubectl logs -f deployment/backend -n devopslab
 ```
 
 ### Individual Component Deployment
