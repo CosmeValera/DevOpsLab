@@ -1,7 +1,13 @@
 import React from 'react'
 import { Package, ExternalLink, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 const DockerDeployment: React.FC = () => {
+  const commands = [
+    'docker build -t devopslab .',
+    'docker run -p 3000:3000 devopslab',
+    'docker-compose up -d',
+  ];
   return (
     <div>
       {/* Docker Deployment Section */}
@@ -21,10 +27,10 @@ const DockerDeployment: React.FC = () => {
               <Code />
               Commands
             </h3>
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '16px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '14px' }}>
-              <div style={{ color: '#22c55e' }}>$ docker build -t devopslab .</div>
-              <div style={{ color: '#22c55e' }}>$ docker run -p 3000:3000 devopslab</div>
-              <div style={{ color: '#22c55e' }}>$ docker-compose up -d</div>
+            <div>
+              {commands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
             </div>
           </div>
           

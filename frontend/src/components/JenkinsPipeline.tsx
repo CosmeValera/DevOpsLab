@@ -1,7 +1,14 @@
 import React from 'react'
 import { GitBranch, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 const JenkinsPipeline: React.FC = () => {
+  const pipelineStages = [
+    "stage('Build') {}",
+    "stage('Test') {}",
+    "stage('Build Images') {}",
+    "stage('Deploy') {}",
+  ];
   return (
     <div>
       <section className="card">
@@ -19,11 +26,10 @@ const JenkinsPipeline: React.FC = () => {
               <Code />
               Pipeline Stages
             </h3>
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '16px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '14px' }}>
-              <div style={{ color: '#fbbf24' }}>stage('Build') {}</div>
-              <div style={{ color: '#fbbf24' }}>stage('Test') {}</div>
-              <div style={{ color: '#fbbf24' }}>stage('Build Images') {}</div>
-              <div style={{ color: '#fbbf24' }}>stage('Deploy') {}</div>
+            <div>
+              {pipelineStages.map(stage => (
+                <CopyCommandBox key={stage} command={stage} />
+              ))}
             </div>
           </div>
           

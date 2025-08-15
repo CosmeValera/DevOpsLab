@@ -11,6 +11,7 @@ import {
   Package,
   Settings
 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 interface Technology {
   name: string
@@ -24,6 +25,11 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ technologies }) => {
+  const quickStartCommands = [
+    'git clone https://github.com/yourusername/devopslab',
+    'cd devopslab',
+    'docker-compose up -d',
+  ];
   return (
     <div>
       {/* Project Architecture Section */}
@@ -61,13 +67,11 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
             Get the project running locally.
           </p>
-          
-          <div style={{ background: 'rgba(0,0,0,0.3)', padding: '16px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '14px' }}>
-            <div style={{ color: '#22c55e' }}>$ git clone https://github.com/yourusername/devopslab</div>
-            <div style={{ color: '#22c55e' }}>$ cd devopslab</div>
-            <div style={{ color: '#22c55e' }}>$ docker-compose up -d</div>
+          <div>
+            {quickStartCommands.map(cmd => (
+              <CopyCommandBox key={cmd} command={cmd} />
+            ))}
           </div>
-          
           <div style={{ marginTop: '16px' }}>
             <Link to="/docker" className="btn">
               View Docker Setup

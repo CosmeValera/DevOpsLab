@@ -1,0 +1,24 @@
+# Jenkins plugins for DevOpsLab
+workflow-aggregator:latest
+git:latest
+docker-workflow:latest
+kubernetes:latest
+helm:latest
+pipeline-stage-view:latest
+blueocean:latest
+htmlpublisher:latest
+cobertura:latest
+jacoco:latest
+email-ext:latest
+credentials:latest
+ssh-credentials:latest
+matrix-auth:latest
+authorize-project:latest
+build-timeout:latest
+timestamper:latest
+ws-cleanup:latest
+ant:latest
+gradle:latest
+maven-plugin:latest
+nodejs:latest
+npm:latest

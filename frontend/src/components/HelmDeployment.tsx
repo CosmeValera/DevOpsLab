@@ -1,7 +1,13 @@
 import React from 'react'
 import { Package, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 const HelmDeployment: React.FC = () => {
+  const commands = [
+    'helm install devopslab ./charts',
+    'helm upgrade devopslab ./charts',
+    'helm uninstall devopslab',
+  ];
   return (
     <div>
       <section className="card">
@@ -19,10 +25,10 @@ const HelmDeployment: React.FC = () => {
               <Code />
               Commands
             </h3>
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '16px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '14px' }}>
-              <div style={{ color: '#22c55e' }}>$ helm install devopslab ./charts</div>
-              <div style={{ color: '#22c55e' }}>$ helm upgrade devopslab ./charts</div>
-              <div style={{ color: '#22c55e' }}>$ helm uninstall devopslab</div>
+            <div>
+              {commands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
             </div>
           </div>
           

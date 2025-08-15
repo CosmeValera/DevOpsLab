@@ -1,7 +1,13 @@
 import React from 'react'
 import { Server, ExternalLink, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 const KubernetesDeployment: React.FC = () => {
+  const commands = [
+    'kubectl apply -f k8s/',
+    'kubectl get pods',
+    'kubectl port-forward svc/devopslab 3000:80',
+  ];
   return (
     <div>
       {/* Kubernetes Deployment Section */}
@@ -21,10 +27,10 @@ const KubernetesDeployment: React.FC = () => {
               <Code />
               Commands
             </h3>
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '16px', borderRadius: '8px', fontFamily: 'monospace', fontSize: '14px' }}>
-              <div style={{ color: '#22c55e' }}>$ kubectl apply -f k8s/</div>
-              <div style={{ color: '#22c55e' }}>$ kubectl get pods</div>
-              <div style={{ color: '#22c55e' }}>$ kubectl port-forward svc/devopslab 3000:80</div>
+            <div>
+              {commands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
             </div>
           </div>
           
