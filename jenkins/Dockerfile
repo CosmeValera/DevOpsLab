@@ -32,9 +32,3 @@ RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/
 
 # Switch back to jenkins user
 USER jenkins
-
-# Copy plugins list
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-
-# Install plugins
-RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
