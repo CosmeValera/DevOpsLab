@@ -31,6 +31,8 @@ docker-compose up -d
 
 Visit `http://localhost:3000` to see the application running.
 
+> To access the jenkins password execute: `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
+
 ## 📁 Project Structure
 
 ```
@@ -63,14 +65,14 @@ cd devopslab
 # Start all services
 docker-compose up -d
 
+# Stop services
+docker-compose down
+
 # Check service status
 docker-compose ps
 
 # View logs
 docker-compose logs -f
-
-# Stop services
-docker-compose down
 ```
 
 ### Manual Docker Commands
@@ -84,6 +86,10 @@ docker build -t devopslab-backend ./backend
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
 docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
+
+# Delete images
+docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine
+docker image prune -f
 ```
 
 ## ☸️ Kubernetes Deployment

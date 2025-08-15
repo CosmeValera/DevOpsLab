@@ -1,14 +1,15 @@
 import React from 'react'
 import { GitBranch, Code, BarChart3 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
 
 const JenkinsPipeline: React.FC = () => {
-  const pipelineStages = [
-    "stage('Build') {}",
-    "stage('Test') {}",
-    "stage('Build Images') {}",
-    "stage('Deploy') {}",
-  ];
+  const jenkinsCommands = [
+    '# Start Jenkins with the pipeline',
+    'cd jenkins',
+    'docker-compose up -d',
+    '',
+    '# Get the initial admin password',
+    'docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword',
+  ].join('\n');
   return (
     <div>
       <section className="card">
@@ -24,13 +25,11 @@ const JenkinsPipeline: React.FC = () => {
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Pipeline Stages
+              Jenkins Quick Start
             </h3>
-            <div>
-              {pipelineStages.map(stage => (
-                <CopyCommandBox key={stage} command={stage} />
-              ))}
-            </div>
+            <pre style={{ background: '#222', color: '#fff', padding: '16px', borderRadius: '8px', fontSize: '15px', marginBottom: '16px', overflowX: 'auto' }}>
+              {jenkinsCommands}
+            </pre>
           </div>
           
           <div>
