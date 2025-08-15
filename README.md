@@ -112,11 +112,13 @@ minikube image load postgres:15-alpine
 
 minikube ssh -- docker images # Check
 
+# Create namespace.yaml
+kubectl apply -f deployments/k8s/namespace.yaml
+
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 
 # Apply all Kubernetes manifests
-kubectl apply -f deployments/k8s/namespace.yaml
 kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
 
 # Check deployment status
@@ -134,17 +136,41 @@ kubectl logs -f deployment/frontend -n devopslab
 kubectl logs -f deployment/backend -n devopslab
 ```
 
-### Individual Component Deployment
+## 🔧 Kustomize Deployment
+
+### Prerequisites
+- kubectl
+- Kustomize (optional, kubectl has built-in support)
+
+### Deploy with Kustomize
 
 ```bash
-# Deploy database
-kubectl apply -f deployments/k8s/database/
+# Create namespace.yaml
+kubectl apply -f deployments/k8s/namespace.yaml
 
-# Deploy backend
-kubectl apply -f deployments/k8s/backend/
+# Create the Postgres init ConfigMap for the database
+kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 
-# Deploy frontend
-kubectl apply -f deployments/k8s/frontend/
+# Deploy to development environment
+kubectl apply -k deployments/kustomize/overlays/dev
+
+# Deploy to production environment
+kubectl apply -k deployments/kustomize/overlays/prod
+
+# Build manifests without applying
+kubectl kustomize deployments/kustomize/overlays/dev
+
+# Delete deployment
+kubectl delete -k deployments/kustomize/overlays/dev
+kubectl delete -k deployments/kustomize/overlays/prod
+
+# Check k8s manifests
+kubectl get all,configmap -n devopslab
+
+# Access the application
+kubectl port-forward svc/frontend-service 3000:80 -n devopslab
+kubectl port-forward svc/backend-service 3001:80 -n devopslab
+
 ```
 
 ## 🎯 Helm Deployment
@@ -184,31 +210,6 @@ helm install devopslab ./deployments/helm/devopslab \
 
 # Or use a values file
 helm install devopslab ./deployments/helm/devopslab -f custom-values.yaml
-```
-
-## 🔧 Kustomize Deployment
-
-### Prerequisites
-- kubectl
-- Kustomize (optional, kubectl has built-in support)
-
-### Deploy with Kustomize
-
-```bash
-# Deploy to development environment
-kubectl apply -k deployments/kustomize/overlays/dev
-
-# Deploy to staging environment
-kubectl apply -k deployments/kustomize/overlays/staging
-
-# Deploy to production environment
-kubectl apply -k deployments/kustomize/overlays/prod
-
-# Build manifests without applying
-kubectl kustomize deployments/kustomize/overlays/prod
-
-# Delete deployment
-kubectl delete -k deployments/kustomize/overlays/dev
 ```
 
 ### Environment-Specific Configurations

@@ -1,7 +1,11 @@
+## Kustomize can be used to have different environments with different configurations,
+## for example, different number of replicas, different images, different namespaces etc.
+## In this case, we are changing only the number of replicas.
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: devopslab-dev
+namespace: devopslab
 
 resources:
   - ../../base
@@ -13,17 +17,11 @@ patches:
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 1
+        value: 2
   - target:
       kind: Deployment
       name: frontend
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 1
-
-images:
-  - name: devopslab-backend
-    newTag: dev
-  - name: devopslab-frontend
-    newTag: dev
+        value: 2

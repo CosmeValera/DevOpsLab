@@ -4,11 +4,14 @@ kind: Kustomization
 namespace: devopslab
 
 resources:
-  - ../../k8s/namespace.yaml
-  - ../../k8s/database/
-  - ../../k8s/backend/
-  - ../../k8s/frontend/
-
-commonLabels:
-  app: devopslab
-  version: v1.0.0
+  - backend-configmap.yaml
+  - backend-deployment.yaml
+  - backend-service.yaml
+  - frontend-configmap.yaml
+  - frontend-deployment.yaml
+  - frontend-service.yaml
+  - postgres-configmap.yaml
+  - postgres-deployment.yaml
+  - postgres-pvc.yaml
+  - postgres-secret.yaml
+  - postgres-service.yaml
