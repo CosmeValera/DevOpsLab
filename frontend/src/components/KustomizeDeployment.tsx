@@ -3,10 +3,9 @@ import { Settings, Code, BarChart3 } from 'lucide-react'
 import CopyCommandBox from './CopyCommandBox'
 
 const KustomizeDeployment: React.FC = () => {
-  const commands = [
-    'kubectl apply -k overlays/dev',
-    'kubectl apply -k overlays/prod',
-    'kubectl kustomize overlays/staging',
+  const predeployCommands = [
+    'kubectl apply -f deployments/k8s/namespace.yaml',
+    'kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab',
   ];
   return (
     <div>
@@ -19,33 +18,55 @@ const KustomizeDeployment: React.FC = () => {
           Kustomize provides configuration management without templates, allowing environment-specific customizations.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          {/* Commands Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Commands
+              Predeploy Commands
             </h3>
             <div>
-              {commands.map(cmd => (
+              {predeployCommands.map(cmd => (
                 <CopyCommandBox key={cmd} command={cmd} />
               ))}
             </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Deploy with Kustomize
+            </h3>
+            <div>
+              <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/prod" />
+              <CopyCommandBox command="kubectl kustomize deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl delete -k deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl delete -k deployments/kustomize/overlays/prod" />
+              <CopyCommandBox command="kubectl get all,configmap -n devopslab" />
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Access the Application
+            </h3>
+            <div>
+              <CopyCommandBox command="kubectl port-forward svc/frontend-service 3000:80 -n devopslab" />
+              <CopyCommandBox command="kubectl port-forward svc/backend-service 3001:80 -n devopslab" />
+            </div>
           </div>
+          {/* Key Features Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BarChart3 />
-              Key Benefits
+              Key Features
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Environment-specific configs
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ No templating required
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Declarative approach
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ GitOps friendly
               </li>
             </ul>

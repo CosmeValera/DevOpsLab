@@ -1,15 +1,18 @@
 import React from 'react'
 import { GitBranch, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from './CopyCommandBox'
 
 const JenkinsPipeline: React.FC = () => {
-  const jenkinsCommands = [
-    '# Start Jenkins with the pipeline',
-    'cd jenkins',
-    'docker-compose up -d',
-    '',
-    '# Get the initial admin password',
+  const jenkinsStartCommands = [
+    'docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts',
+  ];
+  const jenkinsPasswordCommand = [
     'docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword',
-  ].join('\n');
+  ];
+  const jenkinsPipelineCommands = [
+    'jenkins-cli.jar build devopslab-pipeline',
+    'curl -X POST http://localhost:8080/job/devopslab-pipeline/build',
+  ];
   return (
     <div>
       <section className="card">
@@ -22,32 +25,53 @@ const JenkinsPipeline: React.FC = () => {
         </p>
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+          {/* Commands Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Jenkins Quick Start
+              Start Jenkins in Docker
             </h3>
-            <pre style={{ background: '#222', color: '#fff', padding: '16px', borderRadius: '8px', fontSize: '15px', marginBottom: '16px', overflowX: 'auto' }}>
-              {jenkinsCommands}
-            </pre>
+            <div>
+              {jenkinsStartCommands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Get Initial Admin Password
+            </h3>
+            <div>
+              {jenkinsPasswordCommand.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Manual Pipeline Execution
+            </h3>
+            <div>
+              {jenkinsPipelineCommands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
           </div>
-          
+          {/* Key Features Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BarChart3 />
               Key Features
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Automated testing
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Docker image building
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Automated deployment
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#22c55e' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Pipeline visualization
               </li>
             </ul>

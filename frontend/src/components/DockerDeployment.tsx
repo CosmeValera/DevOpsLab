@@ -3,10 +3,22 @@ import { Package, ExternalLink, Code, BarChart3 } from 'lucide-react'
 import CopyCommandBox from './CopyCommandBox'
 
 const DockerDeployment: React.FC = () => {
-  const commands = [
-    'docker build -t devopslab .',
-    'docker run -p 3000:3000 devopslab',
+  const dockerComposeCommands = [
+    'git clone https://github.com/cosmevalera/devopslab',
+    'cd devopslab',
     'docker-compose up -d',
+    'docker-compose down',
+    'docker-compose ps',
+    'docker-compose logs -f',
+  ];
+  const manualDockerCommands = [
+    'docker build -t devopslab-frontend ./frontend',
+    'docker build -t devopslab-backend ./backend',
+    'docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15',
+    'docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend',
+    'docker run -d --name frontend -p 3000:3000 devopslab-frontend',
+    'docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine',
+    'docker image prune -f',
   ];
   return (
     <div>
@@ -25,15 +37,23 @@ const DockerDeployment: React.FC = () => {
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Commands
+              Quick Start with Docker Compose
             </h3>
             <div>
-              {commands.map(cmd => (
+              {dockerComposeCommands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Manual Docker Commands
+            </h3>
+            <div>
+              {manualDockerCommands.map(cmd => (
                 <CopyCommandBox key={cmd} command={cmd} />
               ))}
             </div>
           </div>
-          
           {/* Key Benefits Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -41,40 +61,16 @@ const DockerDeployment: React.FC = () => {
               Key Benefits
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Environment consistency
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Easy local development
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Simplified deployment
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Resource isolation
               </li>
             </ul>

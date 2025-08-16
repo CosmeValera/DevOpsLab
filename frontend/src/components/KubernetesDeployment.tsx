@@ -3,10 +3,26 @@ import { Server, ExternalLink, Code, BarChart3 } from 'lucide-react'
 import CopyCommandBox from './CopyCommandBox'
 
 const KubernetesDeployment: React.FC = () => {
-  const commands = [
-    'kubectl apply -f k8s/',
-    'kubectl get pods',
-    'kubectl port-forward svc/devopslab 3000:80',
+  const predeployCommands = [
+    'kubectl apply -f deployments/k8s/namespace.yaml',
+    'kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab',
+  ];
+  const imageLoadCommands = [
+    'minikube start',
+    'minikube image load devopslab-frontend',
+    'minikube image load devopslab-jenkins',
+    'minikube image load devopslab-backend',
+    'minikube image load postgres:15-alpine',
+    'minikube ssh -- docker images',
+  ];
+  const deployCommands = [
+    'kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/',
+    'kubectl get all -n devopslab',
+    'kubectl delete all --all -n devopslab',
+    'kubectl port-forward svc/frontend-service 3000:80 -n devopslab',
+    'kubectl port-forward svc/backend-service 3001:80 -n devopslab',
+    'kubectl logs -f deployment/frontend -n devopslab',
+    'kubectl logs -f deployment/backend -n devopslab',
   ];
   return (
     <div>
@@ -14,26 +30,53 @@ const KubernetesDeployment: React.FC = () => {
       <section className="card">
         <h2 style={{ fontSize: '28px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Server />
-          Kubernetes Deployment
+          Kubernetes Deployment (Vanilla)
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
           Kubernetes provides robust container orchestration with automatic scaling, load balancing, and self-healing capabilities.
         </p>
-        
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           {/* Commands Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Commands
+              Predeploy Commands
             </h3>
             <div>
-              {commands.map(cmd => (
+              {predeployCommands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Load Images (Minikube)
+            </h3>
+            <div>
+              {imageLoadCommands.map(cmd => (
+                <CopyCommandBox key={cmd} command={cmd} />
+              ))}
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Access the Application
+            </h3>
+            <div>
+              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                Forward ports to access the frontend and backend locally:
+              </p>
+              <CopyCommandBox command="kubectl port-forward svc/frontend-service 3000:80 -n devopslab" />
+              <CopyCommandBox command="kubectl port-forward svc/backend-service 3001:80 -n devopslab" />
+            </div>
+            <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Code />
+              Deploy to Kubernetes
+            </h3>
+            <div>
+              {deployCommands.map(cmd => (
                 <CopyCommandBox key={cmd} command={cmd} />
               ))}
             </div>
           </div>
-          
           {/* Key Benefits Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -41,40 +84,16 @@ const KubernetesDeployment: React.FC = () => {
               Key Benefits
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Auto-scaling
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Load balancing
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Self-healing
               </li>
-              <li style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px', 
-                marginBottom: '12px',
-                color: '#22c55e'
-              }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
                 ✓ Rolling updates
               </li>
             </ul>
