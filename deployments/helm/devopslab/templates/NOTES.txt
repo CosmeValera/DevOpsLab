@@ -1,8 +1,11 @@
-1. To execute the app do this:
+1. To create the release execute one of these:
 ```
-helm install devopslab ./deployments/helm/devopslab
+helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml
+helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml
 ```
 
-To see the app, you have 2 options:
-1) Use 'port-forward'
-2) Use 'minikube addons enable ingress' and 'minikube tunnel'
+Once the release is cretead, you have 2 options to access the webapp:
+1) Use 'minikube addons enable ingress' and 'minikube tunnel'
+  1.1) You should be able to access the front app in 'localhost' and the back in 'localhost/api'
+2) Use 'port-forward'
+  2.1) You should be able to access the front app in 'localhost:3000' and the back in 'localhost:3001'

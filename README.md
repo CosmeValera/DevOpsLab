@@ -59,11 +59,16 @@ devopslab/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/devopslab
+git clone https://github.com/CosmeValera/devopslab
 cd devopslab
 
 # Start all services
 docker-compose up -d
+
+## You should be able to access:
+##
+## Frontend: localhost:3000
+## Backend:  localhost:3001
 
 # Stop services
 docker-compose down
@@ -108,8 +113,7 @@ kubectl apply -f deployments/k8s/namespace.yaml
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
 
-### Deploy to Kubernetes
-
+### Load images
 ```bash
 # Start minikube (if using local cluster)
 minikube start
@@ -121,7 +125,11 @@ minikube image load devopslab-backend
 minikube image load postgres:15-alpine
 
 minikube ssh -- docker images # Check
+```
 
+### Deploy to Kubernetes
+
+```bash
 # Apply all Kubernetes manifests
 kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
 
@@ -156,6 +164,8 @@ kubectl apply -f deployments/k8s/namespace.yaml
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
+
+> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 ### Deploy with Kustomize
 
@@ -198,6 +208,8 @@ kubectl apply -f deployments/k8s/namespace.yaml
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
 
+> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+
 ### Deploy with Helm
 
 ```bash
@@ -217,10 +229,6 @@ kubectl get all -n devopslab
 
 # Check k8s manifests
 kubectl get all,configmap -n devopslab
-
-# Access the application
-kubectl port-forward svc/frontend-service 3000:80 -n devopslab
-kubectl port-forward svc/backend-service 3001:80 -n devopslab
 ```
 
 ### Custom Values
@@ -229,18 +237,36 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 # Use a values file
 helm install devopslab ./deployments/helm/devopslab -f custom-values.yaml
 
-# Install with custom values
+# Or install with custom values
 helm install devopslab ./deployments/helm/devopslab \
   --set replicaCount=3
 ```
 
-### Environment-Specific Configurations
+### Access the application
+**Method 1: Access with minikube tunnel**
+```bash
+# Enable the ingress addon and start the tunnel
+minikube addons enable ingress
+minikube tunnel
 
-Each environment has its own overlay with specific configurations:
+# Note: Keep this terminal running throughout your session
+# The tunnel may prompt for your WSL password
+# Deploy your application after starting the tunnel
 
-- **dev:** Single replica, development database
-- **staging:** Multiple replicas, staging database
-- **prod:** High availability, production database with persistence
+# Once running, you can access:
+# - Frontend: http://localhost
+# - Backend API: http://localhost/api
+```
+
+**Method 2: Use port-forward**
+```bash
+kubectl port-forward svc/frontend-service 3000:80 -n devopslab
+kubectl port-forward svc/backend-service 3001:80 -n devopslab
+
+# Once running, you can access:
+# - Frontend: http://localhost:3000
+# - Backend API: http://localhost:3001
+```
 
 ## 🔄 Jenkins CI/CD Pipeline
 
