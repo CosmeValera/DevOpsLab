@@ -1,0 +1,3 @@
+## Helm values for the prod environment
+
+replicaCount: 4

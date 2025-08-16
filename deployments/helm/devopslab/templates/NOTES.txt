@@ -1,0 +1,8 @@
+1. To execute the app do this:
+```
+helm install devopslab ./deployments/helm/devopslab
+```
+
+To see the app, you have 2 options:
+1) Use 'port-forward'
+2) Use 'minikube addons enable ingress' and 'minikube tunnel'

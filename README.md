@@ -92,11 +92,21 @@ docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15
 docker image prune -f
 ```
 
-## ☸️ Kubernetes Deployment
+## ☸️ Kubernetes Deployment (Vanilla)
 
 ### Prerequisites
 - kubectl
 - Kubernetes cluster (minikube, kind, or cloud provider)
+
+### Predeploy commands
+
+```bash
+# Create namespace.yaml
+kubectl apply -f deployments/k8s/namespace.yaml
+
+# Create the Postgres init ConfigMap for the database
+kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
+```
 
 ### Deploy to Kubernetes
 
@@ -104,19 +114,13 @@ docker image prune -f
 # Start minikube (if using local cluster)
 minikube start
 
-# Load the images inside the Minikube
+# Load the images inside Minikube
 minikube image load devopslab-frontend
 minikube image load devopslab-jenkins
 minikube image load devopslab-backend
 minikube image load postgres:15-alpine
 
 minikube ssh -- docker images # Check
-
-# Create namespace.yaml
-kubectl apply -f deployments/k8s/namespace.yaml
-
-# Create the Postgres init ConfigMap for the database
-kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 
 # Apply all Kubernetes manifests
 kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
@@ -142,7 +146,8 @@ kubectl logs -f deployment/backend -n devopslab
 - kubectl
 - Kustomize (optional, kubectl has built-in support)
 
-### Deploy with Kustomize
+
+### Predeploy commands
 
 ```bash
 # Create namespace.yaml
@@ -150,7 +155,11 @@ kubectl apply -f deployments/k8s/namespace.yaml
 
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
+```
 
+### Deploy with Kustomize
+
+```bash
 # Deploy to development environment
 kubectl apply -k deployments/kustomize/overlays/dev
 
@@ -179,37 +188,50 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 - Helm 3.x
 - Kubernetes cluster
 
+### Predeploy commands
+
+```bash
+# Create namespace.yaml
+kubectl apply -f deployments/k8s/namespace.yaml
+
+# Create the Postgres init ConfigMap for the database
+kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
+```
+
 ### Deploy with Helm
 
 ```bash
-# Add the chart repository (if using remote)
-helm repo add devopslab https://your-repo-url
-
 # Install the application
-helm install devopslab ./deployments/helm/devopslab
-
-# Check deployment status
-helm list
-kubectl get pods
+helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml
+helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml
 
 # Upgrade deployment
-helm upgrade devopslab ./deployments/helm/devopslab
+helm upgrade devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml
 
 # Uninstall
 helm uninstall devopslab
+
+# Check deployment status
+helm list
+kubectl get all -n devopslab
+
+# Check k8s manifests
+kubectl get all,configmap -n devopslab
+
+# Access the application
+kubectl port-forward svc/frontend-service 3000:80 -n devopslab
+kubectl port-forward svc/backend-service 3001:80 -n devopslab
 ```
 
 ### Custom Values
 
 ```bash
+# Use a values file
+helm install devopslab ./deployments/helm/devopslab -f custom-values.yaml
+
 # Install with custom values
 helm install devopslab ./deployments/helm/devopslab \
-  --set frontend.replicaCount=3 \
-  --set backend.replicaCount=2 \
-  --set database.persistence.enabled=true
-
-# Or use a values file
-helm install devopslab ./deployments/helm/devopslab -f custom-values.yaml
+  --set replicaCount=3
 ```
 
 ### Environment-Specific Configurations

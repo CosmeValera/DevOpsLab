@@ -1,0 +1,3 @@
+## Helm values for the dev environment
+
+replicaCount: 2
