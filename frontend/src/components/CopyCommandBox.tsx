@@ -15,18 +15,7 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
 
   return (
     <div
-      style={{
-        position: "relative",
-        border: "1.5px solid #8884d8",
-        borderRadius: "8px",
-        padding: "16px 48px 16px 16px",
-        marginBottom: "16px",
-        background: "#232136",
-        color: "#a6e3a1",
-        fontFamily: "monospace",
-        cursor: "pointer",
-        userSelect: "text",
-      }}
+      className="copy-command-box"
       tabIndex={0}
       onClick={handleCopy}
       title="Click to copy"

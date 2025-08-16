@@ -12,6 +12,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --primary-bg: #146161;
+  --secondary-bg: #1e6565;
+  --tertiary-bg: #185146;
+  --menu-item-bg: #000000;
+  --accent-blue: #3fd0c9;
+  --accent-light: #5eead4;
 }
 
 * {
@@ -26,7 +32,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
 }
 
 #root {
@@ -36,9 +42,9 @@ body {
 
 /* Modern Card Styles */
 .card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 96, 96, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 16px;
   padding: 24px;
   margin: 16px 0;
@@ -48,12 +54,12 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 40px rgba(63, 208, 201, 0.15);
 }
 
 /* Button Styles */
 .btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-bg) 100%);
   border: none;
   border-radius: 8px;
   color: white;
@@ -68,24 +74,24 @@ body {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px rgba(63, 208, 201, 0.3);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(14, 60, 60, 0.2);
+  border: 1px solid rgba(94, 234, 212, 0.3);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+  background: rgba(14, 60, 60, 0.3);
+  box-shadow: 0 8px 25px rgba(94, 234, 212, 0.15);
 }
 
 /* Navigation Styles */
 .nav {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 96, 96, 0.15);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(94, 234, 212, 0.2);
   padding: 16px 0;
   position: sticky;
   top: 0;
@@ -108,8 +114,8 @@ body {
 }
 
 .nav-tab {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 96, 96, 0.15);
+  border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 8px;
   padding: 8px 16px;
   color: white;
@@ -120,7 +126,7 @@ body {
 
 .nav-tab:hover,
 .nav-tab.active {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(94, 234, 212, 0.15);
   transform: translateY(-1px);
 }
 
@@ -140,9 +146,9 @@ body {
 
 /* Technology Cards */
 .tech-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 96, 96, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 16px;
   padding: 24px;
   text-align: center;
@@ -151,14 +157,14 @@ body {
 
 .tech-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 48px rgba(63, 208, 201, 0.18);
 }
 
 .tech-icon {
   width: 64px;
   height: 64px;
   margin: 0 auto 16px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(94, 234, 212, 0.15);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -245,4 +251,17 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+/* Command Box Styles (CopyCommandBox) */
+.copy-command-box {
+  background: rgba(23, 79, 79, 0.95);
+  border: 1.5px solid #3fd0c9;
+  border-radius: 8px;
+  padding: 16px 48px 16px 16px;
+  margin-bottom: 16px;
+  color: rgb(251, 191, 36);
+  font-family: monospace;
+  position: relative;
+  user-select: text;
 }
