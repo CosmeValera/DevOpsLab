@@ -1,6 +1,6 @@
 import React from 'react'
 import { Server, ExternalLink, Code, BarChart3 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
+import CopyCommandBox from '../shared/CopyCommandBox'
 
 const KubernetesDeployment: React.FC = () => {
   const predeployCommands = [

@@ -11,7 +11,7 @@ import {
   Package,
   Settings
 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
+import CopyCommandBox from '../shared/CopyCommandBox'
 
 interface Technology {
   name: string
@@ -73,7 +73,7 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
             ))}
           </div>
           <div style={{ marginTop: '16px' }}>
-            <Link to="/docker" className="btn">
+            <Link to="/deployments/docker" className="btn">
               View Docker Setup
             </Link>
           </div>
@@ -161,7 +161,7 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
         </p>
         
         <div className="grid">
-          <Link to="/docker" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h4 style={{ fontSize: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
               Docker Compose
@@ -171,7 +171,7 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
             </p>
           </Link>
           
-          <Link to="/kubernetes" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/deployments/kubernetes" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h4 style={{ fontSize: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BarChart3 />
               Kubernetes
@@ -181,7 +181,7 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
             </p>
           </Link>
           
-          <Link to="/helm" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/deployments/helm" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h4 style={{ fontSize: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Package />
               Helm Charts
@@ -191,7 +191,7 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
             </p>
           </Link>
           
-          <Link to="/kustomize" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/deployments/kustomize" className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h4 style={{ fontSize: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Settings />
               Kustomize
@@ -217,12 +217,12 @@ const Overview: React.FC<OverviewProps> = ({ technologies }) => {
         </a>
         
         <Link 
-          to="/dashboard" 
+          to="/" 
           className="btn btn-secondary"
           style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
         >
           <BarChart3 />
-          View Dashboard
+          Go back
         </Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { 
   Package, 
@@ -6,13 +6,19 @@ import {
   Settings, 
   GitBranch
 } from 'lucide-react'
-import Overview from './components/Overview'
-import DockerDeployment from './components/DockerDeployment'
-import KubernetesDeployment from './components/KubernetesDeployment'
-import KustomizeDeployment from './components/KustomizeDeployment'
-import HelmDeployment from './components/HelmDeployment'
-import JenkinsPipeline from './components/JenkinsPipeline'
-import Dashboard from './components/Dashboard'
+import Overview from './components/deployments/Overview'
+import DockerDeployment from './components/deployments/DockerDeployment'
+import KubernetesDeployment from './components/deployments/KubernetesDeployment'
+import KustomizeDeployment from './components/deployments/KustomizeDeployment'
+import HelmDeployment from './components/deployments/HelmDeployment'
+import JenkinsPipeline from './components/jenkins/JenkinsPipeline'
+import Dashboard from './components/deployments/Dashboard'
+import Home from './components/Home'
+import Tutorials from './components/tutorials/Tutorials'
+import DockerTutorial from './components/tutorials/DockerTutorial'
+import KubernetesTutorial from './components/tutorials/KubernetesTutorial'
+import KustomizeTutorial from './components/tutorials/KustomizeTutorial'
+import HelmTutorial from './components/tutorials/HelmTutorial'
 
 const technologies = [
   {
@@ -49,20 +55,42 @@ const technologies = [
 
 function App() {
   const location = useLocation()
-  const [activeTab, setActiveTab] = useState(() => {
-    const path = location.pathname
-    if (path === '/') return 'overview'
-    return path.slice(1)
-  })
+  const [activeTab, setActiveTab] = useState('')
 
-  const navItems = [
-    { id: 'overview', label: 'Overview', path: '/' },
-    { id: 'docker', label: 'Docker', path: '/docker' },
-    { id: 'kubernetes', label: 'Kubernetes', path: '/kubernetes' },
-    { id: 'kustomize', label: 'Kustomize', path: '/kustomize' },
-    { id: 'helm', label: 'Helm', path: '/helm' },
-    { id: 'jenkins', label: 'Jenkins', path: '/jenkins' }
-  ]
+  const navItems = useMemo(() => {
+    const path = location.pathname
+    // No navigation on Home
+    if (path === '/') return [] as { id: string; label: string; path: string }[]
+
+    // Deployments navigation with back and technologies
+    if (path.startsWith('/deployments')) {
+      return [
+        { id: 'back', label: 'Go back', path: '/' },
+        { id: 'docker', label: 'Docker', path: '/deployments/docker' },
+        { id: 'kubernetes', label: 'Kubernetes', path: '/deployments/kubernetes' },
+        { id: 'kustomize', label: 'Kustomize', path: '/deployments/kustomize' },
+        { id: 'helm', label: 'Helm', path: '/deployments/helm' },
+      ]
+    }
+
+    // Tutorials and Jenkins: only back button
+    if (path.startsWith('/tutorials') || path.startsWith('/jenkins')) {
+      return [
+        { id: 'back', label: 'Go back', path: '/' },
+      ]
+    }
+
+    return []
+  }, [location.pathname])
+
+  useEffect(() => {
+    const path = location.pathname
+    if (path.startsWith('/deployments/docker')) setActiveTab('docker')
+    else if (path.startsWith('/deployments/kubernetes')) setActiveTab('kubernetes')
+    else if (path.startsWith('/deployments/kustomize')) setActiveTab('kustomize')
+    else if (path.startsWith('/deployments/helm')) setActiveTab('helm')
+    else setActiveTab('back')
+  }, [location.pathname])
 
   return (
     <div className="app">
@@ -100,32 +128,49 @@ function App() {
       </header>
 
       {/* Main Navigation */}
-      <nav className="nav" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-        <div className="nav-container">
-          <div className="nav-tabs">
-            {navItems.map((item) => (
-              <Link
-                key={item.id}
-                to={item.path}
-                className={`nav-tab ${activeTab === item.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(item.id)}
-              >
-                {item.label}
-              </Link>
-            ))}
+      {navItems.length > 0 && (
+        <nav className="nav" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <div className="nav-container">
+            <div className="nav-tabs">
+              {navItems.map((item) => (
+                <Link
+                  key={item.id}
+                  to={item.path}
+                  className={`nav-tab ${activeTab === item.id ? 'active' : ''}`}
+                  onClick={() => setActiveTab(item.id)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       {/* Main Content */}
       <main className="container">
         <Routes>
-          <Route path="/" element={<Overview technologies={technologies} />} />
-          <Route path="/docker" element={<DockerDeployment />} />
-          <Route path="/kubernetes" element={<KubernetesDeployment />} />
-          <Route path="/kustomize" element={<KustomizeDeployment />} />
-          <Route path="/helm" element={<HelmDeployment />} />
+          {/* Home with previews */}
+          <Route path="/" element={<Home />} />
+
+          {/* Deployments section */}
+          <Route path="/deployments" element={<Overview technologies={technologies} />} />
+          <Route path="/deployments/docker" element={<DockerDeployment />} />
+          <Route path="/deployments/kubernetes" element={<KubernetesDeployment />} />
+          <Route path="/deployments/kustomize" element={<KustomizeDeployment />} />
+          <Route path="/deployments/helm" element={<HelmDeployment />} />
+
+          {/* Tutorials section */}
+          <Route path="/tutorials" element={<Tutorials />} />
+          <Route path="/tutorials/docker" element={<DockerTutorial />} />
+          <Route path="/tutorials/kubernetes" element={<KubernetesTutorial />} />
+          <Route path="/tutorials/kustomize" element={<KustomizeTutorial />} />
+          <Route path="/tutorials/helm" element={<HelmTutorial />} />
+
+          {/* Jenkins */}
           <Route path="/jenkins" element={<JenkinsPipeline />} />
+
+          {/* Existing */}
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </main>

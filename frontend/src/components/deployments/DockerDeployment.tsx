@@ -1,6 +1,6 @@
 import React from 'react'
 import { Package, ExternalLink, Code, BarChart3 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
+import CopyCommandBox from '../shared/CopyCommandBox'
 
 const DockerDeployment: React.FC = () => {
   const dockerComposeCommands = [

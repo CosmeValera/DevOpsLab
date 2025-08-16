@@ -1,0 +1,44 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const KubernetesTutorial: React.FC = () => {
+  return (
+    <div>
+      <section className="card">
+        <h2 style={{ fontSize: '26px', marginBottom: '8px' }}>Kubernetes Introduction</h2>
+        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
+          Kubernetes runs containers at scale. Start with three core pieces: Pods, Deployments, and Services.
+        </p>
+        <Link to="/tutorials" className="btn btn-secondary">Go back</Link>
+      </section>
+
+      <section className="card" style={{ marginTop: '16px' }}>
+        <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Core Components</h3>
+        <ul style={{ margin: 0, paddingLeft: '16px' }}>
+          <li>
+            <strong>Pod</strong>: the smallest deployable unit. Usually 1 container; sometimes multiple tightly-coupled containers.
+          </li>
+          <li>
+            <strong>Deployment</strong>: manages a ReplicaSet to keep a desired number of identical Pods running; enables rolling updates and rollbacks.
+          </li>
+          <li>
+            <strong>Service</strong>: stable virtual IP that routes traffic to Pods. Types: ClusterIP, NodePort, LoadBalancer.
+          </li>
+        </ul>
+      </section>
+
+      <section className="card" style={{ marginTop: '16px' }}>
+        <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Typical Workflow</h3>
+        <ol style={{ paddingLeft: '16px' }}>
+          <li>Define a Deployment for your app (image, replicas, ports).</li>
+          <li>Expose it with a Service to reach Pods reliably.</li>
+          <li>Scale by changing replicas; update by changing the image tag.</li>
+        </ol>
+      </section>
+    </div>
+  )
+}
+
+export default KubernetesTutorial
+
+

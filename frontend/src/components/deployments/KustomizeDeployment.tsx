@@ -1,58 +1,53 @@
 import React from 'react'
-import { GitBranch, Code, BarChart3 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
+import { Settings, Code, BarChart3 } from 'lucide-react'
+import CopyCommandBox from '../shared/CopyCommandBox'
 
-const JenkinsPipeline: React.FC = () => {
-  const jenkinsStartCommands = [
-    'docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts',
-  ];
-  const jenkinsPasswordCommand = [
-    'docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword',
-  ];
-  const jenkinsPipelineCommands = [
-    'jenkins-cli.jar build devopslab-pipeline',
-    'curl -X POST http://localhost:8080/job/devopslab-pipeline/build',
+const KustomizeDeployment: React.FC = () => {
+  const predeployCommands = [
+    'kubectl apply -f deployments/k8s/namespace.yaml',
+    'kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab',
   ];
   return (
     <div>
       <section className="card">
         <h2 style={{ fontSize: '28px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <GitBranch />
-          Jenkins CI/CD Pipeline
+          <Settings />
+          Kustomize Deployment
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
-          Automated CI/CD pipeline for building, testing, and deploying the application.
+          Kustomize provides configuration management without templates, allowing environment-specific customizations.
         </p>
-        
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           {/* Commands Section */}
           <div>
             <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Start Jenkins in Docker
+              Predeploy Commands
             </h3>
             <div>
-              {jenkinsStartCommands.map(cmd => (
+              {predeployCommands.map(cmd => (
                 <CopyCommandBox key={cmd} command={cmd} />
               ))}
             </div>
             <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Get Initial Admin Password
+              Deploy with Kustomize
             </h3>
             <div>
-              {jenkinsPasswordCommand.map(cmd => (
-                <CopyCommandBox key={cmd} command={cmd} />
-              ))}
+              <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/prod" />
+              <CopyCommandBox command="kubectl kustomize deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl delete -k deployments/kustomize/overlays/dev" />
+              <CopyCommandBox command="kubectl delete -k deployments/kustomize/overlays/prod" />
+              <CopyCommandBox command="kubectl get all,configmap -n devopslab" />
             </div>
             <h3 style={{ fontSize: '20px', margin: '32px 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Code />
-              Manual Pipeline Execution
+              Access the Application
             </h3>
             <div>
-              {jenkinsPipelineCommands.map(cmd => (
-                <CopyCommandBox key={cmd} command={cmd} />
-              ))}
+              <CopyCommandBox command="kubectl port-forward svc/frontend-service 3000:80 -n devopslab" />
+              <CopyCommandBox command="kubectl port-forward svc/backend-service 3001:80 -n devopslab" />
             </div>
           </div>
           {/* Key Features Section */}
@@ -63,16 +58,16 @@ const JenkinsPipeline: React.FC = () => {
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
-                ✓ Automated testing
+                ✓ Environment-specific configs
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
-                ✓ Docker image building
+                ✓ No templating required
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
-                ✓ Automated deployment
+                ✓ Declarative approach
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
-                ✓ Pipeline visualization
+                ✓ GitOps friendly
               </li>
             </ul>
           </div>
@@ -82,4 +77,4 @@ const JenkinsPipeline: React.FC = () => {
   )
 }
 
-export default JenkinsPipeline
+export default KustomizeDeployment

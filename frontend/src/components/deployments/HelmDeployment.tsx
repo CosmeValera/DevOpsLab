@@ -1,6 +1,6 @@
 import React from 'react'
 import { Package, Code, BarChart3 } from 'lucide-react'
-import CopyCommandBox from './CopyCommandBox'
+import CopyCommandBox from '../shared/CopyCommandBox'
 
 const HelmDeployment: React.FC = () => {
   const predeployCommands = [
