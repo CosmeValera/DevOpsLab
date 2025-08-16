@@ -1,6 +1,6 @@
 import React from 'react'
 import { GitBranch, Code, BarChart3 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+
 import CopyCommandBox from '../shared/CopyCommandBox'
 
 const JenkinsPipeline: React.FC = () => {

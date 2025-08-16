@@ -255,12 +255,11 @@ body {
 
 /* Command Box Styles (CopyCommandBox) */
 .copy-command-box {
-  background: rgba(23, 79, 79, 0.95);
-  border: 1.5px solid #3fd0c9;
+  background: #0b4f4a;
   border-radius: 8px;
   padding: 16px 48px 16px 16px;
   margin-bottom: 16px;
-  color: rgb(251, 191, 36);
+  color: white;
   font-family: monospace;
   position: relative;
   user-select: text;

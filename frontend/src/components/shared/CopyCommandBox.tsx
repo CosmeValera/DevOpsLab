@@ -30,10 +30,11 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
           position: "absolute",
           top: "10px",
           right: "10px",
-          background: "#393552",
+          background: "#0b4f4a",
           border: "none",
           borderRadius: "4px",
-          color: "#a6e3a1",
+          color: "white",
+          fontWeight: "bold",
           cursor: "pointer",
           padding: "4px 8px",
         }}
