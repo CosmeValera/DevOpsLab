@@ -1,22 +1,12 @@
+/* Theme variables */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  --primary-bg: #146161;
-  --secondary-bg: #1e6565;
-  --tertiary-bg: #185146;
-  --menu-item-bg: #000000;
-  --accent-blue: #3fd0c9;
+  --color-bg: #fff;
+  --color-text: #111;
+  --primary-bg: #e6f7f7;
+  --secondary-bg: #c6eaea;
+  --tertiary-bg: #b2d8d8;
+  --menu-item-bg: #f3f3f3;
+  --accent-blue: #14b8a6;
   --accent-light: #5eead4;
 }
 
@@ -32,7 +22,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 #root {
@@ -40,9 +31,22 @@ body {
   min-height: 100vh;
 }
 
+body.dark-theme {
+  --color-bg: #111;
+  --color-text: #fff;
+  --primary-bg: #222;
+  --secondary-bg: #333;
+  --tertiary-bg: #222;
+  --menu-item-bg: #222;
+  --accent-blue: #14b8a6;
+  --accent-light: #5eead4;
+  background: #111 !important;
+  color: var(--color-text) !important;
+}
+
 /* Modern Card Styles */
 .card {
-  background: rgba(0, 96, 96, 0.15);
+  background: rgba(20, 184, 166, 0.08);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 16px;
@@ -50,6 +54,7 @@ body {
   margin: 16px 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  color: var(--color-text);
 }
 
 .card:hover {
@@ -62,7 +67,7 @@ body {
   background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-bg) 100%);
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #fff;
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
@@ -78,8 +83,9 @@ body {
 }
 
 .btn-secondary {
-  background: rgba(14, 60, 60, 0.2);
+  background: rgba(20, 184, 166, 0.08);
   border: 1px solid rgba(94, 234, 212, 0.3);
+  color: var(--color-text);
 }
 
 .btn-secondary:hover {
@@ -89,13 +95,14 @@ body {
 
 /* Navigation Styles */
 .nav {
-  background: rgba(0, 96, 96, 0.15);
+  background: rgba(20, 184, 166, 0.08);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(94, 234, 212, 0.2);
   padding: 16px 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  color: var(--color-text);
 }
 
 .nav-container {
@@ -114,11 +121,11 @@ body {
 }
 
 .nav-tab {
-  background: rgba(0, 96, 96, 0.15);
+  color: var(--color-text) !important;
+  background: var(--menu-item-bg);
   border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 8px;
   padding: 8px 16px;
-  color: white;
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 14px;
@@ -146,13 +153,14 @@ body {
 
 /* Technology Cards */
 .tech-card {
-  background: rgba(0, 96, 96, 0.15);
+  background: rgba(20, 184, 166, 0.08);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(94, 234, 212, 0.2);
   border-radius: 16px;
   padding: 24px;
   text-align: center;
   transition: all 0.3s ease;
+  color: var(--color-text);
 }
 
 .tech-card:hover {
@@ -255,12 +263,22 @@ body {
 
 /* Command Box Styles (CopyCommandBox) */
 .copy-command-box {
-  background: #0b4f4a;
+  background: #f3f3f3;
   border-radius: 8px;
   padding: 16px 48px 16px 16px;
   margin-bottom: 16px;
-  color: white;
+  color: #222;
   font-family: monospace;
   position: relative;
   user-select: text;
+}
+
+body.dark-theme .copy-command-box {
+  background: #0b4f4a;
+  color: #fff;
+}
+
+/* Tutorial card list fix */
+.tutorial-list, .tutorial-list li {
+  color: var(--color-text) !important;
 }

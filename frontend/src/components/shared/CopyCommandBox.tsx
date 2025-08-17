@@ -27,8 +27,8 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
       title="Click to copy"
       style={{
         position: 'relative',
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        border: '1px solid rgba(255,255,255,0.2)',
+        backgroundColor: 'var(--menu-item-bg)',
+        border: '1px solid var(--accent-blue)',
         borderRadius: '6px',
         padding: '12px 40px 12px 12px',
         marginBottom: '8px',
@@ -39,7 +39,7 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
       <span style={{
         fontFamily: 'Monaco, Menlo, "Ubuntu Mono", Consolas, "Courier New", monospace',
         fontSize: '12px',
-        color: '#fff',
+        color: 'var(--color-text)',
         wordBreak: 'break-all',
       }}>
         {command}
@@ -57,7 +57,7 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
           transform: "translateY(-50%)",
           background: "transparent",
           border: "none",
-          color: "rgba(255,255,255,0.7)",
+          color: 'var(--color-text)',
           cursor: "pointer",
           padding: "4px",
           borderRadius: "2px",
@@ -68,10 +68,10 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
         }}
         aria-label="Copy to clipboard"
         onMouseEnter={e => {
-          e.currentTarget.style.color = "#fff";
+          e.currentTarget.style.color = 'var(--accent-blue)';
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.color = "rgba(255,255,255,0.7)";
+          e.currentTarget.style.color = 'var(--color-text)';
         }}
       >
         {copied ? (

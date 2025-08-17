@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { 
   Server, 
-  GitBranch
+  GitBranch,
+  Sun,
+  Moon
 } from 'lucide-react'
 import DockerDeployment from './components/deployments/DockerDeployment'
 import KubernetesDeployment from './components/deployments/KubernetesDeployment'
@@ -45,6 +47,17 @@ const technologies = [
 function App() {
   const location = useLocation()
   const [activeTab, setActiveTab] = useState('')
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
+    }
+    return 'light'
+  })
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-theme', theme === 'dark')
+    window.localStorage.setItem('theme', theme)
+  }, [theme])
 
   const navItems = useMemo(() => {
     const path = location.pathname
@@ -89,14 +102,23 @@ function App() {
       <header className="nav">
         <div className="nav-container">
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: 'inherit' }}>
               DevOpsLab
             </h1>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
+            <p style={{ fontSize: '14px', color: 'inherit', marginTop: '4px' }}>
               DevOps Portfolio Showcase
             </p>
           </div>
-          
+          {/* Theme Switcher Button */}
+          <button
+            className="btn"
+            style={{ marginLeft: 'auto', marginRight: '16px', display: 'flex', alignItems: 'center', gap: '8px', background: 'none', color: 'inherit', border: '1px solid var(--accent-blue)', padding: '8px 16px' }}
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            aria-label="Switch theme"
+          >
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            {theme === 'light' ? 'Dark' : 'Light'} Mode
+          </button>
           {/* Technology tabs */}
           <div className="nav-tabs">
             {technologies.map((tech) => (

@@ -6,15 +6,15 @@ const DeploymentPage: React.FC = () => {
   return (
     <div>
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Deployment Methods</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
+        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px', color: 'var(--color-text)' }}>Deployment Methods</h2>
+        <p style={{ fontSize: '16px', color: 'var(--color-text)', opacity: 0.8 }}>
           Explore different ways to deploy the application
         </p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
         {/* Docker Card */}
-        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
               <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z"/>
@@ -23,7 +23,7 @@ const DeploymentPage: React.FC = () => {
             </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Docker</h3>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
             Basic containerization with Docker
           </p>
           
@@ -37,32 +37,35 @@ const DeploymentPage: React.FC = () => {
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Portability</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Isolation</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Reproducibility</span>
             </div>
           </div>
         </Link>
 
         {/* Docker Compose Card */}
-        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
               <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -71,7 +74,7 @@ const DeploymentPage: React.FC = () => {
             </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Docker Compose</h3>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
             Multi-container orchestration
           </p>
           
@@ -85,32 +88,35 @@ const DeploymentPage: React.FC = () => {
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Multi-service</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Declarative config</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Automatic networking</span>
             </div>
           </div>
         </Link>
 
         {/* Kubernetes Card */}
-        <Link to="/deployments/kubernetes" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        <Link to="/deployments/kubernetes" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
               <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
@@ -120,7 +126,7 @@ const DeploymentPage: React.FC = () => {
             </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Kubernetes</h3>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
             Native Kubernetes orchestration
           </p>
           
@@ -135,32 +141,35 @@ const DeploymentPage: React.FC = () => {
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Scalability</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>High availability</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Service discovery</span>
             </div>
           </div>
         </Link>
 
         {/* Kustomize Card */}
-        <Link to="/deployments/kustomize" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        <Link to="/deployments/kustomize" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
               <circle cx="12" cy="12" r="3"/>
@@ -168,7 +177,7 @@ const DeploymentPage: React.FC = () => {
             </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Kustomize</h3>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
             Template-free configuration management
           </p>
           
@@ -182,32 +191,35 @@ const DeploymentPage: React.FC = () => {
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>No templates</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Environment-specific config</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Declarative approach</span>
             </div>
           </div>
         </Link>
 
         {/* Helm Card */}
-        <Link to="/deployments/helm" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+        <Link to="/deployments/helm" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
               <path d="M16.5 9.4 7.55 4.24"/>
@@ -217,7 +229,7 @@ const DeploymentPage: React.FC = () => {
             </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Helm</h3>
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
             Kubernetes package manager
           </p>
           
@@ -232,25 +244,28 @@ const DeploymentPage: React.FC = () => {
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Release management</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Advanced templating</span>
               <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
+                border: '1px solid var(--accent-blue)',
                 borderRadius: '4px',
                 padding: '4px 8px',
                 fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
+                backgroundColor: 'var(--accent-light)',
+                color: '#111'
               }}>Easy rollbacks</span>
             </div>
           </div>
