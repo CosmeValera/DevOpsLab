@@ -9,7 +9,6 @@ const DockerTutorial: React.FC = () => {
         <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
           Docker packages your application and its dependencies into an image. A running instance of an image is a container.
         </p>
-        <Link to="/tutorials" className="btn btn-secondary">Go back</Link>
       </section>
 
       <section className="card" style={{ marginTop: '16px' }}>

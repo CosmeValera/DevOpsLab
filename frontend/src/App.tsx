@@ -6,15 +6,13 @@ import {
   Settings, 
   GitBranch
 } from 'lucide-react'
-import Overview from './components/deployments/Overview'
 import DockerDeployment from './components/deployments/DockerDeployment'
 import KubernetesDeployment from './components/deployments/KubernetesDeployment'
 import KustomizeDeployment from './components/deployments/KustomizeDeployment'
 import HelmDeployment from './components/deployments/HelmDeployment'
-import JenkinsPipeline from './components/jenkins/JenkinsPipeline'
 import Dashboard from './components/deployments/Dashboard'
 import Home from './components/Home'
-import Tutorials from './components/tutorials/Tutorials'
+import HomeWithTab from './components/HomeWithTab'
 import DockerTutorial from './components/tutorials/DockerTutorial'
 import KubernetesTutorial from './components/tutorials/KubernetesTutorial'
 import KustomizeTutorial from './components/tutorials/KustomizeTutorial'
@@ -59,13 +57,15 @@ function App() {
 
   const navItems = useMemo(() => {
     const path = location.pathname
-    // No navigation on Home
-    if (path === '/') return [] as { id: string; label: string; path: string }[]
+    // No navigation on Home or main section pages (they now redirect to Home)
+    if (path === '/' || path === '/deployments' || path === '/tutorials' || path === '/jenkins') {
+      return [] as { id: string; label: string; path: string }[]
+    }
 
-    // Deployments navigation with back and technologies
-    if (path.startsWith('/deployments')) {
+    // Individual deployment pages navigation
+    if (path.startsWith('/deployments/')) {
       return [
-        { id: 'back', label: 'Go back', path: '/' },
+        { id: 'back', label: 'Go back', path: '/deployments' },
         { id: 'docker', label: 'Docker', path: '/deployments/docker' },
         { id: 'kubernetes', label: 'Kubernetes', path: '/deployments/kubernetes' },
         { id: 'kustomize', label: 'Kustomize', path: '/deployments/kustomize' },
@@ -73,10 +73,10 @@ function App() {
       ]
     }
 
-    // Tutorials and Jenkins: only back button
-    if (path.startsWith('/tutorials') || path.startsWith('/jenkins')) {
+    // Individual tutorial pages navigation
+    if (path.startsWith('/tutorials/')) {
       return [
-        { id: 'back', label: 'Go back', path: '/' },
+        { id: 'back', label: 'Go back', path: '/tutorials' },
       ]
     }
 
@@ -153,24 +153,24 @@ function App() {
           {/* Home with previews */}
           <Route path="/" element={<Home />} />
 
-          {/* Deployments section */}
-          <Route path="/deployments" element={<Overview technologies={technologies} />} />
+          {/* Redirect routes to Home with specific tabs */}
+          <Route path="/deployments" element={<HomeWithTab tab="deployments" />} />
+          <Route path="/tutorials" element={<HomeWithTab tab="tutorials" />} />
+          <Route path="/jenkins" element={<HomeWithTab tab="jenkins" />} />
+
+          {/* Individual deployment pages */}
           <Route path="/deployments/docker" element={<DockerDeployment />} />
           <Route path="/deployments/kubernetes" element={<KubernetesDeployment />} />
           <Route path="/deployments/kustomize" element={<KustomizeDeployment />} />
           <Route path="/deployments/helm" element={<HelmDeployment />} />
 
-          {/* Tutorials section */}
-          <Route path="/tutorials" element={<Tutorials />} />
+          {/* Individual tutorial pages */}
           <Route path="/tutorials/docker" element={<DockerTutorial />} />
           <Route path="/tutorials/kubernetes" element={<KubernetesTutorial />} />
           <Route path="/tutorials/kustomize" element={<KustomizeTutorial />} />
           <Route path="/tutorials/helm" element={<HelmTutorial />} />
 
-          {/* Jenkins */}
-          <Route path="/jenkins" element={<JenkinsPipeline />} />
-
-          {/* Existing */}
+          {/* Other pages */}
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </main>

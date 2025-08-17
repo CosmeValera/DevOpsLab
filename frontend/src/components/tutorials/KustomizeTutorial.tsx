@@ -9,7 +9,6 @@ const KustomizeTutorial: React.FC = () => {
         <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
           Kustomize lets you keep a single base manifest set and layer environment-specific changes with overlays.
         </p>
-        <Link to="/tutorials" className="btn btn-secondary">Go back</Link>
       </section>
 
       <section className="card" style={{ marginTop: '16px' }}>
