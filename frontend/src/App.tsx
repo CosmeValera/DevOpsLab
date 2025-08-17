@@ -17,6 +17,7 @@ import DockerTutorial from './components/tutorials/DockerTutorial'
 import KubernetesTutorial from './components/tutorials/KubernetesTutorial'
 import KustomizeTutorial from './components/tutorials/KustomizeTutorial'
 import HelmTutorial from './components/tutorials/HelmTutorial'
+import JenkinsTutorial from './components/tutorials/JenkinsTutorial'
 
 const technologies = [
   {
@@ -99,10 +100,10 @@ function App() {
         <div className="nav-container">
           <div>
             <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>
-              DevOpsLab - DevOps Portfolio Showcase
+              DevOpsLab
             </h1>
             <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              A comprehensive demonstration of modern DevOps practices
+              DevOps Portfolio Showcase
             </p>
           </div>
           
@@ -162,13 +163,14 @@ function App() {
           <Route path="/deployments/docker" element={<DockerDeployment />} />
           <Route path="/deployments/kubernetes" element={<KubernetesDeployment />} />
           <Route path="/deployments/kustomize" element={<KustomizeDeployment />} />
-          <Route path="/deployments/helm" element={<HelmDeployment />} />
+          <Route path="/deployments/helm" element={<HelmDeployment />} />git
 
           {/* Individual tutorial pages */}
           <Route path="/tutorials/docker" element={<DockerTutorial />} />
           <Route path="/tutorials/kubernetes" element={<KubernetesTutorial />} />
           <Route path="/tutorials/kustomize" element={<KustomizeTutorial />} />
           <Route path="/tutorials/helm" element={<HelmTutorial />} />
+          <Route path="/tutorials/jenkins" element={<JenkinsTutorial />} />
 
           {/* Other pages */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -178,15 +180,14 @@ function App() {
       {/* Footer */}
       <footer style={{ 
         textAlign: 'center', 
-        padding: '32px 24px', 
+        padding: '12px', 
         color: 'rgba(255,255,255,0.7)',
         fontSize: '14px',
         borderTop: '1px solid rgba(255,255,255,0.1)',
         marginTop: 'auto'
       }}>
         <p>
-          This project demonstrates practical DevOps skills for modern web application deployment. 
-          Check out the complete source code and deployment configurations on GitHub.
+        © 2025 Cosme Valera Reales
         </p>
       </footer>
     </div>

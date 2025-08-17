@@ -163,6 +163,44 @@ const TutorialsPage: React.FC = () => {
             📚 Start Tutorial
           </Link>
         </div>
+
+        {/* Jenkins Tutorial */}
+        <div className="card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+            <div>
+              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Jenkins CI/CD</h3>
+              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
+                Automated pipelines for continuous integration and deployment
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
+              <span style={{ 
+                backgroundColor: '#F59E0B', 
+                color: 'white', 
+                padding: '4px 8px', 
+                borderRadius: '4px', 
+                fontSize: '12px' 
+              }}>
+                Intermediate
+              </span>
+              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>40 min</span>
+            </div>
+          </div>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
+            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
+              <li>Pipeline Concepts</li>
+              <li>Jenkinsfile</li>
+              <li>CI/CD Stages</li>
+              <li>Automation Benefits</li>
+            </ul>
+          </div>
+
+          <Link to="/tutorials/jenkins" className="btn" style={{ width: '100%', textAlign: 'center' }}>
+            📚 Start Tutorial
+          </Link>
+        </div>
       </div>
     </div>
   )
