@@ -36,9 +36,27 @@ const DeploymentPage: React.FC = () => {
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="badge">Portability</span>
-              <span className="badge">Isolation</span>
-              <span className="badge">Reproducibility</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Portability</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Isolation</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Reproducibility</span>
             </div>
           </div>
         </Link>
@@ -66,9 +84,27 @@ const DeploymentPage: React.FC = () => {
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="badge">Multi-service</span>
-              <span className="badge">Declarative config</span>
-              <span className="badge">Automatic networking</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Multi-service</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Declarative config</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Automatic networking</span>
             </div>
           </div>
         </Link>
@@ -98,9 +134,27 @@ const DeploymentPage: React.FC = () => {
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="badge">Scalability</span>
-              <span className="badge">High availability</span>
-              <span className="badge">Service discovery</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Scalability</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>High availability</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Service discovery</span>
             </div>
           </div>
         </Link>
@@ -127,9 +181,27 @@ const DeploymentPage: React.FC = () => {
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="badge">No templates</span>
-              <span className="badge">Environment-specific config</span>
-              <span className="badge">Declarative approach</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>No templates</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Environment-specific config</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Declarative approach</span>
             </div>
           </div>
         </Link>
@@ -159,9 +231,27 @@ const DeploymentPage: React.FC = () => {
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="badge">Release management</span>
-              <span className="badge">Advanced templating</span>
-              <span className="badge">Easy rollbacks</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Release management</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Advanced templating</span>
+              <span style={{
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                fontSize: '12px',
+                backgroundColor: 'rgba(255,255,255,0.1)'
+              }}>Easy rollbacks</span>
             </div>
           </div>
         </Link>
