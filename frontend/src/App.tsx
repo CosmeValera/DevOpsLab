@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { 
-  Package, 
   Server, 
-  Settings, 
   GitBranch
 } from 'lucide-react'
 import DockerDeployment from './components/deployments/DockerDeployment'
@@ -22,7 +20,11 @@ import JenkinsTutorial from './components/tutorials/JenkinsTutorial'
 const technologies = [
   {
     name: 'Docker',
-    icon: <Package />,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z"/>
+      <path d="m3.3 7 8.7 5 8.7-5"/>
+      <path d="M12 22V12"/>
+    </svg>,
     description: 'Containerization and local development',
     color: '#2496ED'
   },
@@ -31,18 +33,6 @@ const technologies = [
     icon: <Server />,
     description: 'Container orchestration and scaling',
     color: '#326CE5'
-  },
-  {
-    name: 'Kustomize',
-    icon: <Settings />,
-    description: 'Configuration management without templates',
-    color: '#326CE5'
-  },
-  {
-    name: 'Helm',
-    icon: <Package />,
-    description: 'Kubernetes package manager',
-    color: '#0F1689'
   },
   {
     name: 'Jenkins',
@@ -120,7 +110,7 @@ function App() {
                   fontSize: '12px'
                 }}
               >
-                <span style={{ color: tech.color }}>{tech.icon}</span>
+                <span style={{ color: 'currentColor' }}>{tech.icon}</span>
                 {tech.name}
               </div>
             ))}

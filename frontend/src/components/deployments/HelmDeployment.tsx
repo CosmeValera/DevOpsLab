@@ -1,5 +1,5 @@
 import React from 'react'
-import { Package, Code, BarChart3 } from 'lucide-react'
+import { Code, BarChart3 } from 'lucide-react'
 import CopyCommandBox from '../shared/CopyCommandBox'
 
 const HelmDeployment: React.FC = () => {
@@ -24,7 +24,12 @@ const HelmDeployment: React.FC = () => {
     <div>
       <section className="card">
         <h2 style={{ fontSize: '28px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Package />
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16.5 9.4 7.55 4.24"/>
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
           Helm Deployment
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>

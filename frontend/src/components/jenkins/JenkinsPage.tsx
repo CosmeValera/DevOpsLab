@@ -14,7 +14,7 @@ const JenkinsPage: React.FC = () => {
       {/* Jenkins Setup */}
       <div className="card" style={{ marginBottom: '24px' }}>
         <h3 style={{ fontSize: '20px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D33833" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
             <circle cx="12" cy="12" r="3"/>
             <path d="M12 1v6m0 6v6"/>
             <path d="m21 12-6-3.5v7z"/>
@@ -37,7 +37,7 @@ const JenkinsPage: React.FC = () => {
         {/* Jenkins Password Command */}
         <div style={{ marginTop: '16px', padding: '16px', backgroundColor: 'rgba(255, 193, 7, 0.1)', borderRadius: '8px', border: '1px solid rgba(255, 193, 7, 0.3)' }}>
           <h4 style={{ fontSize: '16px', marginBottom: '8px', color: '#FFC107', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC107" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
               <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
               <path d="M12 9v4"/>
               <path d="m12 17.02.01 0"/>

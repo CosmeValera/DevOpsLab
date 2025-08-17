@@ -1,5 +1,5 @@
 import React from 'react'
-import { Package, ExternalLink, Code, BarChart3 } from 'lucide-react'
+import { ExternalLink, Code, BarChart3 } from 'lucide-react'
 import CopyCommandBox from '../shared/CopyCommandBox'
 
 const DockerDeployment: React.FC = () => {
@@ -25,7 +25,11 @@ const DockerDeployment: React.FC = () => {
       {/* Docker Deployment Section */}
       <section className="card">
         <h2 style={{ fontSize: '28px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Package />
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z"/>
+            <path d="m3.3 7 8.7 5 8.7-5"/>
+            <path d="M12 22V12"/>
+          </svg>
           Docker Deployment
         </h2>
         <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>

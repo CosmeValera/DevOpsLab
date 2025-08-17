@@ -112,7 +112,7 @@ const Dashboard: React.FC = () => {
       <div className="grid" style={{ marginTop: '24px' }}>
         <div className="card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <Users style={{ color: '#22c55e' }} />
+            <Users style={{ color: 'currentColor' }} />
             <h3 style={{ fontSize: '18px' }}>Users</h3>
           </div>
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
@@ -125,7 +125,7 @@ const Dashboard: React.FC = () => {
 
         <div className="card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <FolderOpen style={{ color: '#3b82f6' }} />
+            <FolderOpen style={{ color: 'currentColor' }} />
             <h3 style={{ fontSize: '18px' }}>Projects</h3>
           </div>
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
@@ -138,7 +138,7 @@ const Dashboard: React.FC = () => {
 
         <div className="card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <Activity style={{ color: '#f59e0b' }} />
+            <Activity style={{ color: 'currentColor' }} />
             <h3 style={{ fontSize: '18px' }}>Deployments</h3>
           </div>
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
 
         <div className="card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <Database style={{ color: '#8b5cf6' }} />
+            <Database style={{ color: 'currentColor' }} />
             <h3 style={{ fontSize: '18px' }}>Metrics</h3>
           </div>
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
