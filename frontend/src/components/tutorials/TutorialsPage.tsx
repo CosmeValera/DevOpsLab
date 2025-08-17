@@ -45,8 +45,12 @@ const TutorialsPage: React.FC = () => {
             </ul>
           </div>
 
-          <Link to="/tutorials/docker" className="btn" style={{ width: '100%', textAlign: 'center' }}>
-            📚 Start Tutorial
+          <Link to="/tutorials/docker" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Start Tutorial
           </Link>
         </div>
 
@@ -83,8 +87,12 @@ const TutorialsPage: React.FC = () => {
             </ul>
           </div>
 
-          <Link to="/tutorials/kubernetes" className="btn" style={{ width: '100%', textAlign: 'center' }}>
-            📚 Start Tutorial
+          <Link to="/tutorials/kubernetes" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Start Tutorial
           </Link>
         </div>
 
@@ -121,8 +129,12 @@ const TutorialsPage: React.FC = () => {
             </ul>
           </div>
 
-          <Link to="/tutorials/kustomize" className="btn" style={{ width: '100%', textAlign: 'center' }}>
-            📚 Start Tutorial
+          <Link to="/tutorials/kustomize" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Start Tutorial
           </Link>
         </div>
 
@@ -159,8 +171,12 @@ const TutorialsPage: React.FC = () => {
             </ul>
           </div>
 
-          <Link to="/tutorials/helm" className="btn" style={{ width: '100%', textAlign: 'center' }}>
-            📚 Start Tutorial
+          <Link to="/tutorials/helm" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Start Tutorial
           </Link>
         </div>
 
@@ -197,8 +213,12 @@ const TutorialsPage: React.FC = () => {
             </ul>
           </div>
 
-          <Link to="/tutorials/jenkins" className="btn" style={{ width: '100%', textAlign: 'center' }}>
-            📚 Start Tutorial
+          <Link to="/tutorials/jenkins" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Start Tutorial
           </Link>
         </div>
       </div>

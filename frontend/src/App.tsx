@@ -163,7 +163,7 @@ function App() {
           <Route path="/deployments/docker" element={<DockerDeployment />} />
           <Route path="/deployments/kubernetes" element={<KubernetesDeployment />} />
           <Route path="/deployments/kustomize" element={<KustomizeDeployment />} />
-          <Route path="/deployments/helm" element={<HelmDeployment />} />git
+          <Route path="/deployments/helm" element={<HelmDeployment />} />
 
           {/* Individual tutorial pages */}
           <Route path="/tutorials/docker" element={<DockerTutorial />} />
@@ -187,7 +187,7 @@ function App() {
         marginTop: 'auto'
       }}>
         <p>
-        © 2025 Cosme Valera Reales
+        © 2025 <a href="https://cosmevalera.github.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Cosme Valera Reales</a>
         </p>
       </footer>
     </div>

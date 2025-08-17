@@ -16,7 +16,11 @@ const DeploymentPage: React.FC = () => {
         {/* Docker Card */}
         <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ fontSize: '24px' }}>🐳</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2496ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Docker</h3>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
@@ -42,7 +46,11 @@ const DeploymentPage: React.FC = () => {
         {/* Docker Compose Card */}
         <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ fontSize: '24px' }}>🐙</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2496ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Docker Compose</h3>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
@@ -68,7 +76,11 @@ const DeploymentPage: React.FC = () => {
         {/* Kubernetes Card */}
         <Link to="/deployments/kubernetes" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ fontSize: '24px' }}>☸️</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#326CE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Kubernetes</h3>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
@@ -95,7 +107,9 @@ const DeploymentPage: React.FC = () => {
         {/* Kustomize Card */}
         <Link to="/deployments/kustomize" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ fontSize: '24px' }}>⚙️</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#326CE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Kustomize</h3>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
@@ -121,7 +135,9 @@ const DeploymentPage: React.FC = () => {
         {/* Helm Card */}
         <Link to="/deployments/helm" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ fontSize: '24px' }}>⎈</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F1689" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <polygon points="12,2 15.09,8.26 22,9 17,14 18.18,21 12,17.77 5.82,21 7,14 2,9 8.91,8.26"/>
+            </svg>
             <h3 style={{ fontSize: '20px', margin: 0 }}>Helm</h3>
           </div>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
