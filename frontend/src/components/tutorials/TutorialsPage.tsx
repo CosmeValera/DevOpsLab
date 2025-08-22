@@ -4,23 +4,23 @@ import { Link } from 'react-router-dom'
 const TutorialsPage: React.FC = () => {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>DevOps Tutorials</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
-          Learn the technologies step by step
-        </p>
-      </div>
+             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+         <h2 className="common-h2">DevOps Tutorials</h2>
+         <p className="common-p">
+           Learn the technologies step by step
+         </p>
+       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-        {/* Docker Tutorial */}
-        <div className="card tutorial-card" style={{ boxShadow: '0 4px 24px rgba(20,184,166,0.08)', transition: 'transform 0.2s', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Docker Fundamentals</h3>
-              <p style={{ fontSize: '15px', color: 'var(--color-text)', opacity: 0.7, marginBottom: '8px' }}>
-                Learn the basic concepts of containerization
-              </p>
-            </div>
+                 {/* Docker Tutorial */}
+         <div className="card tutorial-card">
+           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+             <div>
+               <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Docker Fundamentals</h3>
+               <p style={{ fontSize: '15px', color: 'var(--color-text)', opacity: 0.7, marginBottom: '8px' }}>
+                 Learn the basic concepts of containerization
+               </p>
+             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
               <span style={{
                 background: 'linear-gradient(90deg, #dc2626 60%, #f87171 100%)',
@@ -55,8 +55,8 @@ const TutorialsPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Kubernetes Tutorial */}
-        <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-purple)', boxShadow: '0 4px 24px rgba(168,85,247,0.08)', transition: 'transform 0.2s', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
+                 {/* Kubernetes Tutorial */}
+         <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-purple)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div>
               <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Kubernetes Introduction</h3>
@@ -98,8 +98,8 @@ const TutorialsPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Kustomize Tutorial */}
-        <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-yellow)', boxShadow: '0 4px 24px rgba(245,158,11,0.08)', transition: 'transform 0.2s', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
+                 {/* Kustomize Tutorial */}
+         <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-yellow)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div>
               <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Kustomize Deep Dive</h3>
@@ -141,8 +141,8 @@ const TutorialsPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Helm Tutorial */}
-        <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-red)', boxShadow: '0 4px 24px rgba(220,38,38,0.08)', transition: 'transform 0.2s', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
+                 {/* Helm Tutorial */}
+         <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-red)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div>
               <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Creating Helm Charts</h3>
@@ -184,8 +184,8 @@ const TutorialsPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Jenkins Tutorial */}
-        <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-green)', boxShadow: '0 4px 24px rgba(34,167,59,0.08)', transition: 'transform 0.2s', marginBottom: '16px', position: 'relative', overflow: 'hidden' }}>
+                 {/* Jenkins Tutorial */}
+         <div className="card tutorial-card" style={{ borderLeft: '6px solid var(--accent-green)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div>
               <h3 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 700, color: 'var(--color-text)' }}>Jenkins CI/CD</h3>

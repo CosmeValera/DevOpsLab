@@ -32,7 +32,7 @@ const DockerDeployment: React.FC = () => {
           </svg>
           Docker Deployment
         </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
+        <p style={{ fontSize: '16px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '32px' }}>
           Docker containerization allows for consistent environments across development, testing, and production.
         </p>
         
@@ -65,16 +65,16 @@ const DockerDeployment: React.FC = () => {
               Key Benefits
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Environment consistency
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Easy local development
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Simplified deployment
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Resource isolation
               </li>
             </ul>
@@ -85,7 +85,7 @@ const DockerDeployment: React.FC = () => {
       {/* Configuration Files Section */}
       <section className="card" style={{ marginTop: '24px' }}>
         <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>Configuration Files</h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '24px' }}>
           View the actual configuration files used for Docker deployment.
         </p>
         
@@ -116,7 +116,7 @@ const DockerDeployment: React.FC = () => {
       {/* Docker Compose Details */}
       <section className="card" style={{ marginTop: '24px' }}>
         <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>Docker Compose Setup</h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
           The project includes a complete Docker Compose configuration for easy local development.
         </p>
         

@@ -4,12 +4,12 @@ import CopyCommandBox from '../shared/CopyCommandBox'
 const JenkinsPage: React.FC = () => {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Jenkins CI/CD</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
-          Automated deployments and pipelines
-        </p>
-      </div>
+             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+         <h2 className="common-h2">Jenkins CI/CD</h2>
+         <p className="common-p">
+           Automated deployments and pipelines
+         </p>
+       </div>
 
       {/* Jenkins Setup */}
       <div className="card" style={{ marginBottom: '24px' }}>
@@ -26,27 +26,27 @@ const JenkinsPage: React.FC = () => {
           </svg>
           Jenkins Configuration
         </h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-          Jenkins runs automatically with docker-compose
-        </p>
+                 <p className="common-p-small">
+           Jenkins runs automatically with docker-compose
+         </p>
         <CopyCommandBox command="docker-compose up -d" />
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '8px' }}>
-          Access Jenkins at: http://localhost:8080
-        </p>
+                 <p className="common-p-small-mt8">
+           Access Jenkins at: http://localhost:8080
+         </p>
         
-        {/* Jenkins Password Command */}
-        <div style={{ marginTop: '16px', padding: '16px', backgroundColor: 'rgba(255, 193, 7, 0.1)', borderRadius: '8px', border: '1px solid rgba(255, 193, 7, 0.3)' }}>
-          <h4 style={{ fontSize: '16px', marginBottom: '8px', color: '#FFC107', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-              <path d="M12 9v4"/>
-              <path d="m12 17.02.01 0"/>
-            </svg>
-            Get Jenkins Initial Password
-          </h4>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-            After starting Jenkins, get the initial admin password:
-          </p>
+                 {/* Jenkins Password Command */}
+         <div className="warning-box">
+           <h4 className="warning-title">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
+               <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+               <path d="M12 9v4"/>
+               <path d="m12 17.02.01 0"/>
+             </svg>
+             Get Jenkins Initial Password
+           </h4>
+           <p className="common-p-small-mb8">
+             After starting Jenkins, get the initial admin password:
+           </p>
           <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
         </div>
       </div>
@@ -55,21 +55,15 @@ const JenkinsPage: React.FC = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
         {/* Master Pipeline */}
         <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Master Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#10B981', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Success
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Master pipeline that executes all deployment types
-          </p>
+                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+             <h3 style={{ fontSize: '18px', margin: 0 }}>Master Pipeline</h3>
+             <span className="status-badge status-success">
+               Success
+             </span>
+           </div>
+                     <p className="common-p-small">
+             Master pipeline that executes all deployment types
+           </p>
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -85,21 +79,15 @@ const JenkinsPage: React.FC = () => {
 
         {/* Docker Pipeline */}
         <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Docker Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#10B981', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Success
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Build and deploy with Docker
-          </p>
+                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+             <h3 style={{ fontSize: '18px', margin: 0 }}>Docker Pipeline</h3>
+             <span className="status-badge status-success">
+               Success
+             </span>
+           </div>
+                     <p className="common-p-small">
+             Build and deploy with Docker
+           </p>
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -112,21 +100,15 @@ const JenkinsPage: React.FC = () => {
 
         {/* Kubernetes Pipeline */}
         <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Kubernetes Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#F59E0B', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Running
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Native Kubernetes deployment
-          </p>
+                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+             <h3 style={{ fontSize: '18px', margin: 0 }}>Kubernetes Pipeline</h3>
+             <span className="status-badge status-running">
+               Running
+             </span>
+           </div>
+                     <p className="common-p-small">
+             Native Kubernetes deployment
+           </p>
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -139,21 +121,15 @@ const JenkinsPage: React.FC = () => {
 
         {/* Helm Pipeline */}
         <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Helm Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#6B7280', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Pending
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Deploy using Helm Charts
-          </p>
+                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+             <h3 style={{ fontSize: '18px', margin: 0 }}>Helm Pipeline</h3>
+             <span className="status-badge status-pending">
+               Pending
+             </span>
+           </div>
+                     <p className="common-p-small">
+             Deploy using Helm Charts
+           </p>
           <div>
             <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -174,17 +150,10 @@ const JenkinsPage: React.FC = () => {
           </svg>
           Jenkinsfile
         </h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-          Pipeline as code for complete automation
-        </p>
-        <pre style={{ 
-          background: 'rgba(0,0,0,0.3)', 
-          padding: '16px', 
-          borderRadius: '8px', 
-          overflowX: 'auto', 
-          fontSize: '12px',
-          color: '#E5E7EB'
-        }}>
+                 <p className="common-p-small">
+           Pipeline as code for complete automation
+         </p>
+                 <pre className="code-block">
 {`pipeline {
     agent any
     stages {

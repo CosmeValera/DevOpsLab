@@ -14,7 +14,7 @@ const KustomizeDeployment: React.FC = () => {
           <Settings />
           Kustomize Deployment
         </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
+        <p style={{ fontSize: '16px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '32px' }}>
           Kustomize provides configuration management without templates, allowing environment-specific customizations.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
@@ -57,16 +57,16 @@ const KustomizeDeployment: React.FC = () => {
               Key Features
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Environment-specific configs
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ No templating required
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Declarative approach
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ GitOps friendly
               </li>
             </ul>

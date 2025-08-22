@@ -89,7 +89,7 @@ const Dashboard: React.FC = () => {
     return (
       <div style={{ textAlign: 'center', padding: '48px' }}>
         <p style={{ color: '#ef4444' }}>Error: {error}</p>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)' }}>
+        <p className="common-p-small" style={{ opacity: 0.7 }}>
           Make sure the backend API is running on {API_BASE}
         </p>
       </div>
@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
           <BarChart3 />
           DevOpsLab Dashboard
         </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
+        <p className="common-p">
           Real-time metrics and deployment status for the DevOpsLab application.
         </p>
       </section>
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
             {users.length}
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)' }}>
+          <p className="common-p-small" style={{ opacity: 0.7 }}>
             Registered users in the system
           </p>
         </div>
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
             {projects.length}
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)' }}>
+          <p className="common-p-small" style={{ opacity: 0.7 }}>
             Active projects
           </p>
         </div>
@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
             {deployments.length}
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)' }}>
+          <p className="common-p-small" style={{ opacity: 0.7 }}>
             Total deployments
           </p>
         </div>
@@ -157,7 +157,7 @@ const Dashboard: React.FC = () => {
           <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>
             {metrics.length}
           </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)' }}>
+          <p className="common-p-small" style={{ opacity: 0.7 }}>
             System metrics collected
           </p>
         </div>

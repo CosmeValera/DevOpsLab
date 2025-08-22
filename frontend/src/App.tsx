@@ -189,19 +189,12 @@ function App() {
         </Routes>
       </main>
 
-      {/* Footer */}
-      <footer style={{ 
-        textAlign: 'center', 
-        padding: '12px', 
-        color: 'rgba(255,255,255,0.7)',
-        fontSize: '14px',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        marginTop: 'auto'
-      }}>
-        <p>
-        © 2025 <a href="https://cosmevalera.github.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Cosme Valera Reales</a>
-        </p>
-      </footer>
+             {/* Footer */}
+       <footer className="footer">
+         <p>
+         © 2025 <a href="https://cosmevalera.github.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Cosme Valera Reales</a>
+         </p>
+       </footer>
     </div>
   )
 }

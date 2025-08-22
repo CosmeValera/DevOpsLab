@@ -46,15 +46,202 @@ body.dark-theme {
 
 /* Modern Card Styles */
 .card {
-  background: rgba(20, 184, 166, 0.08);
+  background: rgba(20, 184, 166, 0.35);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(94, 234, 212, 0.2);
+  border: 1px solid rgba(94, 234, 212, 0.3);
   border-radius: 16px;
   padding: 24px;
   margin: 16px 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   color: var(--color-text);
+}
+
+/* Common Text Styles */
+.common-p {
+  font-size: 16px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+
+.common-p-small {
+  font-size: 14px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+.common-p-small-mb8 {
+  font-size: 14px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.common-p-small-mb16 {
+  font-size: 14px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.common-p-small-mt8 {
+  font-size: 14px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+.common-p-small-mb24 {
+  font-size: 14px;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 24px;
+}
+
+.common-h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.common-h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: var(--color-text);
+}
+
+.common-h3-small {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.common-h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.common-h4-small {
+  font-size: 15px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.common-h4-tiny {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.common-ul {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.7;
+  list-style: disc;
+}
+
+.common-ol {
+  padding-left: 16px;
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+.common-li {
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+/* Status Badge Styles */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.status-success {
+  background-color: #10B981;
+}
+
+.status-running {
+  background-color: #F59E0B;
+}
+
+.status-pending {
+  background-color: #6B7280;
+}
+
+/* Footer Styles */
+.footer {
+  text-align: center;
+  padding: 12px;
+  color: var(--color-text);
+  opacity: 0.7;
+  font-size: 14px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: auto;
+  background: rgba(20, 184, 166, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+/* Code Block Styles */
+.code-block {
+  background: rgba(0,0,0,0.3);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 12px;
+  color: #E5E7EB;
+}
+
+/* Tutorial Card Styles */
+.tutorial-card {
+  box-shadow: 0 4px 24px rgba(20,184,166,0.08);
+  transition: transform 0.2s;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tutorial-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(20, 184, 166, 0.2);
+  color: var(--color-text);
+  border-radius: 4px;
+  font-size: 12px;
+  margin: 2px;
+}
+
+/* Warning Box Styles */
+.warning-box {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: rgba(255, 193, 7, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.warning-title {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #FFC107;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .card:hover {
@@ -95,9 +282,9 @@ body.dark-theme {
 
 /* Navigation Styles */
 .nav {
-  background: rgba(20, 184, 166, 0.08);
+  background: rgba(20, 184, 166, 0.35);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(94, 234, 212, 0.2);
+  border-bottom: 1px solid rgba(94, 234, 212, 0.3);
   padding: 16px 0;
   position: sticky;
   top: 0;

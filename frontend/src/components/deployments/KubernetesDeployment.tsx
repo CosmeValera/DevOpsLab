@@ -32,7 +32,7 @@ const KubernetesDeployment: React.FC = () => {
           <Server />
           Kubernetes Deployment (Vanilla)
         </h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', marginBottom: '32px' }}>
+        <p style={{ fontSize: '16px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '32px' }}>
           Kubernetes provides robust container orchestration with automatic scaling, load balancing, and self-healing capabilities.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
@@ -61,9 +61,9 @@ const KubernetesDeployment: React.FC = () => {
               Access the Application
             </h3>
             <div>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
-                Forward ports to access the frontend and backend locally:
-              </p>
+                             <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.7, marginBottom: '8px' }}>
+                 Forward ports to access the frontend and backend locally:
+               </p>
               <CopyCommandBox command="kubectl port-forward svc/frontend-service 3000:80 -n devopslab" />
               <CopyCommandBox command="kubectl port-forward svc/backend-service 3001:80 -n devopslab" />
             </div>
@@ -84,16 +84,16 @@ const KubernetesDeployment: React.FC = () => {
               Key Benefits
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Auto-scaling
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Load balancing
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Self-healing
               </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'white' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--color-text)' }}>
                 ✓ Rolling updates
               </li>
             </ul>
@@ -104,7 +104,7 @@ const KubernetesDeployment: React.FC = () => {
       {/* Configuration Files Section */}
       <section className="card" style={{ marginTop: '24px' }}>
         <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>Configuration Files</h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '24px' }}>
           View the actual configuration files used for Kubernetes deployment.
         </p>
         
@@ -135,7 +135,7 @@ const KubernetesDeployment: React.FC = () => {
       {/* Kubernetes Manifests */}
       <section className="card" style={{ marginTop: '24px' }}>
         <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>Kubernetes Manifests</h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--color-text)', opacity: 0.8, marginBottom: '16px' }}>
           The project includes complete Kubernetes manifests for production deployment.
         </p>
         
