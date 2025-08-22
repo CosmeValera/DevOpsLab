@@ -27,6 +27,7 @@ body {
   min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #root {
@@ -111,24 +112,28 @@ body.dark-theme {
   font-weight: bold;
   margin-bottom: 8px;
   color: var(--color-text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .common-h3 {
   font-size: 20px;
   margin-bottom: 12px;
   color: var(--color-text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .common-h3-small {
   font-size: 18px;
   margin-bottom: 8px;
   color: var(--color-text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .common-h4 {
   font-size: 16px;
   margin-bottom: 8px;
   color: var(--color-text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .common-h4-small {
