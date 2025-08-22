@@ -4,16 +4,16 @@ import CopyCommandBox from '../shared/CopyCommandBox'
 const JenkinsPage: React.FC = () => {
   return (
     <div>
-             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-         <h2 className="common-h2">Jenkins CI/CD</h2>
-         <p className="common-p">
-           Automated deployments and pipelines
-         </p>
-       </div>
+                   <div className="jenkins-header">
+        <h2 className="jenkins-title">Jenkins CI/CD</h2>
+        <p className="jenkins-subtitle">
+          Automated deployments and pipelines
+        </p>
+      </div>
 
       {/* Jenkins Setup */}
-      <div className="card" style={{ marginBottom: '24px' }}>
-        <h3 style={{ fontSize: '20px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div className="card jenkins-setup">
+        <h3 className="setup-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
             <circle cx="12" cy="12" r="3"/>
             <path d="M12 1v6m0 6v6"/>
@@ -52,21 +52,21 @@ const JenkinsPage: React.FC = () => {
       </div>
 
       {/* Pipeline Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
+      <div className="jenkins-grid">
         {/* Master Pipeline */}
         <div className="card">
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-             <h3 style={{ fontSize: '18px', margin: 0 }}>Master Pipeline</h3>
-             <span className="status-badge status-success">
-               Success
-             </span>
-           </div>
-                     <p className="common-p-small">
-             Master pipeline that executes all deployment types
-           </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          <div className="pipeline-header">
+            <h3 className="pipeline-title">Master Pipeline</h3>
+            <span className="status-badge status-success">
+              Success
+            </span>
+          </div>
+          <p className="pipeline-description">
+            Master pipeline that executes all deployment types
+          </p>
+          <div className="pipeline-stages">
+            <h4 className="stages-title">Stages:</h4>
+            <div className="stages-badges">
               <span className="badge">Checkout</span>
               <span className="badge">Build</span>
               <span className="badge">Test</span>
@@ -79,18 +79,18 @@ const JenkinsPage: React.FC = () => {
 
         {/* Docker Pipeline */}
         <div className="card">
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-             <h3 style={{ fontSize: '18px', margin: 0 }}>Docker Pipeline</h3>
-             <span className="status-badge status-success">
-               Success
-             </span>
-           </div>
-                     <p className="common-p-small">
-             Build and deploy with Docker
-           </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          <div className="pipeline-header">
+            <h3 className="pipeline-title">Docker Pipeline</h3>
+            <span className="status-badge status-success">
+              Success
+            </span>
+          </div>
+          <p className="pipeline-description">
+            Build and deploy with Docker
+          </p>
+          <div className="pipeline-stages">
+            <h4 className="stages-title">Stages:</h4>
+            <div className="stages-badges">
               <span className="badge">Build Image</span>
               <span className="badge">Push Registry</span>
               <span className="badge">Deploy Container</span>
@@ -100,18 +100,18 @@ const JenkinsPage: React.FC = () => {
 
         {/* Kubernetes Pipeline */}
         <div className="card">
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-             <h3 style={{ fontSize: '18px', margin: 0 }}>Kubernetes Pipeline</h3>
-             <span className="status-badge status-running">
-               Running
-             </span>
-           </div>
-                     <p className="common-p-small">
-             Native Kubernetes deployment
-           </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          <div className="pipeline-header">
+            <h3 className="pipeline-title">Kubernetes Pipeline</h3>
+            <span className="status-badge status-running">
+              Running
+            </span>
+          </div>
+          <p className="pipeline-description">
+            Native Kubernetes deployment
+          </p>
+          <div className="pipeline-stages">
+            <h4 className="stages-title">Stages:</h4>
+            <div className="stages-badges">
               <span className="badge">Apply Manifests</span>
               <span className="badge">Verify Deployment</span>
               <span className="badge">Health Check</span>
@@ -121,18 +121,18 @@ const JenkinsPage: React.FC = () => {
 
         {/* Helm Pipeline */}
         <div className="card">
-                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-             <h3 style={{ fontSize: '18px', margin: 0 }}>Helm Pipeline</h3>
-             <span className="status-badge status-pending">
-               Pending
-             </span>
-           </div>
-                     <p className="common-p-small">
-             Deploy using Helm Charts
-           </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          <div className="pipeline-header">
+            <h3 className="pipeline-title">Helm Pipeline</h3>
+            <span className="status-badge status-pending">
+              Pending
+            </span>
+          </div>
+          <p className="pipeline-description">
+            Deploy using Helm Charts
+          </p>
+          <div className="pipeline-stages">
+            <h4 className="stages-title">Stages:</h4>
+            <div className="stages-badges">
               <span className="badge">Lint Chart</span>
               <span className="badge">Install/Upgrade</span>
               <span className="badge">Test Release</span>
@@ -142,8 +142,8 @@ const JenkinsPage: React.FC = () => {
       </div>
 
       {/* Jenkinsfile */}
-      <div className="card" style={{ marginTop: '24px' }}>
-        <h3 style={{ fontSize: '20px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div className="card jenkinsfile-section">
+        <h3 className="jenkinsfile-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
             <polyline points="14,2 14,8 20,8"/>
