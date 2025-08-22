@@ -8,6 +8,9 @@
   --menu-item-bg: #f3f3f3;
   --accent-blue: #14b8a6;
   --accent-light: #5eead4;
+  --card-bg: rgba(20, 184, 166, 0.35);
+  --nav-bg: rgba(20, 184, 166, 0.35);
+  --footer-bg: rgba(20, 184, 166, 0.35);
 }
 
 * {
@@ -40,13 +43,16 @@ body.dark-theme {
   --menu-item-bg: #222;
   --accent-blue: #14b8a6;
   --accent-light: #5eead4;
+  --card-bg: rgba(20, 184, 166, 0.15);
+  --nav-bg: rgba(20, 184, 166, 0.15);
+  --footer-bg: rgba(20, 184, 166, 0.15);
   background: #111 !important;
   color: var(--color-text) !important;
 }
 
 /* Modern Card Styles */
 .card {
-  background: rgba(20, 184, 166, 0.35);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(94, 234, 212, 0.3);
   border-radius: 16px;
@@ -188,7 +194,7 @@ body.dark-theme {
   font-size: 14px;
   border-top: 1px solid rgba(255,255,255,0.1);
   margin-top: auto;
-  background: rgba(20, 184, 166, 0.35);
+  background: var(--footer-bg);
   backdrop-filter: blur(10px);
 }
 
@@ -282,7 +288,7 @@ body.dark-theme {
 
 /* Navigation Styles */
 .nav {
-  background: rgba(20, 184, 166, 0.35);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(94, 234, 212, 0.3);
   padding: 16px 0;
