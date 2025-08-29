@@ -126,8 +126,118 @@
   
   &__description {
     @include body-text;
-    margin-bottom: $space-4;
+    margin-bottom: $space-6;
+    color: var(--text-secondary);
+    font-size: $text-sm;
+    line-height: 1.6;
+    max-width: 280px;
+  }
+  
+  // Compact commands preview
+  &__commands-preview {
+    width: 100%;
+    margin-bottom: $space-6;
+    padding: $space-3;
+    background: linear-gradient(135deg, 
+      rgba($neutral-800, 0.4) 0%, 
+      rgba($neutral-700, 0.2) 100%);
+    border: 1px solid rgba($primary-blue, 0.1);
+    border-radius: $border-radius-lg;
+    transition: all $transition-normal;
+    
+    &:hover {
+      border-color: rgba($primary-blue, 0.2);
+      background: linear-gradient(135deg, 
+        rgba($neutral-800, 0.5) 0%, 
+        rgba($neutral-700, 0.3) 100%);
+    }
+  }
+  
+  .commands-preview__header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-2;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     opacity: 0.8;
+    
+    svg {
+      color: $primary-blue;
+      flex-shrink: 0;
+    }
+  }
+  
+  .commands-preview__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+  
+  .command-preview {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-family-mono;
+    font-size: $text-xs;
+    line-height: 1.4;
+    
+    &__prompt {
+      color: $primary-blue;
+      font-weight: $font-bold;
+      flex-shrink: 0;
+    }
+    
+    &__text {
+      color: var(--text-secondary);
+      opacity: 0.9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  
+  .command-preview__more {
+    font-size: $text-xs;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding-top: $space-1;
+    border-top: 1px solid rgba(var(--border-color), 0.3);
+    margin-top: $space-1;
+  }
+  
+  // Enhanced commands section
+  .deployment__commands {
+    width: 100%;
+    margin-bottom: $space-6;
+    
+    h4 {
+      @include heading-4;
+      margin-bottom: $space-3;
+      font-size: $text-sm;
+      color: var(--text-primary);
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+    
+    .copy-command-box {
+      margin-bottom: $space-2;
+      font-size: $text-xs;
+      
+      .command-content {
+        padding: $space-3 $space-4;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
   
   &__features {

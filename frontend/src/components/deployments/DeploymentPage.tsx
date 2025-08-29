@@ -7,9 +7,10 @@ import {
   Box,
   Layers,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  Terminal
 } from "lucide-react";
-import CopyCommandBox from "../shared/CopyCommandBox";
+
 
 const deploymentMethods = [
   {
@@ -47,7 +48,7 @@ const deploymentMethods = [
     commands: [
       "kubectl apply -f deployments/k8s/",
       "kubectl get pods",
-      "kubectl port-forward svc/frontend 3000:3000"
+      "kubectl port-forward svc/front 3000:3000"
     ],
     features: ["Scalability", "High availability", "Service discovery"],
     techClass: "tech-card--kubernetes"
@@ -59,8 +60,9 @@ const deploymentMethods = [
     icon: <Settings />,
     path: "/deployments/kustomize",
     commands: [
-      "kubectl apply -k deployments/kustomize/overlays/dev",
-      "kubectl apply -k deployments/kustomize/overlays/prod"
+      "kubectl apply -k my-overlays/dev",
+      "kubectl apply -k my-overlays/prod",
+      "kubectl delete -k my-overlays/dev"
     ],
     features: ["No templates", "Environment-specific config", "Declarative approach"],
     techClass: "tech-card--kustomize"
@@ -72,8 +74,8 @@ const deploymentMethods = [
     icon: <Package />,
     path: "/deployments/helm",
     commands: [
-      "helm install devopslab ./deployments/helm",
-      "helm upgrade devopslab ./deployments/helm",
+      "helm install devopslab ./my-chart",
+      "helm upgrade devopslab ./my-chart",
       "helm uninstall devopslab"
     ],
     features: ["Release management", "Advanced templating", "Easy rollbacks"],
@@ -111,13 +113,6 @@ const DeploymentPage: React.FC = () => {
             <h3 className="tech-card__title">{method.title}</h3>
             <p className="tech-card__description">{method.description}</p>
 
-            <div className="deployment__commands">
-              <h4>Basic commands:</h4>
-              {method.commands.map((command, index) => (
-                <CopyCommandBox key={index} command={command} />
-              ))}
-            </div>
-
             <div className="tech-card__features">
               {method.features.map((feature, index) => (
                 <span key={index} className="tech-card__feature">
@@ -125,6 +120,22 @@ const DeploymentPage: React.FC = () => {
                   {feature}
                 </span>
               ))}
+            </div>
+
+            {/* Compact commands preview */}
+            <div className="tech-card__commands-preview">
+              <div className="commands-preview__header">
+                <Terminal size={14} />
+                <span>Quick Commands</span>
+              </div>
+              <div className="commands-preview__list">
+                {method.commands.map((command, index) => (
+                  <div key={index} className="command-preview">
+                    <span className="command-preview__prompt">$</span>
+                    <span className="command-preview__text">{command}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="tech-card__footer">
