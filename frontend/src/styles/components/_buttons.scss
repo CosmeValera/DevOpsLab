@@ -1,0 +1,200 @@
+// Button Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.btn {
+  @include btn-base;
+  
+  // Size variants
+  &--sm {
+    padding: $space-2 $space-4;
+    font-size: $text-xs;
+  }
+  
+  &--lg {
+    padding: $space-4 $space-8;
+    font-size: $text-base;
+  }
+  
+  &--xl {
+    padding: $space-5 $space-10;
+    font-size: $text-lg;
+  }
+  
+  // Style variants
+  &--primary {
+    @include btn-primary;
+  }
+  
+  &--secondary {
+    @include btn-secondary;
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    
+    &:hover:not(:disabled) {
+      background: var(--hover-bg);
+      border-color: var(--border-hover);
+    }
+  }
+  
+  &--ghost {
+    @include btn-ghost;
+    color: var(--text-secondary);
+    
+    &:hover:not(:disabled) {
+      color: var(--text-primary);
+    }
+  }
+  
+  &--success {
+    @include btn-primary;
+    background: linear-gradient(135deg, $success 0%, $success-light 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #{rgba($success, 0.9)} 0%, #{rgba($success-light, 0.9)} 100%);
+    }
+  }
+  
+  &--warning {
+    @include btn-primary;
+    background: linear-gradient(135deg, $warning 0%, $warning-light 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #{rgba($warning, 0.9)} 0%, #{rgba($warning-light, 0.9)} 100%);
+    }
+  }
+  
+  &--error {
+    @include btn-primary;
+    background: linear-gradient(135deg, $error 0%, $error-light 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #{rgba($error, 0.9)} 0%, #{rgba($error-light, 0.9)} 100%);
+    }
+  }
+  
+  // With icon
+  &--with-icon {
+    svg {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+    }
+  }
+  
+  // Icon only
+  &--icon-only {
+    padding: $space-3;
+    
+    &.btn--sm {
+      padding: $space-2;
+    }
+    
+    &.btn--lg {
+      padding: $space-4;
+    }
+  }
+  
+  // Loading state
+  &--loading {
+    position: relative;
+    color: transparent;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1em;
+      height: 1em;
+      margin: -0.5em 0 0 -0.5em;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// Button groups
+.btn-group {
+  display: inline-flex;
+  border-radius: $border-radius;
+  overflow: hidden;
+  
+  .btn {
+    border-radius: 0;
+    border-right-width: 0;
+    
+    &:first-child {
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      border-right-width: $border-width;
+    }
+    
+    &:hover {
+      z-index: 1;
+    }
+    
+    &:focus {
+      z-index: 2;
+    }
+  }
+}
+
+// Theme toggle button
+.theme-toggle {
+  @include btn-ghost;
+  position: fixed;
+  top: $space-6;
+  right: $space-6;
+  z-index: $z-fixed;
+  padding: $space-3;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: $border-width solid var(--border-color);
+  backdrop-filter: blur(10px);
+  box-shadow: $shadow-lg;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: $shadow-xl;
+  }
+  
+  @include max-md {
+    top: $space-4;
+    right: $space-4;
+    padding: $space-2;
+  }
+}
+
+// Copy command button
+.copy-btn {
+  @include btn-ghost;
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+  padding: $space-2;
+  opacity: 0;
+  transition: opacity $transition-normal;
+  
+  .code-block:hover & {
+    opacity: 1;
+  }
+  
+  &--copied {
+    color: $success;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

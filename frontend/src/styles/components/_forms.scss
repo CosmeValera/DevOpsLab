@@ -1,0 +1,311 @@
+// Form Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.form {
+  &__group {
+    margin-bottom: $space-6;
+  }
+  
+  &__label {
+    display: block;
+    font-weight: $font-medium;
+    color: var(--text-primary);
+    margin-bottom: $space-2;
+    font-size: $text-sm;
+  }
+  
+  &__help {
+    @include small-text;
+    margin-top: $space-1;
+    margin-bottom: 0;
+    opacity: 0.7;
+  }
+  
+  &__error {
+    @include small-text;
+    color: $error;
+    margin-top: $space-1;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Input components
+.input {
+  @include input-base;
+  
+  &--sm {
+    padding: $space-2 $space-3;
+    font-size: $text-xs;
+  }
+  
+  &--lg {
+    padding: $space-4 $space-5;
+    font-size: $text-base;
+  }
+  
+  &--error {
+    border-color: $error;
+    
+    &:focus {
+      border-color: $error;
+      box-shadow: 0 0 0 3px rgba($error, 0.1);
+    }
+  }
+  
+  &--success {
+    border-color: $success;
+    
+    &:focus {
+      border-color: $success;
+      box-shadow: 0 0 0 3px rgba($success, 0.1);
+    }
+  }
+}
+
+// Textarea
+.textarea {
+  @include input-base;
+  min-height: 120px;
+  resize: vertical;
+  
+  &--sm {
+    min-height: 80px;
+    padding: $space-2 $space-3;
+    font-size: $text-sm;
+  }
+  
+  &--lg {
+    min-height: 160px;
+    padding: $space-4 $space-5;
+    font-size: $text-base;
+  }
+}
+
+// Select
+.select {
+  @include input-base;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  padding-right: 40px;
+  
+  &:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%233b82f6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+}
+
+// Checkbox and Radio
+.checkbox,
+.radio {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: $border-width-2 solid var(--border-color);
+  background: var(--input-bg);
+  position: relative;
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:checked {
+    background: $primary-blue;
+    border-color: $primary-blue;
+  }
+  
+  &:focus {
+    outline: 2px solid $primary-blue;
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.checkbox {
+  border-radius: $border-radius-sm;
+  
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: 2px solid white;
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(45deg);
+  }
+}
+
+.radio {
+  border-radius: 50%;
+  
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+  }
+}
+
+// Input group (for icons and buttons)
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  &__input {
+    flex: 1;
+  }
+  
+  &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    
+    &--left {
+      left: $space-3;
+    }
+    
+    &--right {
+      right: $space-3;
+    }
+  }
+  
+  &__input--with-icon-left {
+    padding-left: 40px;
+  }
+  
+  &__input--with-icon-right {
+    padding-right: 40px;
+  }
+  
+  &__button {
+    position: absolute;
+    right: $space-1;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+// Search input
+.search-input {
+  @include input-base;
+  padding-left: 40px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3e%3c/svg%3e");
+  background-position: left 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  
+  &:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3e%3c/svg%3e");
+  }
+}
+
+// Form fieldset
+.fieldset {
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius;
+  padding: $space-6;
+  margin: $space-6 0;
+  
+  .legend {
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    padding: 0 $space-3;
+    background: var(--bg-primary);
+  }
+}
+
+// Form validation states
+.form-group {
+  &--error {
+    .input,
+    .textarea,
+    .select {
+      border-color: $error;
+      
+      &:focus {
+        border-color: $error;
+        box-shadow: 0 0 0 3px rgba($error, 0.1);
+      }
+    }
+    
+    .form__label {
+      color: $error;
+    }
+  }
+  
+  &--success {
+    .input,
+    .textarea,
+    .select {
+      border-color: $success;
+      
+      &:focus {
+        border-color: $success;
+        box-shadow: 0 0 0 3px rgba($success, 0.1);
+      }
+    }
+  }
+}
+
+// Toggle switch
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color $transition-normal;
+  
+  &__slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform $transition-normal;
+    box-shadow: $shadow-sm;
+  }
+  
+  &:checked {
+    background: $primary-blue;
+    
+    .toggle__slider {
+      transform: translateX(20px);
+    }
+  }
+  
+  &:focus {
+    outline: 2px solid $primary-blue;
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

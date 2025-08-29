@@ -24,56 +24,19 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
       className="copy-command-box"
       tabIndex={0}
       onClick={handleClick}
-      title="Click to copy"
-      style={{
-        position: "relative",
-        backgroundColor: "var(--menu-item-bg)",
-        border: "1px solid var(--accent-blue)",
-        borderRadius: "6px",
-        padding: "12px 40px 12px 12px",
-        marginBottom: "8px",
-        cursor: "pointer",
-        transition: "background-color 0.2s ease",
-      }}>
-      <span
-        style={{
-          fontFamily:
-            'Monaco, Menlo, "Ubuntu Mono", Consolas, "Courier New", monospace',
-          fontSize: "12px",
-          color: "var(--color-text)",
-          wordBreak: "break-all",
-        }}>
+      title="Click to copy">
+      <p className="copy-command-box__content">
+        <span className="copy-command-box__prefix copy-command-box__prefix--dollar"></span>
         {command}
-      </span>
+      </p>
       <button
+        className={`copy-btn ${copied ? "copy-btn--copied" : ""}`}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           handleCopy();
         }}
-        style={{
-          position: "absolute",
-          top: "50%",
-          right: "8px",
-          transform: "translateY(-50%)",
-          background: "transparent",
-          border: "none",
-          color: "var(--color-text)",
-          cursor: "pointer",
-          padding: "4px",
-          borderRadius: "2px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          transition: "color 0.2s ease",
-        }}
-        aria-label="Copy to clipboard"
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = "var(--accent-blue)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = "var(--color-text)";
-        }}>
+        aria-label="Copy to clipboard">
         {copied ? (
           // Check icon when copied
           <svg

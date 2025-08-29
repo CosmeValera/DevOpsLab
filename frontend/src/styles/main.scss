@@ -1,0 +1,451 @@
+// DevOpsLab - Professional SCSS Design System
+// Modern, formal styling with excellent contrast for light and dark modes
+
+// ===== FOUNDATION =====
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'base' as *;
+
+// ===== COMPONENTS =====
+@use 'components/buttons' as *;
+@use 'components/cards' as *;
+@use 'components/navigation' as *;
+@use 'components/layout' as *;
+@use 'components/forms' as *;
+@use 'components/code' as *;
+
+// ===== PAGE-SPECIFIC STYLES =====
+
+// Home page specific enhancements
+.home-section {
+  margin: $space-12 0;
+  
+  &__grid {
+    @include grid-auto-fit(320px);
+    gap: $space-8;
+  }
+}
+
+// Tutorial page styles
+.tutorial {
+  &__grid {
+    @include grid-auto-fit(300px);
+    gap: $space-6;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $space-10;
+    
+    h2 {
+      background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+// Deployment page styles
+.deployment {
+  &__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $space-8;
+    
+    @include max-lg {
+      grid-template-columns: 1fr;
+      gap: $space-6;
+    }
+  }
+  
+  &__commands {
+    display: grid;
+    gap: $space-4;
+    margin: $space-6 0;
+  }
+  
+  &__features {
+    @include card-base;
+    padding: $space-6;
+    
+    h3 {
+      @include heading-4;
+      margin-bottom: $space-4;
+      color: var(--text-primary);
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+        padding: $space-2 0;
+        color: var(--text-secondary);
+        
+        &::before {
+          content: '✓';
+          color: $success;
+          font-weight: $font-bold;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}
+
+// Jenkins page styles
+.jenkins {
+  &__status {
+    @include grid-auto-fit(200px);
+    gap: $space-4;
+    margin: $space-6 0;
+  }
+  
+  &__pipeline {
+    @include card-base;
+    padding: $space-6;
+    
+    &-step {
+      display: flex;
+      align-items: center;
+      gap: $space-3;
+      padding: $space-3 0;
+      border-bottom: $border-width solid var(--border-color);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      &__icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        
+        &--success {
+          background: rgba($success, 0.2);
+          color: $success;
+        }
+        
+        &--error {
+          background: rgba($error, 0.2);
+          color: $error;
+        }
+        
+        &--running {
+          background: rgba($warning, 0.2);
+          color: $warning;
+        }
+        
+        &--pending {
+          background: var(--border-color);
+          color: var(--text-muted);
+        }
+      }
+      
+      &__content {
+        flex: 1;
+        
+        h4 {
+          margin: 0 0 $space-1 0;
+          font-size: $text-sm;
+          font-weight: $font-medium;
+          color: var(--text-primary);
+        }
+        
+        p {
+          margin: 0;
+          font-size: $text-xs;
+          color: var(--text-muted);
+        }
+      }
+      
+      &__duration {
+        font-size: $text-xs;
+        color: var(--text-muted);
+        font-family: $font-family-mono;
+      }
+    }
+  }
+}
+
+// Dashboard styles
+.dashboard {
+  &__metrics {
+    @include grid-auto-fit(250px);
+    gap: $space-6;
+    margin: $space-8 0;
+  }
+  
+  &__metric {
+    @include card-base;
+    padding: $space-6;
+    text-align: center;
+    
+    &__value {
+      font-size: $text-3xl;
+      font-weight: $font-bold;
+      color: $primary-blue;
+      margin-bottom: $space-2;
+    }
+    
+    &__label {
+      @include small-text;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: $font-medium;
+    }
+    
+    &__change {
+      font-size: $text-xs;
+      margin-top: $space-1;
+      
+      &--positive {
+        color: $success;
+      }
+      
+      &--negative {
+        color: $error;
+      }
+    }
+  }
+  
+  &__chart {
+    @include card-base;
+    padding: $space-6;
+    margin: $space-6 0;
+    
+    h3 {
+      @include heading-4;
+      margin-bottom: $space-6;
+    }
+  }
+}
+
+// Status indicators
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-3;
+  border-radius: $border-radius-xl;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  &--success {
+    background: rgba($success, 0.1);
+    color: $success;
+    border: $border-width solid rgba($success, 0.2);
+    
+    .status__dot {
+      background: $success;
+    }
+  }
+  
+  &--warning {
+    background: rgba($warning, 0.1);
+    color: $warning;
+    border: $border-width solid rgba($warning, 0.2);
+    
+    .status__dot {
+      background: $warning;
+    }
+  }
+  
+  &--error {
+    background: rgba($error, 0.1);
+    color: $error;
+    border: $border-width solid rgba($error, 0.2);
+    
+    .status__dot {
+      background: $error;
+    }
+  }
+  
+  &--info {
+    background: rgba($info, 0.1);
+    color: $info;
+    border: $border-width solid rgba($info, 0.2);
+    
+    .status__dot {
+      background: $info;
+    }
+  }
+  
+  &--neutral {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border: $border-width solid var(--border-color);
+    
+    .status__dot {
+      background: var(--text-muted);
+    }
+  }
+}
+
+// Loading states
+.loading {
+  &__spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    border-top-color: $primary-blue;
+    animation: spin 1s linear infinite;
+  }
+  
+  &__skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-color) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: $border-radius;
+    
+    &--text {
+      height: 1em;
+      margin: $space-1 0;
+      
+      &:last-child {
+        width: 75%;
+      }
+    }
+    
+    &--avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    
+    &--button {
+      height: 36px;
+      width: 100px;
+    }
+  }
+}
+
+// Animations
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// Badge component
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-3;
+  border-radius: $border-radius-xl;
+  font-size: $text-xs;
+  font-weight: $font-medium;
+  line-height: 1;
+  
+  &--primary {
+    background: rgba($primary-blue, 0.1);
+    color: $primary-blue;
+    border: $border-width solid rgba($primary-blue, 0.2);
+  }
+  
+  &--success {
+    background: rgba($success, 0.1);
+    color: $success;
+    border: $border-width solid rgba($success, 0.2);
+  }
+  
+  &--warning {
+    background: rgba($warning, 0.1);
+    color: $warning;
+    border: $border-width solid rgba($warning, 0.2);
+  }
+  
+  &--error {
+    background: rgba($error, 0.1);
+    color: $error;
+    border: $border-width solid rgba($error, 0.2);
+  }
+  
+  &--neutral {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border: $border-width solid var(--border-color);
+  }
+}
+
+// Tooltip
+.tooltip {
+  position: relative;
+  
+  &__content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $neutral-900;
+    color: white;
+    padding: $space-2 $space-3;
+    border-radius: $border-radius;
+    font-size: $text-xs;
+    white-space: nowrap;
+    z-index: $z-tooltip;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $transition-normal;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: $neutral-900;
+    }
+  }
+  
+  &:hover &__content {
+    opacity: 1;
+  }
+}
+
+// Print styles
+@media print {
+  .nav,
+  .footer,
+  .btn,
+  .theme-toggle {
+    display: none !important;
+  }
+  
+  .container {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  
+  .card {
+    border: $border-width solid #000 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,404 @@
+// Professional Design System Mixins
+@use 'variables' as *;
+
+// ===== RESPONSIVE BREAKPOINTS =====
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin max-sm {
+  @media (max-width: #{$breakpoint-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin max-md {
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin max-lg {
+  @media (max-width: #{$breakpoint-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin max-xl {
+  @media (max-width: #{$breakpoint-xl - 1px}) {
+    @content;
+  }
+}
+
+// ===== BUTTON MIXINS =====
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  border: $border-width solid transparent;
+  border-radius: $border-radius;
+  font-family: $font-family-primary;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  line-height: $leading-tight;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-normal;
+  outline: none;
+  user-select: none;
+
+  &:focus {
+    outline: 2px solid $primary-blue;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+  color: white;
+  box-shadow: $shadow-sm;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: $shadow-lg;
+    background: linear-gradient(135deg, #{rgba($primary-blue, 0.9)} 0%, #{rgba($primary-indigo, 0.9)} 100%);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: $shadow;
+  }
+}
+
+@mixin btn-secondary {
+  @include btn-base;
+  background: transparent;
+  border-color: currentColor;
+  
+  &:hover:not(:disabled) {
+    background: rgba($primary-blue, 0.1);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-ghost {
+  @include btn-base;
+  background: transparent;
+  
+  &:hover:not(:disabled) {
+    background: rgba($primary-blue, 0.1);
+  }
+}
+
+// ===== CARD MIXINS =====
+@mixin card-base {
+  background: var(--card-bg);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow;
+  transition: all $transition-normal;
+  overflow: hidden;
+}
+
+@mixin card-hover {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+    border-color: var(--border-hover);
+  }
+}
+
+@mixin card-interactive {
+  @include card-base;
+  @include card-hover;
+  cursor: pointer;
+}
+
+// ===== FORM MIXINS =====
+@mixin input-base {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: $font-family-primary;
+  font-size: $text-sm;
+  line-height: $leading-normal;
+  transition: all $transition-normal;
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-blue;
+    box-shadow: 0 0 0 3px rgba($primary-blue, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ===== TEXT MIXINS =====
+@mixin heading-1 {
+  font-family: $font-family-primary;
+  font-size: $text-4xl;
+  font-weight: $font-bold;
+  line-height: $leading-tight;
+  color: var(--text-primary);
+  margin: 0 0 $space-6 0;
+
+  @include md {
+    font-size: $text-5xl;
+  }
+}
+
+@mixin heading-2 {
+  font-family: $font-family-primary;
+  font-size: $text-2xl;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: var(--text-primary);
+  margin: 0 0 $space-4 0;
+
+  @include md {
+    font-size: $text-3xl;
+  }
+}
+
+@mixin heading-3 {
+  font-family: $font-family-primary;
+  font-size: $text-xl;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: var(--text-primary);
+  margin: 0 0 $space-3 0;
+
+  @include md {
+    font-size: $text-2xl;
+  }
+}
+
+@mixin heading-4 {
+  font-family: $font-family-primary;
+  font-size: $text-lg;
+  font-weight: $font-medium;
+  line-height: $leading-snug;
+  color: var(--text-primary);
+  margin: 0 0 $space-3 0;
+}
+
+@mixin body-text {
+  font-family: $font-family-primary;
+  font-size: $text-base;
+  font-weight: $font-normal;
+  line-height: $leading-relaxed;
+  color: var(--text-secondary);
+  margin: 0 0 $space-4 0;
+}
+
+@mixin small-text {
+  font-family: $font-family-primary;
+  font-size: $text-sm;
+  font-weight: $font-normal;
+  line-height: $leading-normal;
+  color: var(--text-muted);
+}
+
+// ===== LAYOUT MIXINS =====
+@mixin container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $space-4;
+
+  @include md {
+    padding: 0 $space-6;
+  }
+
+  @include lg {
+    padding: 0 $space-8;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin grid-auto-fit($min-width: 300px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $space-6;
+}
+
+// ===== UTILITY MIXINS =====
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  
+  &::before {
+    content: "";
+    display: block;
+    padding-top: ($height / $width) * 100%;
+  }
+  
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ===== ANIMATION MIXINS =====
+@mixin fade-in($duration: $transition-normal) {
+  animation: fadeIn $duration ease-in-out;
+}
+
+@mixin slide-up($duration: $transition-normal) {
+  animation: slideUp $duration ease-out;
+}
+
+@mixin scale-in($duration: $transition-normal) {
+  animation: scaleIn $duration ease-out;
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ===== CODE BLOCK MIXINS =====
+@mixin code-block {
+  background: var(--code-bg);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius;
+  padding: $space-4;
+  font-family: $font-family-mono;
+  font-size: $text-sm;
+  line-height: $leading-relaxed;
+  color: var(--code-text);
+  overflow-x: auto;
+  
+  // Custom scrollbar for code blocks
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+@mixin inline-code {
+  background: var(--code-bg);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-sm;
+  padding: $space-1 $space-2;
+  font-family: $font-family-mono;
+  font-size: $text-xs;
+  color: var(--code-text);
+}

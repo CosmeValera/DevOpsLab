@@ -1,0 +1,349 @@
+// Code and Command Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.code-block {
+  @include code-block;
+  position: relative;
+  margin: $space-4 0;
+  
+  &--sm {
+    padding: $space-3;
+    font-size: $text-xs;
+  }
+  
+  &--lg {
+    padding: $space-6;
+    font-size: $text-base;
+  }
+  
+  // Syntax highlighting colors
+  .comment { color: #6b7280; font-style: italic; }
+  .keyword { color: #8b5cf6; font-weight: $font-medium; }
+  .string { color: #10b981; }
+  .number { color: #f59e0b; }
+  .operator { color: #ef4444; }
+  .function { color: #3b82f6; }
+  .variable { color: #06b6d4; }
+  .property { color: #ec4899; }
+  .tag { color: #8b5cf6; }
+  .attribute { color: #f59e0b; }
+  .value { color: #10b981; }
+}
+
+// Inline code
+.code-inline {
+  @include inline-code;
+}
+
+// Copy command box
+.copy-command-box {
+  position: relative;
+  background: var(--code-bg);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius;
+  padding: $space-4;
+  margin: $space-4 0;
+  font-family: $font-family-mono;
+  font-size: $text-sm;
+  color: var(--code-text);
+  user-select: all;
+  transition: all $transition-normal;
+  
+  &:hover {
+    border-color: var(--border-hover);
+    
+    .copy-btn {
+      opacity: 1;
+    }
+  }
+  
+  &__content {
+    margin: 0;
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+  
+  &__prefix {
+    color: var(--text-muted);
+    user-select: none;
+    margin-right: $space-2;
+    
+    &--dollar::before {
+      content: '$ ';
+    }
+    
+    &--hash::before {
+      content: '# ';
+    }
+    
+    &--arrow::before {
+      content: '> ';
+    }
+  }
+  
+  // Copy button
+  .copy-btn {
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    opacity: 0;
+    transition: opacity $transition-normal;
+    background: var(--card-bg);
+    border: $border-width solid var(--border-color);
+    border-radius: $border-radius-sm;
+    padding: $space-1 $space-2;
+    font-size: $text-xs;
+    color: var(--text-secondary);
+    cursor: pointer;
+    
+    &:hover {
+      color: var(--text-primary);
+      background: var(--hover-bg);
+    }
+    
+    &--copied {
+      color: $success;
+      opacity: 1;
+    }
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// Multi-line code with line numbers
+.code-with-lines {
+  @include code-block;
+  padding: 0;
+  
+  &__line {
+    display: flex;
+    align-items: flex-start;
+    
+    &:hover {
+      background: rgba(var(--text-primary), 0.05);
+    }
+    
+    &--highlighted {
+      background: rgba($warning, 0.1);
+      border-left: 2px solid $warning;
+    }
+    
+    &--error {
+      background: rgba($error, 0.1);
+      border-left: 2px solid $error;
+    }
+    
+    &--success {
+      background: rgba($success, 0.1);
+      border-left: 2px solid $success;
+    }
+  }
+  
+  &__number {
+    flex-shrink: 0;
+    width: 40px;
+    padding: $space-2 $space-3;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: $text-xs;
+    text-align: right;
+    border-right: $border-width solid var(--border-color);
+    user-select: none;
+  }
+  
+  &__content {
+    flex: 1;
+    padding: $space-2 $space-3;
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+  }
+}
+
+// Terminal/console styling
+.terminal {
+  @include code-block;
+  background: #1a1a1a;
+  color: #00ff00;
+  font-family: $font-family-mono;
+  
+  [data-theme="dark"] & {
+    background: #000000;
+  }
+  
+  &__line {
+    margin: 0;
+    
+    &--command::before {
+      content: '$ ';
+      color: #ffff00;
+    }
+    
+    &--output {
+      color: #ffffff;
+      padding-left: $space-4;
+    }
+    
+    &--error {
+      color: #ff6b6b;
+      padding-left: $space-4;
+    }
+    
+    &--success {
+      color: #51cf66;
+      padding-left: $space-4;
+    }
+  }
+  
+  &__cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: #00ff00;
+    animation: blink 1s infinite;
+  }
+}
+
+// Docker compose file styling
+.docker-compose {
+  @include code-block;
+  
+  &__service {
+    margin: $space-2 0;
+    
+    &-name {
+      color: #8b5cf6;
+      font-weight: $font-semibold;
+    }
+    
+    &-property {
+      color: #3b82f6;
+      margin-left: $space-4;
+    }
+    
+    &-value {
+      color: #10b981;
+    }
+    
+    &-comment {
+      color: #6b7280;
+      font-style: italic;
+    }
+  }
+  
+  // Indentation levels
+  &__indent {
+    &--1 { margin-left: $space-4; }
+    &--2 { margin-left: $space-8; }
+    &--3 { margin-left: calc(#{$space-8} + #{$space-4}); }
+    &--4 { margin-left: calc(#{$space-8} * 2); }
+  }
+}
+
+// Kubernetes YAML styling
+.k8s-yaml {
+  @include code-block;
+  
+  .apiVersion { color: #8b5cf6; }
+  .kind { color: #ef4444; }
+  .metadata { color: #3b82f6; }
+  .spec { color: #10b981; }
+  .selector { color: #f59e0b; }
+  .template { color: #06b6d4; }
+  .containers { color: #ec4899; }
+  
+  &__key {
+    color: #3b82f6;
+    
+    &::after {
+      content: ':';
+      color: var(--text-muted);
+    }
+  }
+  
+  &__value {
+    color: #10b981;
+    
+    &--string {
+      color: #10b981;
+      
+      &::before,
+      &::after {
+        content: '"';
+        color: var(--text-muted);
+      }
+    }
+    
+    &--number {
+      color: #f59e0b;
+    }
+    
+    &--boolean {
+      color: #8b5cf6;
+    }
+  }
+  
+  &__comment {
+    color: #6b7280;
+    font-style: italic;
+  }
+}
+
+// Command output with status
+.command-output {
+  @include code-block;
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-2 $space-4;
+    background: var(--bg-secondary);
+    border-bottom: $border-width solid var(--border-color);
+    margin: -#{$space-4} -#{$space-4} $space-4 -#{$space-4};
+    font-size: $text-xs;
+  }
+  
+  &__command {
+    font-family: $font-family-mono;
+    color: var(--text-muted);
+  }
+  
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    
+    &--success {
+      color: $success;
+    }
+    
+    &--error {
+      color: $error;
+    }
+    
+    &--running {
+      color: $warning;
+    }
+  }
+  
+  &__content {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+}
+
+// Animations
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}

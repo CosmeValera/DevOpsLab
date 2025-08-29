@@ -1,0 +1,369 @@
+// Card Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.card {
+  @include card-base;
+  padding: $space-6;
+  
+  // Size variants
+  &--sm {
+    padding: $space-4;
+  }
+  
+  &--lg {
+    padding: $space-8;
+  }
+  
+  &--xl {
+    padding: $space-10;
+  }
+  
+  // Interactive card
+  &--interactive {
+    @include card-hover;
+    cursor: pointer;
+  }
+  
+  // Card with border accent
+  &--accent-blue {
+    border-left: 4px solid $primary-blue;
+  }
+  
+  &--accent-success {
+    border-left: 4px solid $success;
+  }
+  
+  &--accent-warning {
+    border-left: 4px solid $warning;
+  }
+  
+  &--accent-error {
+    border-left: 4px solid $error;
+  }
+  
+  // Gradient cards
+  &--gradient-blue {
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.05) 100%);
+    border-color: rgba($primary-blue, 0.2);
+  }
+  
+  &--gradient-success {
+    background: linear-gradient(135deg, rgba($success, 0.1) 0%, rgba($success-light, 0.05) 100%);
+    border-color: rgba($success, 0.2);
+  }
+}
+
+// Technology cards for the home page
+.tech-card {
+  @include card-interactive;
+  text-align: center;
+  padding: $space-8;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.02) 0%, rgba($primary-indigo, 0.01) 100%);
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &__icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: $space-6;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.05) 100%);
+    border-radius: $border-radius-xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: $primary-blue;
+    transition: all $transition-normal;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  &:hover &__icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba($primary-blue, 0.2) 0%, rgba($primary-indigo, 0.1) 100%);
+  }
+  
+  &__title {
+    @include heading-3;
+    margin-bottom: $space-3;
+    color: var(--text-primary);
+  }
+  
+  &__description {
+    @include body-text;
+    margin-bottom: $space-4;
+    opacity: 0.8;
+  }
+  
+  &__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    justify-content: center;
+    margin-top: auto;
+  }
+  
+  &__feature {
+    padding: $space-1 $space-3;
+    background: rgba($primary-blue, 0.1);
+    color: var(--text-secondary);
+    border-radius: $border-radius-xl;
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    border: $border-width solid rgba($primary-blue, 0.2);
+  }
+  
+  // Technology specific accents
+  &--docker {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#2496ED, 0.1) 0%, rgba(#2496ED, 0.05) 100%);
+      color: #2496ED;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#2496ED, 0.2) 0%, rgba(#2496ED, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#2496ED, 0.1);
+      border-color: rgba(#2496ED, 0.2);
+    }
+  }
+  
+  &--kubernetes {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.1) 0%, rgba(#326CE5, 0.05) 100%);
+      color: #326CE5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.2) 0%, rgba(#326CE5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#326CE5, 0.1);
+      border-color: rgba(#326CE5, 0.2);
+    }
+  }
+  
+  &--jenkins {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#D33833, 0.1) 0%, rgba(#D33833, 0.05) 100%);
+      color: #D33833;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#D33833, 0.2) 0%, rgba(#D33833, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#D33833, 0.1);
+      border-color: rgba(#D33833, 0.2);
+    }
+  }
+  
+  &--helm {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#0F1689, 0.1) 0%, rgba(#0F1689, 0.05) 100%);
+      color: #0F1689;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#0F1689, 0.2) 0%, rgba(#0F1689, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#0F1689, 0.1);
+      border-color: rgba(#0F1689, 0.2);
+    }
+  }
+  
+  &--kustomize {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.1) 0%, rgba(#4f46e5, 0.05) 100%);
+      color: #4f46e5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.2) 0%, rgba(#4f46e5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#4f46e5, 0.1);
+      border-color: rgba(#4f46e5, 0.2);
+    }
+  }
+}
+
+// Tutorial cards
+.tutorial-card {
+  @include card-interactive;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &__header {
+    margin-bottom: $space-4;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $space-3;
+  }
+  
+  &__title {
+    @include heading-4;
+    margin-bottom: $space-2;
+  }
+  
+  &__description {
+    @include small-text;
+    opacity: 0.8;
+  }
+  
+  &__duration {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $text-xs;
+    color: var(--text-muted);
+    margin-top: $space-1;
+  }
+  
+  &__content {
+    flex: 1;
+    margin-bottom: $space-4;
+    
+    h4 {
+      @include heading-4;
+      color: $primary-blue;
+      margin-bottom: $space-3;
+      font-size: $text-sm;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+        padding: $space-1 0;
+        color: var(--text-secondary);
+        font-size: $text-sm;
+        
+        svg {
+          color: $success;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-4;
+    border-top: $border-width solid var(--border-color);
+  }
+  
+  &__badge {
+    padding: $space-1 $space-3;
+    background: rgba($primary-blue, 0.1);
+    color: $primary-blue;
+    border-radius: $border-radius-xl;
+    font-size: $text-xs;
+    font-weight: $font-medium;
+  }
+  
+  &__arrow {
+    color: var(--text-muted);
+    transition: transform $transition-normal;
+  }
+  
+  &:hover &__arrow {
+    transform: translateX(4px);
+  }
+}
+
+// Status cards
+.status-card {
+  @include card-base;
+  padding: $space-4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  &__label {
+    @include small-text;
+    font-weight: $font-medium;
+    margin: 0;
+  }
+  
+  &__value {
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+  
+  &__icon {
+    margin-right: $space-2;
+    color: var(--text-muted);
+  }
+  
+  // Status variants
+  &--success {
+    border-color: rgba($success, 0.3);
+    background: rgba($success, 0.05);
+    
+    .status-card__icon {
+      color: $success;
+    }
+  }
+  
+  &--warning {
+    border-color: rgba($warning, 0.3);
+    background: rgba($warning, 0.05);
+    
+    .status-card__icon {
+      color: $warning;
+    }
+  }
+  
+  &--error {
+    border-color: rgba($error, 0.3);
+    background: rgba($error, 0.05);
+    
+    .status-card__icon {
+      color: $error;
+    }
+  }
+}

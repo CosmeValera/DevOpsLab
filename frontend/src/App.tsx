@@ -61,7 +61,8 @@ function App() {
   });
 
   useEffect(() => {
-    document.body.classList.toggle("dark-theme", theme === "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+    document.body.classList.toggle("dark-theme", theme === "dark"); // Keep for legacy support
     window.localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -114,72 +115,45 @@ function App() {
   return (
     <div className="app">
       {/* Header */}
-      <header className="nav">
-        <div className="nav-container">
-          <div>
-            <h1
-              style={{
-                fontSize: "24px",
-                fontWeight: "bold",
-                color: "inherit",
-              }}>
-              DevOpsLab
-            </h1>
-            <p style={{ fontSize: "14px", color: "inherit", marginTop: "4px" }}>
-              DevOps Portfolio Showcase
-            </p>
+      <header className="header">
+        <div className="header__container">
+          <div className="header__brand">
+            <h1>DevOpsLab</h1>
+            <p>DevOps Portfolio Showcase</p>
           </div>
-          {/* Theme Switcher Button */}
-          <button
-            className="btn"
-            style={{
-              marginLeft: "auto",
-              marginRight: "16px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "none",
-              color: "inherit",
-              border: "1px solid var(--accent-blue)",
-              padding: "8px 16px",
-            }}
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            aria-label="Switch theme">
-            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-            {theme === "light" ? "Dark" : "Light"} Mode
-          </button>
-          {/* Technology tabs */}
-          <div className="nav-tabs">
-            {technologies.map((tech) => (
-              <div
-                key={tech.name}
-                className="nav-tab"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  fontSize: "12px",
-                }}>
-                <span style={{ color: "currentColor" }}>{tech.icon}</span>
-                {tech.name}
-              </div>
-            ))}
+          <div className="header__actions">
+            {/* Theme Switcher Button */}
+            <button
+              className="theme-toggle"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              aria-label="Switch theme">
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+            {/* Technology tabs */}
+            <div className="header__tech-tabs">
+              {technologies.map((tech) => (
+                <div
+                  key={tech.name}
+                  className="nav-tab">
+                  <span className="nav-tab__icon">{tech.icon}</span>
+                  {tech.name}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Navigation */}
       {navItems.length > 0 && (
-        <nav
-          className="nav"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-          <div className="nav-container">
+        <nav className="header border-t">
+          <div className="header__container">
             <div className="nav-tabs">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.path}
-                  className={`nav-tab ${activeTab === item.id ? "active" : ""}`}
+                  className={`nav-tab ${activeTab === item.id ? "nav-tab--active" : ""}`}
                   onClick={() => setActiveTab(item.id)}>
                   {item.label}
                 </Link>
@@ -232,16 +206,17 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>
-          © 2025{" "}
-          <a
-            href="https://cosmevalera.github.io/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "inherit", textDecoration: "underline" }}>
-            Cosme Valera Reales
-          </a>
-        </p>
+        <div className="footer__container">
+          <p className="footer__content">
+            © 2025{" "}
+            <a
+              href="https://cosmevalera.github.io/"
+              target="_blank"
+              rel="noopener noreferrer">
+              Cosme Valera Reales
+            </a>
+          </p>
+        </div>
       </footer>
     </div>
   );
