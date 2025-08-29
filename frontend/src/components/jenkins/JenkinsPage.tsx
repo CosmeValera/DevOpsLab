@@ -1,190 +1,281 @@
 import React from "react";
+import { 
+  Star, 
+  AlertTriangle, 
+  Play, 
+  CheckCircle, 
+  Clock, 
+  Pause,
+  Settings,
+  FileText,
+  ExternalLink,
+  Terminal,
+  Zap
+} from "lucide-react";
 import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsPage: React.FC = () => {
   return (
-    <div className="home-section">
-      <div className="section__header">
-        <h2 className="section__title">Jenkins CI/CD</h2>
-        <p className="section__subtitle">Automated deployments and pipelines</p>
+    <div className="jenkins-page">
+      {/* Header Section */}
+      <div className="jenkins-header">
+        <div className="jenkins-header__content">
+          <div className="jenkins-header__icon">
+            <Zap size={32} />
+          </div>
+          <div className="jenkins-header__text">
+            <h1 className="jenkins-header__title">Jenkins CI/CD</h1>
+            <p className="jenkins-header__subtitle">
+              Automated deployments and pipelines for seamless DevOps workflows
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Jenkins Setup */}
-      <div className="card jenkins-setup">
-        <h3
-          className="setup-title"
-          style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="w-5 h-5">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 1v6m0 6v6" />
-            <path d="m21 12-6-3.5v7z" />
-            <path d="m3 12 6-3.5v7z" />
-            <path d="m21 7.5-6 3.5v0" />
-            <path d="m3 16.5 6-3.5v0" />
-            <path d="m21 16.5-6-3.5v0" />
-            <path d="m3 7.5 6 3.5v0" />
-          </svg>
-          Jenkins Configuration
-        </h3>
-        <p className="common-p-small">
-          Jenkins runs automatically with docker-compose
-        </p>
-        <CopyCommandBox command="docker-compose up -d" />
-        <p className="common-p-small-mt8">
-          Access Jenkins at: http://localhost:8080
-        </p>
-
-        {/* Jenkins Password Command */}
-        <div className="warning-box">
-          <h4 className="warning-title">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="w-4 h-4">
-              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-              <path d="M12 9v4" />
-              <path d="m12 17.02.01 0" />
-            </svg>
-            Get Jenkins Initial Password
-          </h4>
-          <p className="common-p-small-mb8">
-            After starting Jenkins, get the initial admin password:
+      {/* Quick Start Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <Settings size={20} />
+            Quick Setup
+          </h2>
+          <p className="section-description">
+            Get Jenkins up and running in minutes with Docker Compose
           </p>
-          <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
+        </div>
+
+        <div className="jenkins-setup-card">
+          <div className="setup-card__header">
+            <div className="setup-card__icon">
+              <Star size={24} />
+            </div>
+            <div className="setup-card__title">
+              <h3>Jenkins Configuration</h3>
+              <p>Automated setup with docker-compose</p>
+            </div>
+          </div>
+
+          <div className="setup-card__content">
+            <div className="command-section">
+              <h4>Start Jenkins</h4>
+              <CopyCommandBox command="docker-compose up -d" />
+            </div>
+
+            <div className="access-info">
+              <div className="access-info__item">
+                <ExternalLink size={16} />
+                <span>Access Jenkins at: <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a></span>
+              </div>
+            </div>
+
+            <div className="warning-section">
+              <div className="warning-header">
+                <AlertTriangle size={16} />
+                <h4>Get Initial Admin Password</h4>
+              </div>
+              <p>After starting Jenkins, retrieve the initial admin password:</p>
+              <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Pipeline Cards */}
-      <div className="jenkins__status">
-        {/* Master Pipeline */}
-        <div className="card">
-          <div className="pipeline-header">
-            <h3 className="pipeline-title">Master Pipeline</h3>
-            <span className="status-badge status-success">Success</span>
-          </div>
-          <p className="pipeline-description">
-            Master pipeline that executes all deployment types
+      {/* Pipeline Status Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <Play size={20} />
+            Pipeline Status
+          </h2>
+          <p className="section-description">
+            Monitor the status of your automated deployment pipelines
           </p>
-          <div className="pipeline-stages">
-            <h4 className="stages-title">Stages:</h4>
-            <div className="stages-badges">
-              <span className="badge">Checkout</span>
-              <span className="badge">Build</span>
-              <span className="badge">Test</span>
-              <span className="badge">Deploy Docker</span>
-              <span className="badge">Deploy K8s</span>
-              <span className="badge">Deploy Helm</span>
-            </div>
-          </div>
         </div>
 
-        {/* Docker Pipeline */}
-        <div className="card">
-          <div className="pipeline-header">
-            <h3 className="pipeline-title">Docker Pipeline</h3>
-            <span className="status-badge status-success">Success</span>
-          </div>
-          <p className="pipeline-description">Build and deploy with Docker</p>
-          <div className="pipeline-stages">
-            <h4 className="stages-title">Stages:</h4>
-            <div className="stages-badges">
-              <span className="badge">Build Image</span>
-              <span className="badge">Push Registry</span>
-              <span className="badge">Deploy Container</span>
+        <div className="pipelines-grid">
+          {/* Master Pipeline */}
+          <div className="pipeline-card pipeline-card--master">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Master Pipeline</h3>
+                <p>Orchestrates all deployment types</p>
+              </div>
+              <div className="pipeline-card__status">
+                <CheckCircle size={16} />
+                <span className="status-badge status-success">Success</span>
+              </div>
+            </div>
+
+            <div className="pipeline-card__stages">
+              <h4>Pipeline Stages</h4>
+              <div className="stages-grid">
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Checkout</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Build</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Test</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Deploy Docker</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Deploy K8s</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Deploy Helm</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Kubernetes Pipeline */}
-        <div className="card">
-          <div className="pipeline-header">
-            <h3 className="pipeline-title">Kubernetes Pipeline</h3>
-            <span className="status-badge status-running">Running</span>
-          </div>
-          <p className="pipeline-description">Native Kubernetes deployment</p>
-          <div className="pipeline-stages">
-            <h4 className="stages-title">Stages:</h4>
-            <div className="stages-badges">
-              <span className="badge">Apply Manifests</span>
-              <span className="badge">Verify Deployment</span>
-              <span className="badge">Health Check</span>
+          {/* Docker Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Docker Pipeline</h3>
+                <p>Container-based deployment</p>
+              </div>
+              <div className="pipeline-card__status">
+                <CheckCircle size={16} />
+                <span className="status-badge status-success">Success</span>
+              </div>
+            </div>
+
+            <div className="pipeline-card__stages">
+              <h4>Pipeline Stages</h4>
+              <div className="stages-grid">
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Build Image</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Push Registry</span>
+                </div>
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Deploy Container</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Helm Pipeline */}
-        <div className="card">
-          <div className="pipeline-header">
-            <h3 className="pipeline-title">Helm Pipeline</h3>
-            <span className="status-badge status-pending">Pending</span>
+          {/* Kubernetes Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Kubernetes Pipeline</h3>
+                <p>Native K8s orchestration</p>
+              </div>
+              <div className="pipeline-card__status">
+                <Clock size={16} />
+                <span className="status-badge status-running">Running</span>
+              </div>
+            </div>
+
+            <div className="pipeline-card__stages">
+              <h4>Pipeline Stages</h4>
+              <div className="stages-grid">
+                <div className="stage-item stage-item--completed">
+                  <CheckCircle size={14} />
+                  <span>Apply Manifests</span>
+                </div>
+                <div className="stage-item stage-item--running">
+                  <Clock size={14} />
+                  <span>Verify Deployment</span>
+                </div>
+                <div className="stage-item stage-item--pending">
+                  <Pause size={14} />
+                  <span>Health Check</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="pipeline-description">Deploy using Helm Charts</p>
-          <div className="pipeline-stages">
-            <h4 className="stages-title">Stages:</h4>
-            <div className="stages-badges">
-              <span className="badge">Lint Chart</span>
-              <span className="badge">Install/Upgrade</span>
-              <span className="badge">Test Release</span>
+
+          {/* Helm Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Helm Pipeline</h3>
+                <p>Chart-based deployment</p>
+              </div>
+              <div className="pipeline-card__status">
+                <Pause size={16} />
+                <span className="status-badge status-pending">Pending</span>
+              </div>
+            </div>
+
+            <div className="pipeline-card__stages">
+              <h4>Pipeline Stages</h4>
+              <div className="stages-grid">
+                <div className="stage-item stage-item--pending">
+                  <Pause size={14} />
+                  <span>Lint Chart</span>
+                </div>
+                <div className="stage-item stage-item--pending">
+                  <Pause size={14} />
+                  <span>Install/Upgrade</span>
+                </div>
+                <div className="stage-item stage-item--pending">
+                  <Pause size={14} />
+                  <span>Test Release</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Jenkinsfile */}
-      <div className="card jenkinsfile-section">
-        <h3
-          className="jenkinsfile-title"
-          style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="w-5 h-5">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14,2 14,8 20,8" />
-          </svg>
-          Jenkinsfile
-        </h3>
-        <p className="common-p-small">
-          Pipeline as code for complete automation
-        </p>
-        <pre className="code-block">
-          {`pipeline {
+      {/* Jenkinsfile Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FileText size={20} />
+            Pipeline as Code
+          </h2>
+          <p className="section-description">
+            Complete automation with declarative Jenkinsfile
+          </p>
+        </div>
+
+        <div className="jenkinsfile-card">
+          <div className="jenkinsfile-card__header">
+            <div className="jenkinsfile-card__icon">
+              <Terminal size={24} />
+            </div>
+            <div className="jenkinsfile-card__title">
+              <h3>Jenkinsfile</h3>
+              <p>Declarative pipeline for complete automation</p>
+            </div>
+          </div>
+
+          <div className="jenkinsfile-card__content">
+            <pre className="code-block">
+{`pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
                 sh 'docker build -t devopslab .'
             }
         }
+
         stage('Test') {
             steps {
                 sh 'npm test'
             }
         }
+
         stage('Deploy') {
             parallel {
                 stage('Docker') {
@@ -192,11 +283,13 @@ const JenkinsPage: React.FC = () => {
                         sh 'docker-compose up -d'
                     }
                 }
+
                 stage('Kubernetes') {
                     steps {
                         sh 'kubectl apply -f k8s/'
                     }
                 }
+
                 stage('Helm') {
                     steps {
                         sh 'helm upgrade --install devopslab ./helm'
@@ -206,7 +299,9 @@ const JenkinsPage: React.FC = () => {
         }
     }
 }`}
-        </pre>
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
   );
