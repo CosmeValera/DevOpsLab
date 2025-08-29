@@ -1,228 +1,283 @@
-import React from 'react'
-import CopyCommandBox from '../shared/CopyCommandBox'
+import React, { useState } from "react";
+import { 
+  Star, 
+  AlertTriangle, 
+  Play, 
+  CheckCircle, 
+  Clock, 
+  Pause,
+  Settings,
+  FileText,
+  ExternalLink,
+  Terminal,
+  Zap,
+  User
+} from "lucide-react";
+import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState("master");
+
+  const pipelineConfigs = {
+    master: {
+      name: "Master Pipeline",
+      description: "Orchestrates all deployment types in parallel",
+      stages: [
+        { name: "Checkout", command: "git checkout main" },
+        { name: "Build", command: "docker build -t devopslab ." },
+        { name: "Test", command: "npm test" },
+        { name: "Deploy Docker", command: "docker-compose up -d" },
+        { name: "Deploy K8s", command: "kubectl apply -f k8s/" },
+        { name: "Deploy Helm", command: "helm upgrade --install devopslab ./helm" }
+      ]
+    },
+    docker: {
+      name: "Docker Pipeline",
+      description: "Container-based deployment workflow",
+      stages: [
+        { name: "Build Image", command: "docker build -t devopslab-frontend ." },
+        { name: "Push Registry", command: "docker push registry/devopslab-frontend:latest" },
+        { name: "Deploy Container", command: "docker run -p 3000:3000 devopslab-frontend" }
+      ]
+    },
+    kubernetes: {
+      name: "Kubernetes Pipeline",
+      description: "Native K8s orchestration workflow",
+      stages: [
+        { name: "Apply Manifests", command: "kubectl apply -f k8s/backend/" },
+        { name: "Verify Deployment", command: "kubectl rollout status deployment/backend" },
+        { name: "Health Check", command: "kubectl get pods -l app=backend" }
+      ]
+    },
+    helm: {
+      name: "Helm Pipeline",
+      description: "Chart-based deployment workflow",
+      stages: [
+        { name: "Lint Chart", command: "helm lint ./helm/devopslab" },
+        { name: "Install/Upgrade", command: "helm upgrade --install devopslab ./helm/devopslab" },
+        { name: "Test Release", command: "helm test devopslab" }
+      ]
+    }
+  };
+
   return (
-    <div>
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Jenkins CI/CD</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
-          Automated deployments and pipelines
-        </p>
-      </div>
-
-      {/* Jenkins Setup */}
-      <div className="card" style={{ marginBottom: '24px' }}>
-        <h3 style={{ fontSize: '20px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v6m0 6v6"/>
-            <path d="m21 12-6-3.5v7z"/>
-            <path d="m3 12 6-3.5v7z"/>
-            <path d="m21 7.5-6 3.5v0"/>
-            <path d="m3 16.5 6-3.5v0"/>
-            <path d="m21 16.5-6-3.5v0"/>
-            <path d="m3 7.5 6 3.5v0"/>
-          </svg>
-          Jenkins Configuration
-        </h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-          Jenkins runs automatically with docker-compose
-        </p>
-        <CopyCommandBox command="docker-compose up -d" />
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '8px' }}>
-          Access Jenkins at: http://localhost:8080
-        </p>
-        
-        {/* Jenkins Password Command */}
-        <div style={{ marginTop: '16px', padding: '16px', backgroundColor: 'rgba(255, 193, 7, 0.1)', borderRadius: '8px', border: '1px solid rgba(255, 193, 7, 0.3)' }}>
-          <h4 style={{ fontSize: '16px', marginBottom: '8px', color: '#FFC107', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-              <path d="M12 9v4"/>
-              <path d="m12 17.02.01 0"/>
-            </svg>
-            Get Jenkins Initial Password
-          </h4>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-            After starting Jenkins, get the initial admin password:
-          </p>
-          <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
+    <div className="jenkins-page">
+      {/* Header Section */}
+      <div className="jenkins-header">
+        <div className="jenkins-header__content">
+          <div className="jenkins-header__icon">
+            <Zap size={32} />
+          </div>
+          <div className="jenkins-header__text">
+            <h1 className="jenkins-header__title">Jenkins CI/CD</h1>
+            <p className="jenkins-header__subtitle">
+              Automated deployments and pipelines for seamless DevOps workflows
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Pipeline Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-        {/* Master Pipeline */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Master Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#10B981', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Success
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Master pipeline that executes all deployment types
+      {/* Quick Start Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <Settings size={20} />
+            Quick Setup
+          </h2>
+          <p className="section-description">
+            Get Jenkins up and running in minutes with Docker Compose
           </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              <span className="badge">Checkout</span>
-              <span className="badge">Build</span>
-              <span className="badge">Test</span>
-              <span className="badge">Deploy Docker</span>
-              <span className="badge">Deploy K8s</span>
-              <span className="badge">Deploy Helm</span>
-            </div>
-          </div>
         </div>
 
-        {/* Docker Pipeline */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Docker Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#10B981', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Success
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Build and deploy with Docker
-          </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              <span className="badge">Build Image</span>
-              <span className="badge">Push Registry</span>
-              <span className="badge">Deploy Container</span>
+        <div className="jenkins-setup-card">
+          <div className="setup-card__header">
+            <div className="setup-card__icon">
+              <Star size={24} />
+            </div>
+            <div className="setup-card__title">
+              <h3>Jenkins Configuration</h3>
+              <p>Automated setup with docker-compose</p>
             </div>
           </div>
-        </div>
 
-        {/* Kubernetes Pipeline */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Kubernetes Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#F59E0B', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Running
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Native Kubernetes deployment
-          </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              <span className="badge">Apply Manifests</span>
-              <span className="badge">Verify Deployment</span>
-              <span className="badge">Health Check</span>
+          <div className="setup-card__content">
+            <div className="command-section">
+              <h4>1. Start Jenkins</h4>
+              <CopyCommandBox command="docker-compose up -d" />
             </div>
-          </div>
-        </div>
 
-        {/* Helm Pipeline */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <h3 style={{ fontSize: '18px', margin: 0 }}>Helm Pipeline</h3>
-            <span style={{ 
-              backgroundColor: '#6B7280', 
-              color: 'white', 
-              padding: '4px 8px', 
-              borderRadius: '4px', 
-              fontSize: '12px' 
-            }}>
-              Pending
-            </span>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-            Deploy using Helm Charts
-          </p>
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Stages:</h4>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-              <span className="badge">Lint Chart</span>
-              <span className="badge">Install/Upgrade</span>
-              <span className="badge">Test Release</span>
+            <div className="access-info">
+              <div className="access-info__item">
+                <ExternalLink size={16} />
+                <span>2. Access Jenkins at: <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a></span>
+              </div>
+            </div>
+
+            <div className="warning-section">
+              <div className="warning-header">
+                <AlertTriangle size={16} />
+                <h4>3. Get Initial Admin Password</h4>
+              </div>
+              <p>After starting Jenkins, retrieve the initial admin password for the <strong>admin</strong> user:</p>
+              <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
+            </div>
+
+            <div className="admin-info">
+              <div className="admin-info__item">
+                <User size={16} />
+                <div className="admin-info__text">
+                  <span><strong>Default Admin User:</strong> admin</span>
+                  <span>Use the password from the command above to log in as administrator</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Jenkinsfile */}
-      <div className="card" style={{ marginTop: '24px' }}>
-        <h3 style={{ fontSize: '20px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-            <polyline points="14,2 14,8 20,8"/>
-          </svg>
-          Jenkinsfile
-        </h3>
-        <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '12px' }}>
-          Pipeline as code for complete automation
-        </p>
-        <pre style={{ 
-          background: 'rgba(0,0,0,0.3)', 
-          padding: '16px', 
-          borderRadius: '8px', 
-          overflowX: 'auto', 
-          fontSize: '12px',
-          color: '#E5E7EB'
-        }}>
+      {/* Pipeline Status Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <Play size={20} />
+            Pipeline Status
+          </h2>
+          <p className="section-description">
+            Monitor the status of your automated deployment pipelines
+          </p>
+        </div>
+
+        <div className="pipelines-grid">
+          {/* Master Pipeline */}
+          <div className="pipeline-card pipeline-card--master">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Master Pipeline</h3>
+                <p>Orchestrates all deployment types</p>
+              </div>
+              <div className="pipeline-card__status">
+                <CheckCircle size={16} />
+                <span className="status-badge status-success">Success</span>
+              </div>
+            </div>
+            
+          </div>
+
+          {/* Docker Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Docker Pipeline</h3>
+                <p>Container-based deployment</p>
+              </div>
+              <div className="pipeline-card__status">
+                <CheckCircle size={16} />
+                <span className="status-badge status-success">Success</span>
+              </div>
+            </div>
+            
+          </div>
+
+          {/* Kubernetes Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Kubernetes Pipeline</h3>
+                <p>Native K8s orchestration</p>
+              </div>
+              <div className="pipeline-card__status">
+                <Clock size={16} />
+                <span className="status-badge status-running">Running</span>
+              </div>
+            </div>
+            
+          </div>
+
+          {/* Helm Pipeline */}
+          <div className="pipeline-card">
+            <div className="pipeline-card__header">
+              <div className="pipeline-card__title">
+                <h3>Helm Pipeline</h3>
+                <p>Chart-based deployment</p>
+              </div>
+              <div className="pipeline-card__status">
+                <Pause size={16} />
+                <span className="status-badge status-pending">Pending</span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      {/* Pipeline Configurations Section */}
+      <div className="jenkins-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            <FileText size={20} />
+            Pipeline Configurations
+          </h2>
+          <p className="section-description">
+            Explore different pipeline configurations for each deployment type
+          </p>
+        </div>
+
+        <div className="pipeline-configs-card">
+          <div className="pipeline-configs-card__header">
+            <div className="pipeline-configs-card__icon">
+              <Terminal size={24} />
+            </div>
+            <div className="pipeline-configs-card__title">
+              <h3>Pipeline as Code</h3>
+              <p>Declarative pipelines for complete automation</p>
+            </div>
+          </div>
+
+          <div className="pipeline-configs-card__content">
+            <div className="pipeline-tabs">
+              <div className="pipeline-tabs__header">
+                {Object.entries(pipelineConfigs).map(([key, config]) => (
+                  <button
+                    key={key}
+                    className={`pipeline-tab ${activeTab === key ? 'pipeline-tab--active' : ''}`}
+                    onClick={() => setActiveTab(key)}
+                  >
+                    {config.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="pipeline-tabs__content">
+                <div className="pipeline-config">
+                  <div className="pipeline-config__header">
+                    <h4>{pipelineConfigs[activeTab as keyof typeof pipelineConfigs].name}</h4>
+                    <p>{pipelineConfigs[activeTab as keyof typeof pipelineConfigs].description}</p>
+                  </div>
+
+                  <div className="pipeline-config__jenkinsfile">
+                    <h5>Jenkinsfile Example:</h5>
+                    <pre className="code-block">
 {`pipeline {
     agent any
+    
     stages {
-        stage('Build') {
-            steps {
-                sh 'docker build -t devopslab .'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-        stage('Deploy') {
-            parallel {
-                stage('Docker') {
-                    steps {
-                        sh 'docker-compose up -d'
-                    }
-                }
-                stage('Kubernetes') {
-                    steps {
-                        sh 'kubectl apply -f k8s/'
-                    }
-                }
-                stage('Helm') {
-                    steps {
-                        sh 'helm upgrade --install devopslab ./helm'
-                    }
-                }
-            }
-        }
+${pipelineConfigs[activeTab as keyof typeof pipelineConfigs].stages.map((stage) => `        stage('${stage.name}') {
+             steps {
+                 sh '${stage.command}'
+             }
+         }`).join('\n')}
     }
 }`}
-        </pre>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default JenkinsPage
+export default JenkinsPage;

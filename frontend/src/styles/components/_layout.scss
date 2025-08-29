@@ -1,0 +1,441 @@
+// Layout Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  @include container;
+  flex: 1;
+  
+  &--sm {
+    max-width: 640px;
+  }
+  
+  &--md {
+    max-width: 768px;
+  }
+  
+  &--lg {
+    max-width: 1024px;
+  }
+  
+  &--xl {
+    max-width: 1280px;
+  }
+  
+  &--2xl {
+    max-width: 1536px;
+  }
+  
+  &--full {
+    max-width: none;
+  }
+  
+  &--no-padding {
+    padding: 0;
+  }
+}
+
+// Grid layouts
+.grid {
+  display: grid;
+  gap: $space-6;
+  
+  &--1 {
+    grid-template-columns: 1fr;
+  }
+  
+  &--2 {
+    grid-template-columns: repeat(2, 1fr);
+    
+    @include max-md {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--3 {
+    grid-template-columns: repeat(3, 1fr);
+    
+    @include max-lg {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include max-md {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--4 {
+    grid-template-columns: repeat(4, 1fr);
+    
+    @include max-xl {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @include max-lg {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include max-md {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--auto-fit {
+    @include grid-auto-fit;
+  }
+  
+  &--auto-fit-sm {
+    @include grid-auto-fit(250px);
+  }
+  
+  &--auto-fit-lg {
+    @include grid-auto-fit(400px);
+  }
+  
+  // Gap variants
+  &--gap-sm {
+    gap: $space-4;
+  }
+  
+  &--gap-lg {
+    gap: $space-8;
+  }
+  
+  &--gap-xl {
+    gap: $space-12;
+  }
+}
+
+// Flex layouts
+.flex {
+  display: flex;
+  
+  &--col {
+    flex-direction: column;
+  }
+  
+  &--wrap {
+    flex-wrap: wrap;
+  }
+  
+  &--center {
+    @include flex-center;
+  }
+  
+  &--between {
+    @include flex-between;
+  }
+  
+  &--start {
+    justify-content: flex-start;
+  }
+  
+  &--end {
+    justify-content: flex-end;
+  }
+  
+  &--items-start {
+    align-items: flex-start;
+  }
+  
+  &--items-end {
+    align-items: flex-end;
+  }
+  
+  &--items-center {
+    align-items: center;
+  }
+  
+  // Gap variants
+  &--gap-1 { gap: $space-1; }
+  &--gap-2 { gap: $space-2; }
+  &--gap-3 { gap: $space-3; }
+  &--gap-4 { gap: $space-4; }
+  &--gap-6 { gap: $space-6; }
+  &--gap-8 { gap: $space-8; }
+}
+
+// Section layouts
+.section {
+  margin: $space-12 0;
+  
+  &--sm {
+    margin: $space-8 0;
+  }
+  
+  &--lg {
+    margin: $space-16 0;
+  }
+  
+  &--xl {
+    margin: $space-20 0;
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $space-8;
+    
+    &--left {
+      text-align: left;
+    }
+    
+    &--right {
+      text-align: right;
+    }
+  }
+  
+  &__title {
+    @include heading-2;
+    margin-bottom: $space-4;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    
+    .section__header--left & {
+      margin: 0;
+    }
+    
+    .section__header--right & {
+      margin: 0 0 0 auto;
+    }
+  }
+}
+
+// Standalone section header classes for use outside .section
+.section__header {
+  text-align: center;
+  margin-bottom: $space-8;
+  
+  &--left {
+    text-align: left;
+  }
+  
+  &--right {
+    text-align: right;
+  }
+}
+
+.section__title {
+  @include heading-2;
+  margin-bottom: $space-4;
+  background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section__subtitle {
+  @include body-text;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  .section__header--left & {
+    margin: 0;
+  }
+  
+  .section__header--right & {
+    margin: 0 0 0 auto;
+  }
+}
+
+// Home page specific layouts
+.home {
+  &__hero {
+    text-align: center;
+    padding: $space-12 0;
+    
+    @include md {
+      padding: $space-16 0;
+    }
+  }
+  
+  &__title {
+    @include heading-1;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: $space-6;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    font-size: $text-lg;
+    max-width: 600px;
+    margin: 0 auto $space-8 auto;
+    opacity: 0.8;
+  }
+  
+  &__nav-grid {
+    @include grid-auto-fit(350px);
+    margin: $space-12 0;
+  }
+}
+
+// Deployment page layouts
+.deployment {
+  &__header {
+    text-align: center;
+    margin-bottom: $space-8;
+  }
+  
+  &__title {
+    @include heading-2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    margin-bottom: $space-4;
+  }
+  
+  &__subtitle {
+    @include body-text;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $space-8;
+    margin: $space-8 0;
+    
+    @include max-lg {
+      grid-template-columns: 1fr;
+      gap: $space-6;
+    }
+  }
+  
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+  }
+  
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+    
+    @include max-lg {
+      order: -1;
+    }
+  }
+}
+
+// Two column layout
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+  
+  @include max-md {
+    grid-template-columns: 1fr;
+  }
+  
+  &--70-30 {
+    grid-template-columns: 7fr 3fr;
+    
+    @include max-lg {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--60-40 {
+    grid-template-columns: 6fr 4fr;
+    
+    @include max-lg {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Stack layout (vertical spacing)
+.stack {
+  display: flex;
+  flex-direction: column;
+  
+  &--1 > * + * { margin-top: $space-1; }
+  &--2 > * + * { margin-top: $space-2; }
+  &--3 > * + * { margin-top: $space-3; }
+  &--4 > * + * { margin-top: $space-4; }
+  &--6 > * + * { margin-top: $space-6; }
+  &--8 > * + * { margin-top: $space-8; }
+}
+
+// Spacing utilities
+.space {
+  &-y {
+    &-1 > * + * { margin-top: $space-1; }
+    &-2 > * + * { margin-top: $space-2; }
+    &-3 > * + * { margin-top: $space-3; }
+    &-4 > * + * { margin-top: $space-4; }
+    &-6 > * + * { margin-top: $space-6; }
+    &-8 > * + * { margin-top: $space-8; }
+  }
+  
+  &-x {
+    &-1 > * + * { margin-left: $space-1; }
+    &-2 > * + * { margin-left: $space-2; }
+    &-3 > * + * { margin-left: $space-3; }
+    &-4 > * + * { margin-left: $space-4; }
+    &-6 > * + * { margin-left: $space-6; }
+    &-8 > * + * { margin-left: $space-8; }
+  }
+}
+
+// Dividers
+.divider {
+  height: $border-width;
+  background: var(--border-color);
+  border: none;
+  margin: $space-6 0;
+  
+  &--vertical {
+    width: $border-width;
+    height: auto;
+    margin: 0 $space-6;
+  }
+  
+  &--dashed {
+    background: none;
+    border-top: $border-width dashed var(--border-color);
+  }
+  
+  &--thick {
+    height: $border-width-2;
+  }
+}
+
+// Responsive utilities
+.responsive {
+  &__mobile-only {
+    @include md {
+      display: none !important;
+    }
+  }
+  
+  &__desktop-only {
+    @include max-md {
+      display: none !important;
+    }
+  }
+  
+  &__tablet-up {
+    @include max-md {
+      display: none !important;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import React from "react";
-import { Box } from "lucide-react";
+import { Layers } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
 
-const DockerDeployment: React.FC = () => {
+const DockerComposeDeployment: React.FC = () => {
   const commandSteps = [
     {
       title: "Setup Repository",
@@ -19,24 +19,24 @@ const DockerDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Build & Run Containers",
-      description: "Build Docker images and run containers for the application services",
+      title: "Docker Compose Operations",
+      description: "Manage the complete application stack with Docker Compose commands",
       commands: [
         {
-          command: "docker build -t devopslab-frontend ./frontend",
-          explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
+          command: "docker-compose up -d",
+          explanation: "Start all services defined in docker-compose.yml in detached mode (background)"
         },
         {
-          command: "docker build -t devopslab-backend ./backend", 
-          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
+          command: "docker-compose ps",
+          explanation: "Check the status of all running containers managed by Docker Compose"
         },
         {
-          command: "docker run -d --name frontend -p 3000:3000 devopslab-frontend",
-          explanation: "Run the frontend container in detached mode, mapping port 3000 to access the application"
+          command: "docker-compose logs -f",
+          explanation: "Follow the logs of all services in real-time to monitor application behavior"
         },
         {
-          command: "docker run -d --name backend -p 3001:3001 devopslab-backend",
-          explanation: "Run the backend container in detached mode, mapping port 3001 for API access"
+          command: "docker-compose down",
+          explanation: "Stop and remove all containers, networks, and volumes created by docker-compose up"
         }
       ]
     }
@@ -47,19 +47,19 @@ const DockerDeployment: React.FC = () => {
       {/* Header */}
       <div className="deployment__header">
         <div className="deployment__header-content">
-          <Box className="deployment__icon" size={48} />
-          <h1 className="deployment__title">Docker Deployment</h1>
+          <Layers className="deployment__icon" size={48} />
+          <h1 className="deployment__title">Docker Compose Deployment</h1>
           <p className="deployment__subtitle">
-            Basic containerization with Docker for consistent environments across development and production.
+            Multi-container orchestration for full-stack application deployment with a single command.
           </p>
         </div>
       </div>
 
       {/* Commands Section */}
       <div className="deployment__section">
-        <h2 className="deployment__section-title">Basic Commands</h2>
+        <h2 className="deployment__section-title">Quick Start Commands</h2>
         <p className="deployment__section-description">
-          Follow these commands to deploy the application using Docker containers.
+          Deploy the complete application stack including frontend, backend, and database with Docker Compose.
         </p>
         
         <div className="deployment__commands">
@@ -70,7 +70,7 @@ const DockerDeployment: React.FC = () => {
         <div className="deployment__section">
           <h2 className="deployment__section-title">Verify Deployment</h2>
           <p className="deployment__section-description">
-            After running the containers, verify your deployment is working correctly.
+            After starting the services, verify your complete application stack is running.
           </p>
           
           <div className="verification-steps">
@@ -78,7 +78,7 @@ const DockerDeployment: React.FC = () => {
               <div className="verification-step__icon">🌐</div>
               <div className="verification-step__content">
                 <h4>Frontend Application</h4>
-                <p>Visit <code>http://localhost:3000</code> in your browser to access the React application.</p>
+                <p>Visit <code>http://localhost:3000</code> to access the React application.</p>
               </div>
             </div>
             
@@ -91,10 +91,18 @@ const DockerDeployment: React.FC = () => {
             </div>
             
             <div className="verification-step">
-              <div className="verification-step__icon">📊</div>
+              <div className="verification-step__icon">🗄️</div>
               <div className="verification-step__content">
-                <h4>Container Status</h4>
-                <p>Check running containers with <code>docker ps</code> to ensure both containers are healthy.</p>
+                <h4>Database</h4>
+                <p>Connect to PostgreSQL at <code>localhost:5432</code> with credentials from docker-compose.yml</p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">⚙️</div>
+              <div className="verification-step__content">
+                <h4>Jenkins CI/CD</h4>
+                <p>Access Jenkins at <code>http://localhost:8080</code> for CI/CD pipeline management.</p>
               </div>
             </div>
           </div>
@@ -108,29 +116,29 @@ const DockerDeployment: React.FC = () => {
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>Environment Consistency</h3>
-              <p>Ensure the same environment across development, testing, and production</p>
+              <h3>Multi-Service Orchestration</h3>
+              <p>Deploy entire application stack with all dependencies in one command</p>
             </div>
           </div>
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>Easy Local Development</h3>
-              <p>Quick setup for local development without complex dependency management</p>
+              <h3>Declarative Configuration</h3>
+              <p>Define your infrastructure as code with docker-compose.yml</p>
             </div>
           </div>
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>Resource Isolation</h3>
-              <p>Each container runs in isolation with its own resources and dependencies</p>
+              <h3>Automatic Networking</h3>
+              <p>Services can communicate with each other using service names as hostnames</p>
             </div>
           </div>
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>Simplified Deployment</h3>
-              <p>Package applications with all dependencies for easy deployment anywhere</p>
+              <h3>Volume Management</h3>
+              <p>Persistent data storage and easy volume mounting for development</p>
             </div>
           </div>
         </div>
@@ -139,4 +147,4 @@ const DockerDeployment: React.FC = () => {
   );
 };
 
-export default DockerDeployment;
+export default DockerComposeDeployment;

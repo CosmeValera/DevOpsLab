@@ -1,0 +1,509 @@
+// Code and Command Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.code-block {
+  @include code-block;
+  position: relative;
+  margin: $space-4 0;
+  
+  &--sm {
+    padding: $space-3;
+    font-size: $text-xs;
+  }
+  
+  &--lg {
+    padding: $space-6;
+    font-size: $text-base;
+  }
+  
+  // Syntax highlighting colors
+  .comment { color: #6b7280; font-style: italic; }
+  .keyword { color: #8b5cf6; font-weight: $font-medium; }
+  .string { color: #10b981; }
+  .number { color: #f59e0b; }
+  .operator { color: #ef4444; }
+  .function { color: #3b82f6; }
+  .variable { color: #06b6d4; }
+  .property { color: #ec4899; }
+  .tag { color: #8b5cf6; }
+  .attribute { color: #f59e0b; }
+  .value { color: #10b981; }
+}
+
+// Inline code
+.code-inline {
+  @include inline-code;
+}
+
+// Enhanced copy command box
+.copy-command-box {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba($neutral-900, 0.3) 0%, 
+    rgba($neutral-800, 0.5) 100%);
+  border: $border-width solid rgba($primary-blue, 0.15);
+  border-radius: $border-radius-lg;
+  margin: 0;
+  font-family: $font-family-mono;
+  font-size: $text-sm;
+  color: var(--text-primary);
+  user-select: all;
+  transition: all $transition-normal;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(white, 0.05);
+  
+  // Enhanced border effect
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: $border-width;
+    background: linear-gradient(135deg, 
+      rgba($primary-blue, 0.2) 0%, 
+      rgba($primary-indigo, 0.1) 50%,
+      rgba($primary-blue, 0.2) 100%);
+    border-radius: inherit;
+    mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    mask-composite: xor;
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+  
+  &:hover {
+    border-color: rgba($primary-blue, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-blue, 0.1), 
+                inset 0 1px 0 rgba(white, 0.1);
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    .copy-btn {
+      opacity: 1;
+    }
+  }
+  
+  .command-content {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin: 0;
+    padding: $space-4 $space-5;
+    word-break: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .command-prompt {
+    color: $primary-blue;
+    font-weight: $font-bold;
+    flex-shrink: 0;
+  }
+  
+  .command-text {
+    color: var(--text-primary);
+    flex: 1;
+  }
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin: 0;
+    word-break: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+  
+  &__prefix {
+    color: $primary-blue;
+    user-select: none;
+    margin-right: $space-2;
+    font-weight: $font-medium;
+    
+    &--dollar::before {
+      content: '$ ';
+    }
+    
+    &--hash::before {
+      content: '# ';
+    }
+    
+    &--arrow::before {
+      content: '> ';
+    }
+  }
+  
+  // Copy button
+  .copy-btn {
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    opacity: 0;
+    transition: all $transition-normal;
+    background: rgba($primary-blue, 0.1);
+    border: $border-width solid rgba($primary-blue, 0.2);
+    border-radius: $border-radius-sm;
+    padding: $space-2;
+    font-size: $text-xs;
+    color: $primary-blue;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      color: white;
+      background: $primary-blue;
+      transform: scale(1.05);
+    }
+    
+    &--copied {
+      color: $success;
+      background: rgba($success, 0.1);
+      border-color: rgba($success, 0.3);
+      opacity: 1;
+    }
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// Enhanced command with info component
+.command-with-info {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  margin: $space-3 0;
+  
+  &__box {
+    flex: 1;
+  }
+  
+  &__help {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: $space-1;
+  }
+}
+
+.command-info-btn {
+  background: rgba($primary-blue, 0.1);
+  border: $border-width solid rgba($primary-blue, 0.2);
+  border-radius: 50%;
+  color: $primary-blue;
+  cursor: pointer;
+  padding: $space-2;
+  transition: all $transition-normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  
+  &:hover {
+    background: rgba($primary-blue, 0.15);
+    border-color: rgba($primary-blue, 0.3);
+    transform: scale(1.05);
+    box-shadow: $shadow-sm;
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.command-info-tooltip {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  margin-right: $space-3;
+  z-index: $z-tooltip;
+  max-width: 320px;
+  min-width: 200px;
+  
+  &__content {
+    background: $neutral-900;
+    color: white;
+    padding: $space-4 $space-5;
+    border-radius: $border-radius-lg;
+    font-size: $text-sm;
+    line-height: $leading-relaxed;
+    box-shadow: $shadow-xl;
+    position: relative;
+    
+    [data-theme="dark"] & {
+      background: $neutral-800;
+      border: $border-width solid rgba($primary-blue, 0.2);
+    }
+    
+    // Subtle gradient background
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, $primary-blue, $primary-indigo);
+      border-radius: $border-radius-lg $border-radius-lg 0 0;
+    }
+  }
+  
+  &__arrow {
+    position: absolute;
+    top: 15px;
+    left: 100%;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid $neutral-900;
+    
+    [data-theme="dark"] & {
+      border-left-color: $neutral-800;
+    }
+  }
+}
+
+// Multi-line code with line numbers
+.code-with-lines {
+  @include code-block;
+  padding: 0;
+  
+  &__line {
+    display: flex;
+    align-items: flex-start;
+    
+    &:hover {
+      background: rgba(var(--text-primary), 0.05);
+    }
+    
+    &--highlighted {
+      background: rgba($warning, 0.1);
+      border-left: 2px solid $warning;
+    }
+    
+    &--error {
+      background: rgba($error, 0.1);
+      border-left: 2px solid $error;
+    }
+    
+    &--success {
+      background: rgba($success, 0.1);
+      border-left: 2px solid $success;
+    }
+  }
+  
+  &__number {
+    flex-shrink: 0;
+    width: 40px;
+    padding: $space-2 $space-3;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: $text-xs;
+    text-align: right;
+    border-right: $border-width solid var(--border-color);
+    user-select: none;
+  }
+  
+  &__content {
+    flex: 1;
+    padding: $space-2 $space-3;
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+  }
+}
+
+// Terminal/console styling
+.terminal {
+  @include code-block;
+  background: #1a1a1a;
+  color: #00ff00;
+  font-family: $font-family-mono;
+  
+  [data-theme="dark"] & {
+    background: #000000;
+  }
+  
+  &__line {
+    margin: 0;
+    
+    &--command::before {
+      content: '$ ';
+      color: #ffff00;
+    }
+    
+    &--output {
+      color: #ffffff;
+      padding-left: $space-4;
+    }
+    
+    &--error {
+      color: #ff6b6b;
+      padding-left: $space-4;
+    }
+    
+    &--success {
+      color: #51cf66;
+      padding-left: $space-4;
+    }
+  }
+  
+  &__cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: #00ff00;
+    animation: blink 1s infinite;
+  }
+}
+
+// Docker compose file styling
+.docker-compose {
+  @include code-block;
+  
+  &__service {
+    margin: $space-2 0;
+    
+    &-name {
+      color: #8b5cf6;
+      font-weight: $font-semibold;
+    }
+    
+    &-property {
+      color: #3b82f6;
+      margin-left: $space-4;
+    }
+    
+    &-value {
+      color: #10b981;
+    }
+    
+    &-comment {
+      color: #6b7280;
+      font-style: italic;
+    }
+  }
+  
+  // Indentation levels
+  &__indent {
+    &--1 { margin-left: $space-4; }
+    &--2 { margin-left: $space-8; }
+    &--3 { margin-left: calc(#{$space-8} + #{$space-4}); }
+    &--4 { margin-left: calc(#{$space-8} * 2); }
+  }
+}
+
+// Kubernetes YAML styling
+.k8s-yaml {
+  @include code-block;
+  
+  .apiVersion { color: #8b5cf6; }
+  .kind { color: #ef4444; }
+  .metadata { color: #3b82f6; }
+  .spec { color: #10b981; }
+  .selector { color: #f59e0b; }
+  .template { color: #06b6d4; }
+  .containers { color: #ec4899; }
+  
+  &__key {
+    color: #3b82f6;
+    
+    &::after {
+      content: ':';
+      color: var(--text-muted);
+    }
+  }
+  
+  &__value {
+    color: #10b981;
+    
+    &--string {
+      color: #10b981;
+      
+      &::before,
+      &::after {
+        content: '"';
+        color: var(--text-muted);
+      }
+    }
+    
+    &--number {
+      color: #f59e0b;
+    }
+    
+    &--boolean {
+      color: #8b5cf6;
+    }
+  }
+  
+  &__comment {
+    color: #6b7280;
+    font-style: italic;
+  }
+}
+
+// Command output with status
+.command-output {
+  @include code-block;
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-2 $space-4;
+    background: var(--bg-secondary);
+    border-bottom: $border-width solid var(--border-color);
+    margin: -#{$space-4} -#{$space-4} $space-4 -#{$space-4};
+    font-size: $text-xs;
+  }
+  
+  &__command {
+    font-family: $font-family-mono;
+    color: var(--text-muted);
+  }
+  
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    
+    &--success {
+      color: $success;
+    }
+    
+    &--error {
+      color: $error;
+    }
+    
+    &--running {
+      color: $warning;
+    }
+  }
+  
+  &__content {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+}
+
+// Animations
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}

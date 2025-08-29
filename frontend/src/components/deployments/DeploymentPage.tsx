@@ -1,263 +1,160 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import CopyCommandBox from '../shared/CopyCommandBox'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { 
+  Server, 
+  Settings, 
+  Package,
+  Box,
+  Layers,
+  CheckCircle,
+  ArrowRight,
+  Terminal
+} from "lucide-react";
+
+
+const deploymentMethods = [
+  {
+    id: "docker",
+    title: "Docker",
+    description: "Learn to containerize and deploy this web application using Docker containers",
+    icon: <Box />,
+    path: "/deployments/docker",
+    commands: [
+      "docker build -t devopslab-frontend .",
+      "docker run -p 3000:3000 devopslab-frontend",
+      "docker run -p 3001:3001 devopslab-backend"
+    ],
+    features: ["Portability", "Isolation", "Reproducibility"],
+    techClass: "tech-card--docker"
+  },
+  {
+    id: "docker-compose",
+    title: "Docker Compose",
+    description: "Deploy the full application stack (frontend, backend, database) with one command using Docker Compose",
+    icon: <Layers />,
+    path: "/deployments/docker-compose",
+    commands: [
+      "docker-compose up -d",
+      "docker-compose down",
+      "docker-compose ps"
+    ],
+    features: ["Multi-service", "Declarative config", "Automatic networking"],
+    techClass: "tech-card--docker-compose"
+  },
+  {
+    id: "kubernetes",
+    title: "Kubernetes",
+    description: "Deploy to Kubernetes cluster with automatic scaling, load balancing, and self-healing capabilities",
+    icon: <Server />,
+    path: "/deployments/kubernetes",
+    commands: [
+      "kubectl apply -f deployments/k8s/",
+      "kubectl get pods",
+      "kubectl port-forward svc/front 3000:3000"
+    ],
+    features: ["Scalability", "High availability", "Service discovery"],
+    techClass: "tech-card--kubernetes"
+  },
+  {
+    id: "kustomize",
+    title: "Kustomize",
+    description: "Manage environment-specific configurations without templates using Kustomize overlays for dev and prod",
+    icon: <Settings />,
+    path: "/deployments/kustomize",
+    commands: [
+      "kubectl apply -k my-overlays/dev",
+      "kubectl apply -k my-overlays/prod",
+      "kubectl delete -k my-overlays/dev"
+    ],
+    features: ["Environment-specific config", "No templates", "Declarative approach"],
+    techClass: "tech-card--kustomize"
+  },
+  {
+    id: "helm",
+    title: "Helm",
+    description: "Package and deploy the application using Helm charts with templating, versioning, and easy rollbacks",
+    icon: <Package />,
+    path: "/deployments/helm",
+    commands: [
+      "helm install devopslab ./my-chart",
+      "helm upgrade devopslab ./my-chart",
+      "helm uninstall devopslab"
+    ],
+    features: ["Release management", "Advanced templating", "Easy rollbacks"],
+    techClass: "tech-card--helm"
+  }
+];
 
 const DeploymentPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
-    <div>
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Deployment Methods</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
-          Explore different ways to deploy the application
+    <div className="home-section">
+      <div className="section__header">
+        <h2 className="section__title">Deployment Methods</h2>
+        <p className="section__subtitle">
+          Explore different ways to deploy this application
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-        {/* Docker Card */}
-        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
-              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z"/>
-              <path d="m3.3 7 8.7 5 8.7-5"/>
-              <path d="M12 22V12"/>
-            </svg>
-            <h3 style={{ fontSize: '20px', margin: 0 }}>Docker</h3>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-            Basic containerization with Docker
-          </p>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Commands:</h4>
-            <CopyCommandBox command="docker build -t devopslab-frontend ." />
-            <CopyCommandBox command="docker run -p 3000:3000 devopslab-frontend" />
-          </div>
+      <div className="home-section__grid">
+        {deploymentMethods.map((method) => (
+          <div
+            key={method.id}
+            className={`tech-card card--interactive ${method.techClass}`}
+            onClick={() => handleCardClick(method.path)}
+            style={{ cursor: 'pointer' }}>
+            <div className="tech-card__icon">
+              {method.icon}
+            </div>
+            
+            <h3 className="tech-card__title">{method.title}</h3>
+            <p className="tech-card__description">{method.description}</p>
 
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Portability</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Isolation</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Reproducibility</span>
+            <div className="tech-card__features">
+              {method.features.map((feature, index) => (
+                <span key={index} className="tech-card__feature">
+                  <CheckCircle size={12} />
+                  {feature}
+                </span>
+              ))}
+            </div>
+
+            {/* Compact commands preview */}
+            <div className="tech-card__commands-preview">
+              <div className="commands-preview__header">
+                <Terminal size={14} />
+                <span>Quick Commands</span>
+              </div>
+              <div className="commands-preview__list">
+                {method.commands.map((command, index) => (
+                  <div key={index} className="command-preview">
+                    <span className="command-preview__prompt">$</span>
+                    <span className="command-preview__text">{command}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="tech-card__footer">
+              <Link 
+                to={method.path}
+                className="btn btn--primary btn--with-icon"
+                style={{ width: "100%" }}
+                onClick={(e) => e.stopPropagation()}>
+                <ArrowRight size={16} />
+                How to Deploy
+              </Link>
             </div>
           </div>
-        </Link>
-
-        {/* Docker Compose Card */}
-        <Link to="/deployments/docker" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-            <h3 style={{ fontSize: '20px', margin: 0 }}>Docker Compose</h3>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-            Multi-container orchestration
-          </p>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Commands:</h4>
-            <CopyCommandBox command="docker-compose up -d" />
-            <CopyCommandBox command="docker-compose down" />
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Multi-service</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Declarative config</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Automatic networking</span>
-            </div>
-          </div>
-        </Link>
-
-        {/* Kubernetes Card */}
-        <Link to="/deployments/kubernetes" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
-              <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
-              <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
-              <line x1="6" x2="6.01" y1="6" y2="6"/>
-              <line x1="6" x2="6.01" y1="18" y2="18"/>
-            </svg>
-            <h3 style={{ fontSize: '20px', margin: 0 }}>Kubernetes</h3>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-            Native Kubernetes orchestration
-          </p>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Commands:</h4>
-            <CopyCommandBox command="kubectl apply -f deployments/k8s/" />
-            <CopyCommandBox command="kubectl get pods" />
-            <CopyCommandBox command="kubectl port-forward svc/frontend 3000:3000" />
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Scalability</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>High availability</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Service discovery</span>
-            </div>
-          </div>
-        </Link>
-
-        {/* Kustomize Card */}
-        <Link to="/deployments/kustomize" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
-            </svg>
-            <h3 style={{ fontSize: '20px', margin: 0 }}>Kustomize</h3>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-            Template-free configuration management
-          </p>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Commands:</h4>
-            <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/dev" />
-            <CopyCommandBox command="kubectl apply -k deployments/kustomize/overlays/prod" />
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>No templates</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Environment-specific config</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Declarative approach</span>
-            </div>
-          </div>
-        </Link>
-
-        {/* Helm Card */}
-        <Link to="/deployments/helm" className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
-              <path d="M16.5 9.4 7.55 4.24"/>
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-              <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
-              <line x1="12" y1="22.08" x2="12" y2="12"/>
-            </svg>
-            <h3 style={{ fontSize: '20px', margin: 0 }}>Helm</h3>
-          </div>
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-            Kubernetes package manager
-          </p>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Commands:</h4>
-            <CopyCommandBox command="helm install devopslab ./deployments/helm" />
-            <CopyCommandBox command="helm upgrade devopslab ./deployments/helm" />
-            <CopyCommandBox command="helm uninstall devopslab" />
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Features:</h4>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Release management</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Advanced templating</span>
-              <span style={{
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '4px',
-                padding: '4px 8px',
-                fontSize: '12px',
-                backgroundColor: 'rgba(255,255,255,0.1)'
-              }}>Easy rollbacks</span>
-            </div>
-          </div>
-        </Link>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DeploymentPage
+export default DeploymentPage;

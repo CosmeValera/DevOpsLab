@@ -1,0 +1,668 @@
+// Card Components
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.card {
+  @include card-base;
+  padding: $space-6;
+  
+  // Size variants
+  &--sm {
+    padding: $space-4;
+  }
+  
+  &--lg {
+    padding: $space-8;
+  }
+  
+  &--xl {
+    padding: $space-10;
+  }
+  
+  // Interactive card
+  &--interactive {
+    @include card-hover;
+    cursor: pointer;
+  }
+  
+  // Card with border accent
+  &--accent-blue {
+    border-left: 4px solid $primary-blue;
+  }
+  
+  &--accent-success {
+    border-left: 4px solid $success;
+  }
+  
+  &--accent-warning {
+    border-left: 4px solid $warning;
+  }
+  
+  &--accent-error {
+    border-left: 4px solid $error;
+  }
+  
+  // Gradient cards
+  &--gradient-blue {
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.05) 100%);
+    border-color: rgba($primary-blue, 0.2);
+  }
+  
+  &--gradient-success {
+    background: linear-gradient(135deg, rgba($success, 0.1) 0%, rgba($success-light, 0.05) 100%);
+    border-color: rgba($success, 0.2);
+  }
+}
+
+// Technology cards for the home page
+.tech-card {
+  @include card-interactive;
+  text-align: center;
+  padding: $space-8;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none !important;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    text-decoration: none !important;
+    
+    * {
+      text-decoration: none !important;
+    }
+  }
+  
+  // Subtle gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.02) 0%, rgba($primary-indigo, 0.01) 100%);
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &__icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: $space-6;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.05) 100%);
+    border-radius: $border-radius-xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: $primary-blue;
+    transition: all $transition-normal;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  &:hover &__icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba($primary-blue, 0.2) 0%, rgba($primary-indigo, 0.1) 100%);
+  }
+  
+  &__title {
+    @include heading-3;
+    margin-bottom: $space-3;
+    color: var(--text-primary);
+  }
+  
+  &__description {
+    @include body-text;
+    margin-bottom: $space-6;
+    color: var(--text-secondary);
+    font-size: $text-sm;
+    line-height: 1.6;
+    max-width: 280px;
+  }
+  
+  // Compact commands preview
+  &__commands-preview {
+    width: 100%;
+    margin-bottom: $space-6;
+    padding: $space-3;
+    background: linear-gradient(135deg, 
+      rgba($neutral-800, 0.4) 0%, 
+      rgba($neutral-700, 0.2) 100%);
+    border: 1px solid rgba($primary-blue, 0.1);
+    border-radius: $border-radius-lg;
+    transition: all $transition-normal;
+    
+    &:hover {
+      border-color: rgba($primary-blue, 0.2);
+      background: linear-gradient(135deg, 
+        rgba($neutral-800, 0.5) 0%, 
+        rgba($neutral-700, 0.3) 100%);
+    }
+  }
+  
+  .commands-preview__header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-2;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    
+    svg {
+      color: $primary-blue;
+      flex-shrink: 0;
+    }
+  }
+  
+  .commands-preview__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+  
+  .command-preview {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-family: $font-family-mono;
+    font-size: $text-xs;
+    line-height: 1.4;
+    
+    &__prompt {
+      color: $primary-blue;
+      font-weight: $font-bold;
+      flex-shrink: 0;
+    }
+    
+    &__text {
+      color: var(--text-secondary);
+      opacity: 0.9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  
+  .command-preview__more {
+    font-size: $text-xs;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding-top: $space-1;
+    border-top: 1px solid rgba(var(--border-color), 0.3);
+    margin-top: $space-1;
+  }
+  
+  // Enhanced commands section
+  .deployment__commands {
+    width: 100%;
+    margin-bottom: $space-6;
+    
+    h4 {
+      @include heading-4;
+      margin-bottom: $space-3;
+      font-size: $text-sm;
+      color: var(--text-primary);
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+    
+    .copy-command-box {
+      margin-bottom: $space-2;
+      font-size: $text-xs;
+      
+      .command-content {
+        padding: $space-3 $space-4;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  &__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    justify-content: center;
+    margin: $space-4 0;
+  }
+  
+  &__feature {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    padding: $space-1 $space-3;
+    background: rgba($primary-blue, 0.1);
+    color: var(--text-secondary);
+    border-radius: $border-radius-xl;
+    font-size: $text-xs;
+    font-weight: $font-medium;
+    border: $border-width solid rgba($primary-blue, 0.2);
+    
+    svg {
+      color: $success;
+      flex-shrink: 0;
+    }
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-4;
+    border-top: $border-width solid var(--border-color);
+  }
+  
+  // Technology specific accents
+  &--docker {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#2496ED, 0.1) 0%, rgba(#2496ED, 0.05) 100%);
+      color: #2496ED;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#2496ED, 0.2) 0%, rgba(#2496ED, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#2496ED, 0.1);
+      border-color: rgba(#2496ED, 0.2);
+    }
+  }
+  
+  &--docker-compose {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#1E88E5, 0.1) 0%, rgba(#1E88E5, 0.05) 100%);
+      color: #1E88E5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#1E88E5, 0.2) 0%, rgba(#1E88E5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#1E88E5, 0.1);
+      border-color: rgba(#1E88E5, 0.2);
+    }
+  }
+  
+  &--kubernetes {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.1) 0%, rgba(#326CE5, 0.05) 100%);
+      color: #326CE5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.2) 0%, rgba(#326CE5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#326CE5, 0.1);
+      border-color: rgba(#326CE5, 0.2);
+    }
+  }
+  
+  &--jenkins {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#D33833, 0.1) 0%, rgba(#D33833, 0.05) 100%);
+      color: #D33833;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#D33833, 0.2) 0%, rgba(#D33833, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#D33833, 0.1);
+      border-color: rgba(#D33833, 0.2);
+    }
+  }
+  
+  &--helm {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#0F1689, 0.1) 0%, rgba(#0F1689, 0.05) 100%);
+      color: #0F1689;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#0F1689, 0.2) 0%, rgba(#0F1689, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#0F1689, 0.1);
+      border-color: rgba(#0F1689, 0.2);
+    }
+  }
+  
+  &--kustomize {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.1) 0%, rgba(#4f46e5, 0.05) 100%);
+      color: #4f46e5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#326CE5, 0.2) 0%, rgba(#4f46e5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#4f46e5, 0.1);
+      border-color: rgba(#4f46e5, 0.2);
+    }
+  }
+}
+
+// Tutorial cards
+.tutorial-card {
+  @include card-interactive;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &__header {
+    margin-bottom: $space-4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-3;
+  }
+  
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.1) 100%);
+    border-radius: $border-radius-lg;
+    color: $primary-blue;
+    flex-shrink: 0;
+  }
+  
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    align-items: flex-end;
+  }
+  
+  &__title {
+    @include heading-4;
+    margin-bottom: $space-2;
+    color: var(--text-primary);
+  }
+  
+  &__description {
+    @include small-text;
+    color: $primary-blue;
+    font-weight: $font-medium;
+    margin-bottom: $space-3;
+  }
+  
+  &__long-description {
+    @include small-text;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: $space-4;
+  }
+  
+  &__meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    margin-bottom: $space-4;
+    padding: $space-3;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.05) 0%, rgba($primary-indigo, 0.02) 100%);
+    border-radius: $border-radius-md;
+    border: $border-width solid rgba($primary-blue, 0.1);
+  }
+  
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $text-xs;
+    color: var(--text-secondary);
+    
+    svg {
+      color: $primary-blue;
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+    }
+    
+    span {
+      font-weight: $font-medium;
+      line-height: 1.4;
+    }
+  }
+  
+  &__level-badge {
+    display: flex;
+    align-items: center;
+    
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: $space-1;
+      padding: $space-1 $space-2;
+      border-radius: $border-radius-xl;
+      font-size: $text-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all $transition-normal;
+      
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+      
+      &--beginner {
+        background: linear-gradient(135deg, rgba($success, 0.15) 0%, rgba($success-light, 0.1) 100%);
+        color: $success;
+        border: 1px solid rgba($success, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($success, 0.2) 0%, rgba($success-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+      
+      &--intermediate {
+        background: linear-gradient(135deg, rgba($warning, 0.15) 0%, rgba($warning-light, 0.1) 100%);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($warning, 0.2) 0%, rgba($warning-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+      
+      &--advanced {
+        background: linear-gradient(135deg, rgba($error, 0.15) 0%, rgba($error-light, 0.1) 100%);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($error, 0.2) 0%, rgba($error-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+  
+  &__duration {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $text-xs;
+    color: var(--text-muted);
+  }
+  
+  &__content {
+    flex: 1;
+    margin-bottom: $space-4;
+  }
+  
+  &__topics {
+    h4 {
+      @include heading-4;
+      color: var(--text-primary);
+      margin-bottom: $space-3;
+      font-size: $text-sm;
+      font-weight: $font-semibold;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: $space-2;
+        padding: $space-2 0;
+        color: var(--text-secondary);
+        font-size: $text-sm;
+        line-height: 1.5;
+        
+        svg {
+          color: $success;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-4;
+    border-top: $border-width solid var(--border-color);
+    
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $space-2;
+      transition: all $transition-normal;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+      }
+    }
+  }
+  
+  &__badge {
+    padding: $space-1 $space-3;
+    background: rgba($primary-blue, 0.1);
+    color: $primary-blue;
+    border-radius: $border-radius-xl;
+    font-size: $text-xs;
+    font-weight: $font-medium;
+  }
+  
+  &__arrow {
+    color: var(--text-muted);
+    transition: transform $transition-normal;
+  }
+  
+  &:hover &__arrow {
+    transform: translateX(4px);
+  }
+}
+
+// Status cards
+.status-card {
+  @include card-base;
+  padding: $space-4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  &__label {
+    @include small-text;
+    font-weight: $font-medium;
+    margin: 0;
+  }
+  
+  &__value {
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+  
+  &__icon {
+    margin-right: $space-2;
+    color: var(--text-muted);
+  }
+  
+  // Status variants
+  &--success {
+    border-color: rgba($success, 0.3);
+    background: rgba($success, 0.05);
+    
+    .status-card__icon {
+      color: $success;
+    }
+  }
+  
+  &--warning {
+    border-color: rgba($warning, 0.3);
+    background: rgba($warning, 0.05);
+    
+    .status-card__icon {
+      color: $warning;
+    }
+  }
+  
+  &--error {
+    border-color: rgba($error, 0.3);
+    background: rgba($error, 0.05);
+    
+    .status-card__icon {
+      color: $error;
+    }
+  }
+}

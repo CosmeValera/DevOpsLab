@@ -1,229 +1,181 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { BookOpen, Clock, CheckCircle, Users, ArrowRight, Code, Container, Layers, Package, Zap } from "lucide-react";
+
+const tutorialData = [
+  {
+    id: "docker",
+    title: "Docker Fundamentals",
+    description: "Master containerization from the ground up",
+    longDescription: "Dive deep into Docker's core concepts, from understanding what containers are to building and running your first applications. Learn about images, containers, Dockerfiles, and the complete container lifecycle.",
+    duration: "30 min",
+    levelColor: "error",
+    icon: Container,
+    topics: [
+      "Container fundamentals and isolation",
+      "Docker images and registries", 
+      "Writing effective Dockerfiles",
+      "Container lifecycle management",
+      "Multi-stage builds and optimization"
+    ],
+    path: "/tutorials/docker",
+    estimatedReadingTime: "15-20 minutes",
+    prerequisites: "Basic command line knowledge"
+  },
+  {
+    id: "kubernetes",
+    title: "Kubernetes Introduction", 
+    description: "Orchestrate containers at scale",
+    longDescription: "Learn Kubernetes fundamentals through hands-on examples. Understand pods, deployments, services, and how they work together to create resilient, scalable applications.",
+    duration: "45 min",
+    levelColor: "warning",
+    icon: Layers,
+    topics: [
+      "Pods and their lifecycle",
+      "Deployments and scaling",
+      "Services and networking",
+      "ConfigMaps and Secrets",
+      "Basic troubleshooting"
+    ],
+    path: "/tutorials/kubernetes",
+    estimatedReadingTime: "25-30 minutes",
+    prerequisites: "Docker basics, YAML syntax"
+  },
+  {
+    id: "kustomize",
+    title: "Kustomize Deep Dive",
+    description: "Template-free configuration management",
+    longDescription: "Discover how Kustomize simplifies Kubernetes configuration management without templates. Learn bases, overlays, patches, and generators for environment-specific deployments.",
+    duration: "35 min",
+    levelColor: "warning",
+    icon: Code,
+    topics: [
+      "Base and overlay architecture",
+      "Strategic merge patches",
+      "JSON patch operations",
+      "ConfigMap and Secret generators",
+      "Environment-specific configurations"
+    ],
+    path: "/tutorials/kustomize",
+    estimatedReadingTime: "20-25 minutes",
+    prerequisites: "Kubernetes basics, YAML"
+  },
+  {
+    id: "helm",
+    title: "Creating Helm Charts",
+    description: "Package and distribute applications",
+    longDescription: "Learn Helm's templating system to create reusable application packages. Master chart structure, templates, values, and dependencies for professional Kubernetes deployments.",
+    duration: "60 min", 
+    levelColor: "error",
+    icon: Package,
+    topics: [
+      "Chart structure and organization",
+      "Template syntax and functions",
+      "Values and value overrides",
+      "Chart dependencies and repositories",
+      "Best practices and security"
+    ],
+    path: "/tutorials/helm",
+    estimatedReadingTime: "35-40 minutes",
+    prerequisites: "Kubernetes, YAML, basic templating"
+  },
+  {
+    id: "jenkins",
+    title: "Jenkins CI/CD",
+    description: "Automate your development workflow",
+    longDescription: "Build robust CI/CD pipelines with Jenkins. Learn pipeline concepts, Jenkinsfiles, stages, and automation strategies to streamline your development process.",
+    duration: "40 min",
+    levelColor: "success", 
+    icon: Zap,
+    topics: [
+      "Pipeline concepts and stages",
+      "Declarative vs Scripted pipelines",
+      "Jenkinsfile best practices",
+      "CI/CD automation strategies",
+      "Pipeline troubleshooting"
+    ],
+    path: "/tutorials/jenkins",
+    estimatedReadingTime: "25-30 minutes",
+    prerequisites: "Git basics, command line"
+  }
+];
 
 const TutorialsPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
-    <div>
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>DevOps Tutorials</h2>
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
-          Learn the technologies step by step
-        </p>
+    <div className="tutorial">
+      <div className="section__header">
+        <h2 className="section__title">DevOps Tutorials</h2>
+        <p className="section__subtitle">Master modern DevOps practices with hands-on learning</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-        {/* Docker Tutorial */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Docker Fundamentals</h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-                Learn the basic concepts of containerization
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-              <span style={{ 
-                backgroundColor: '#DC2626', 
-                color: 'white', 
-                padding: '4px 8px', 
-                borderRadius: '4px', 
-                fontSize: '12px' 
-              }}>
-                Beginner
-              </span>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>30 min</span>
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
-            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
-              <li>What is Docker?</li>
-              <li>Images vs Containers</li>
-              <li>Dockerfile</li>
-              <li>Docker Hub</li>
-            </ul>
-          </div>
+      <div className="tutorial__grid">
+        {tutorialData.map((tutorial) => {
+          const IconComponent = tutorial.icon;
+          return (
+            <div 
+              key={tutorial.id} 
+              className="tutorial-card card card--interactive"
+              onClick={() => handleCardClick(tutorial.path)}
+              style={{ cursor: 'pointer' }}>
+              
+              <div className="tutorial-card__header">
+                <div className="tutorial-card__icon">
+                  <IconComponent size={32} />
+                </div>
+              </div>
 
-          <Link to="/tutorials/docker" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Start Tutorial
-          </Link>
-        </div>
+              <div className="tutorial-card__content">
+                <h3 className="tutorial-card__title">{tutorial.title}</h3>
+                <p className="tutorial-card__description">{tutorial.description}</p>
+                <p className="tutorial-card__long-description">{tutorial.longDescription}</p>
+                
+                <div className="tutorial-card__meta-info">
+                  <div className="tutorial-card__meta-item">
+                    <Clock size={14} />
+                    <span>Reading time: {tutorial.estimatedReadingTime}</span>
+                  </div>
+                  <div className="tutorial-card__meta-item">
+                    <Users size={14} />
+                    <span>Prerequisites: {tutorial.prerequisites}</span>
+                  </div>
+                </div>
 
-        {/* Kubernetes Tutorial */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Kubernetes Introduction</h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-                Fundamental orchestration concepts
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-              <span style={{ 
-                backgroundColor: '#F59E0B', 
-                color: 'white', 
-                padding: '4px 8px', 
-                borderRadius: '4px', 
-                fontSize: '12px' 
-              }}>
-                Intermediate
-              </span>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>45 min</span>
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
-            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
-              <li>Pods</li>
-              <li>Deployments</li>
-              <li>Services</li>
-              <li>ConfigMaps</li>
-            </ul>
-          </div>
+                <div className="tutorial-card__topics">
+                  <h4>What you'll learn:</h4>
+                  <ul>
+                    {tutorial.topics.map((topic, index) => (
+                      <li key={index}>
+                        <CheckCircle size={14} />
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-          <Link to="/tutorials/kubernetes" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Start Tutorial
-          </Link>
-        </div>
-
-        {/* Kustomize Tutorial */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Kustomize Deep Dive</h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-                Template-free configuration management
-              </p>
+              <div className="tutorial-card__footer">
+                <Link 
+                  to={tutorial.path}
+                  className="btn btn--primary btn--with-icon"
+                  style={{ width: "100%" }}
+                  onClick={(e) => e.stopPropagation()}>
+                  <BookOpen size={16} />
+                  Start Learning
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-              <span style={{ 
-                backgroundColor: '#F59E0B', 
-                color: 'white', 
-                padding: '4px 8px', 
-                borderRadius: '4px', 
-                fontSize: '12px' 
-              }}>
-                Intermediate
-              </span>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>35 min</span>
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
-            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
-              <li>Bases and Overlays</li>
-              <li>Patches</li>
-              <li>Generators</li>
-              <li>Transformers</li>
-            </ul>
-          </div>
-
-          <Link to="/tutorials/kustomize" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Start Tutorial
-          </Link>
-        </div>
-
-        {/* Helm Tutorial */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Creating Helm Charts</h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-                Package and distribute Kubernetes applications
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-              <span style={{ 
-                backgroundColor: '#DC2626', 
-                color: 'white', 
-                padding: '4px 8px', 
-                borderRadius: '4px', 
-                fontSize: '12px' 
-              }}>
-                Advanced
-              </span>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>60 min</span>
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
-            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
-              <li>Chart Structure</li>
-              <li>Templates</li>
-              <li>Values</li>
-              <li>Dependencies</li>
-            </ul>
-          </div>
-
-          <Link to="/tutorials/helm" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Start Tutorial
-          </Link>
-        </div>
-
-        {/* Jenkins Tutorial */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-            <div>
-              <h3 style={{ fontSize: '20px', marginBottom: '8px' }}>Jenkins CI/CD</h3>
-              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
-                Automated pipelines for continuous integration and deployment
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-              <span style={{ 
-                backgroundColor: '#F59E0B', 
-                color: 'white', 
-                padding: '4px 8px', 
-                borderRadius: '4px', 
-                fontSize: '12px' 
-              }}>
-                Intermediate
-              </span>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>40 min</span>
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <h4 style={{ fontSize: '14px', marginBottom: '8px' }}>Topics covered:</h4>
-            <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '14px' }}>
-              <li>Pipeline Concepts</li>
-              <li>Jenkinsfile</li>
-              <li>CI/CD Stages</li>
-              <li>Automation Benefits</li>
-            </ul>
-          </div>
-
-          <Link to="/tutorials/jenkins" className="btn" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Start Tutorial
-          </Link>
-        </div>
+          );
+        })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TutorialsPage
+export default TutorialsPage;
