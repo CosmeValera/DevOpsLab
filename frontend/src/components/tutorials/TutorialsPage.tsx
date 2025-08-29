@@ -89,9 +89,9 @@ const TutorialsPage: React.FC = () => {
 
   return (
     <div className="tutorial">
-      <div className="tutorial__header">
-        <h2>DevOps Tutorials</h2>
-        <p>Learn the technologies step by step</p>
+      <div className="section__header">
+        <h2 className="section__title">DevOps Tutorials</h2>
+        <p className="section__subtitle">Learn the technologies step by step</p>
       </div>
 
       <div className="tutorial__grid">

@@ -211,6 +211,44 @@
   }
 }
 
+// Standalone section header classes for use outside .section
+.section__header {
+  text-align: center;
+  margin-bottom: $space-8;
+  
+  &--left {
+    text-align: left;
+  }
+  
+  &--right {
+    text-align: right;
+  }
+}
+
+.section__title {
+  @include heading-2;
+  margin-bottom: $space-4;
+  background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section__subtitle {
+  @include body-text;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  .section__header--left & {
+    margin: 0;
+  }
+  
+  .section__header--right & {
+    margin: 0 0 0 auto;
+  }
+}
+
 // Home page specific layouts
 .home {
   &__hero {

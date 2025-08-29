@@ -112,7 +112,7 @@ const DeploymentPage: React.FC = () => {
             <p className="tech-card__description">{method.description}</p>
 
             <div className="deployment__commands">
-              <h4>Commands:</h4>
+              <h4>Basic commands:</h4>
               {method.commands.map((command, index) => (
                 <CopyCommandBox key={index} command={command} />
               ))}

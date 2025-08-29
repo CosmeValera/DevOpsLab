@@ -18,7 +18,7 @@
 
 // Home page specific enhancements
 .home-section {
-  margin: $space-12 0;
+  margin-bottom: $space-12;
   
   &__grid {
     @include grid-auto-fit(320px);
@@ -28,6 +28,8 @@
 
 // Tutorial page styles
 .tutorial {
+  margin-bottom: $space-12;
+  
   &__grid {
     @include grid-auto-fit(300px);
     gap: $space-6;

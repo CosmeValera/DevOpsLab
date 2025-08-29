@@ -3,10 +3,10 @@ import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsPage: React.FC = () => {
   return (
-    <div>
-      <div className="jenkins-header">
-        <h2 className="jenkins-title">Jenkins CI/CD</h2>
-        <p className="jenkins-subtitle">Automated deployments and pipelines</p>
+    <div className="home-section">
+      <div className="section__header">
+        <h2 className="section__title">Jenkins CI/CD</h2>
+        <p className="section__subtitle">Automated deployments and pipelines</p>
       </div>
 
       {/* Jenkins Setup */}
@@ -72,7 +72,7 @@ const JenkinsPage: React.FC = () => {
       </div>
 
       {/* Pipeline Cards */}
-      <div className="jenkins-grid">
+      <div className="jenkins__status">
         {/* Master Pipeline */}
         <div className="card">
           <div className="pipeline-header">
