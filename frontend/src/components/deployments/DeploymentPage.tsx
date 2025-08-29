@@ -16,12 +16,13 @@ const deploymentMethods = [
   {
     id: "docker",
     title: "Docker",
-    description: "Basic containerization with Docker",
+    description: "Learn to containerize and deploy this web application using Docker containers",
     icon: <Box />,
     path: "/deployments/docker",
     commands: [
       "docker build -t devopslab-frontend .",
-      "docker run -p 3000:3000 devopslab-frontend"
+      "docker run -p 3000:3000 devopslab-frontend",
+      "docker run -p 3001:3001 devopslab-backend"
     ],
     features: ["Portability", "Isolation", "Reproducibility"],
     techClass: "tech-card--docker"
@@ -29,12 +30,13 @@ const deploymentMethods = [
   {
     id: "docker-compose",
     title: "Docker Compose",
-    description: "Multi-container orchestration",
+    description: "Deploy the full application stack (frontend, backend, database) with one command using Docker Compose",
     icon: <Layers />,
     path: "/deployments/docker-compose",
     commands: [
       "docker-compose up -d",
-      "docker-compose down"
+      "docker-compose down",
+      "docker-compose ps"
     ],
     features: ["Multi-service", "Declarative config", "Automatic networking"],
     techClass: "tech-card--docker-compose"
@@ -42,7 +44,7 @@ const deploymentMethods = [
   {
     id: "kubernetes",
     title: "Kubernetes",
-    description: "Native Kubernetes orchestration",
+    description: "Deploy to Kubernetes cluster with automatic scaling, load balancing, and self-healing capabilities",
     icon: <Server />,
     path: "/deployments/kubernetes",
     commands: [
@@ -56,7 +58,7 @@ const deploymentMethods = [
   {
     id: "kustomize",
     title: "Kustomize",
-    description: "Template-free configuration management",
+    description: "Manage environment-specific configurations without templates using Kustomize overlays for dev and prod",
     icon: <Settings />,
     path: "/deployments/kustomize",
     commands: [
@@ -64,13 +66,13 @@ const deploymentMethods = [
       "kubectl apply -k my-overlays/prod",
       "kubectl delete -k my-overlays/dev"
     ],
-    features: ["No templates", "Environment-specific config", "Declarative approach"],
+    features: ["Environment-specific config", "No templates", "Declarative approach"],
     techClass: "tech-card--kustomize"
   },
   {
     id: "helm",
     title: "Helm",
-    description: "Kubernetes package manager",
+    description: "Package and deploy the application using Helm charts with templating, versioning, and easy rollbacks",
     icon: <Package />,
     path: "/deployments/helm",
     commands: [

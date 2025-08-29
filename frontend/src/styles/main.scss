@@ -32,7 +32,7 @@
   
   &__grid {
     @include grid-auto-fit(300px);
-    gap: $space-6;
+    gap: $space-8;
   }
   
   &__header {
