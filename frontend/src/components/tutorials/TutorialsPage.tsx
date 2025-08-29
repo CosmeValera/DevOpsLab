@@ -8,7 +8,6 @@ const tutorialData = [
     title: "Docker Fundamentals",
     description: "Master containerization from the ground up",
     longDescription: "Dive deep into Docker's core concepts, from understanding what containers are to building and running your first applications. Learn about images, containers, Dockerfiles, and the complete container lifecycle.",
-    level: "Beginner",
     duration: "30 min",
     levelColor: "error",
     icon: Container,
@@ -28,7 +27,6 @@ const tutorialData = [
     title: "Kubernetes Introduction", 
     description: "Orchestrate containers at scale",
     longDescription: "Learn Kubernetes fundamentals through hands-on examples. Understand pods, deployments, services, and how they work together to create resilient, scalable applications.",
-    level: "Intermediate",
     duration: "45 min",
     levelColor: "warning",
     icon: Layers,
@@ -48,7 +46,6 @@ const tutorialData = [
     title: "Kustomize Deep Dive",
     description: "Template-free configuration management",
     longDescription: "Discover how Kustomize simplifies Kubernetes configuration management without templates. Learn bases, overlays, patches, and generators for environment-specific deployments.",
-    level: "Intermediate", 
     duration: "35 min",
     levelColor: "warning",
     icon: Code,
@@ -68,7 +65,6 @@ const tutorialData = [
     title: "Creating Helm Charts",
     description: "Package and distribute applications",
     longDescription: "Learn Helm's templating system to create reusable application packages. Master chart structure, templates, values, and dependencies for professional Kubernetes deployments.",
-    level: "Advanced",
     duration: "60 min", 
     levelColor: "error",
     icon: Package,
@@ -88,7 +84,6 @@ const tutorialData = [
     title: "Jenkins CI/CD",
     description: "Automate your development workflow",
     longDescription: "Build robust CI/CD pipelines with Jenkins. Learn pipeline concepts, Jenkinsfiles, stages, and automation strategies to streamline your development process.",
-    level: "Intermediate",
     duration: "40 min",
     levelColor: "success", 
     icon: Zap,
@@ -132,12 +127,6 @@ const TutorialsPage: React.FC = () => {
               <div className="tutorial-card__header">
                 <div className="tutorial-card__icon">
                   <IconComponent size={32} />
-                </div>
-                <div className="tutorial-card__level-badge">
-                  <span className={`badge badge--${tutorial.level.toLowerCase()}`}>
-                    <Users size={12} />
-                    {tutorial.level}
-                  </span>
                 </div>
               </div>
 

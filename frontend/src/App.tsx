@@ -33,6 +33,17 @@ function App() {
     window.localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Scroll to top on route change (except for main tab navigation)
+  useEffect(() => {
+    const path = location.pathname;
+    const mainTabs = ['/', '/deployments', '/tutorials', '/jenkins'];
+    
+    // Only scroll to top if navigating to a page that's not a main tab
+    if (!mainTabs.includes(path)) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
   const navItems = useMemo(() => {
     const path = location.pathname;
     // No navigation on Home or main section pages (they now redirect to Home)
