@@ -7,8 +7,6 @@ const KubernetesTutorial: React.FC = () => {
     <TutorialLayout
       title="Kubernetes Introduction"
       description="Orchestrate containers at scale"
-      level="Intermediate"
-      duration="45 min"
       estimatedReadingTime="25-30 minutes"
       prerequisites="Docker basics, YAML syntax"
       currentTutorial="kubernetes"

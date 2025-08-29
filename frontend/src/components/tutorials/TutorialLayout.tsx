@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Clock, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface TutorialLayoutProps {
   children: React.ReactNode;
   title: string;
   description: string;
-  level: string;
-  duration: string;
   estimatedReadingTime: string;
   prerequisites: string;
   currentTutorial: string;
@@ -25,8 +23,6 @@ const TutorialLayout: React.FC<TutorialLayoutProps> = ({
   children,
   title,
   description,
-  level,
-  duration,
   estimatedReadingTime,
   prerequisites,
   currentTutorial,
@@ -47,16 +43,6 @@ const TutorialLayout: React.FC<TutorialLayoutProps> = ({
               <ArrowLeft size={16} />
               Back to Tutorials
             </Link>
-            <div className="tutorial-header__badges">
-              <span className="badge badge--primary">
-                <Users size={12} />
-                {level}
-              </span>
-              <span className="badge badge--secondary">
-                <Clock size={12} />
-                {duration}
-              </span>
-            </div>
           </div>
           
           <h1 className="tutorial-header__title">{title}</h1>

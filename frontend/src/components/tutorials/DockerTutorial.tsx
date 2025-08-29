@@ -7,8 +7,6 @@ const DockerTutorial: React.FC = () => {
     <TutorialLayout
       title="Docker Fundamentals"
       description="Master containerization from the ground up"
-      level="Beginner"
-      duration="30 min"
       estimatedReadingTime="15-20 minutes"
       prerequisites="Basic command line knowledge"
       currentTutorial="docker"

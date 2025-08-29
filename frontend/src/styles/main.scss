@@ -50,7 +50,7 @@
 
 // Tutorial Layout Styles
 .tutorial-layout {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: $space-6 $space-4 0;
 }
@@ -65,7 +65,7 @@
   border: $border-width solid var(--border-color);
   
   &__content {
-    max-width: 800px;
+    max-width: 100%;
   }
   
   &__meta {
@@ -96,10 +96,7 @@
     }
   }
   
-  &__badges {
-    display: flex;
-    gap: $space-2;
-  }
+
   
   &__title {
     @include heading-1;
@@ -200,7 +197,7 @@
 }
 
 .tutorial-article {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
 }
 

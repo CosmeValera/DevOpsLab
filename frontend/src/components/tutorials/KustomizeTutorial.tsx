@@ -7,8 +7,6 @@ const KustomizeTutorial: React.FC = () => {
     <TutorialLayout
       title="Kustomize Deep Dive"
       description="Template-free configuration management"
-      level="Intermediate"
-      duration="35 min"
       estimatedReadingTime="20-25 minutes"
       prerequisites="Kubernetes basics, YAML"
       currentTutorial="kustomize"

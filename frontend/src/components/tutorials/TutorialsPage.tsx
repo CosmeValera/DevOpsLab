@@ -134,7 +134,7 @@ const TutorialsPage: React.FC = () => {
                   <IconComponent size={32} />
                 </div>
                 <div className="tutorial-card__level-badge">
-                  <span className={`badge badge--${tutorial.levelColor}`}>
+                  <span className={`badge badge--${tutorial.level.toLowerCase()}`}>
                     <Users size={12} />
                     {tutorial.level}
                   </span>
@@ -149,11 +149,7 @@ const TutorialsPage: React.FC = () => {
                 <div className="tutorial-card__meta-info">
                   <div className="tutorial-card__meta-item">
                     <Clock size={14} />
-                    <span>Duration: {tutorial.duration}</span>
-                  </div>
-                  <div className="tutorial-card__meta-item">
-                    <BookOpen size={14} />
-                    <span>Reading: {tutorial.estimatedReadingTime}</span>
+                    <span>Reading time: {tutorial.estimatedReadingTime}</span>
                   </div>
                   <div className="tutorial-card__meta-item">
                     <Users size={14} />

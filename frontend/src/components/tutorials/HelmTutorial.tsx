@@ -7,8 +7,6 @@ const HelmTutorial: React.FC = () => {
     <TutorialLayout
       title="Creating Helm Charts"
       description="Package and distribute applications"
-      level="Advanced"
-      duration="60 min"
       estimatedReadingTime="35-40 minutes"
       prerequisites="Kubernetes, YAML, basic templating"
       currentTutorial="helm"

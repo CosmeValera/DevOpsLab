@@ -368,6 +368,57 @@
   &__level-badge {
     display: flex;
     align-items: center;
+    
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: $space-1;
+      padding: $space-1 $space-2;
+      border-radius: $border-radius-xl;
+      font-size: $text-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all $transition-normal;
+      
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+      
+      &--beginner {
+        background: linear-gradient(135deg, rgba($success, 0.15) 0%, rgba($success-light, 0.1) 100%);
+        color: $success;
+        border: 1px solid rgba($success, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($success, 0.2) 0%, rgba($success-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+      
+      &--intermediate {
+        background: linear-gradient(135deg, rgba($warning, 0.15) 0%, rgba($warning-light, 0.1) 100%);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($warning, 0.2) 0%, rgba($warning-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+      
+      &--advanced {
+        background: linear-gradient(135deg, rgba($error, 0.15) 0%, rgba($error-light, 0.1) 100%);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba($error, 0.2) 0%, rgba($error-light, 0.15) 100%);
+          transform: translateY(-1px);
+        }
+      }
+    }
   }
   
   &__duration {
