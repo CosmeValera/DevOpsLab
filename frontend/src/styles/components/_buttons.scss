@@ -161,10 +161,17 @@
   border: $border-width solid var(--border-color);
   backdrop-filter: blur(10px);
   box-shadow: $shadow-lg;
+  color: var(--text-primary);
   
   &:hover {
     transform: scale(1.05);
     box-shadow: $shadow-xl;
+    color: var(--text-primary);
+  }
+  
+  // Ensure sun icon is visible in dark mode
+  [data-theme="dark"] & svg {
+    color: $neutral-900;
   }
   
   @include max-md {

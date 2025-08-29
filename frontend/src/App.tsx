@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { Server, GitBranch, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import DockerDeployment from "./components/deployments/DockerDeployment";
 import KubernetesDeployment from "./components/deployments/KubernetesDeployment";
 import KustomizeDeployment from "./components/deployments/KustomizeDeployment";
@@ -14,41 +14,7 @@ import KustomizeTutorial from "./components/tutorials/KustomizeTutorial";
 import HelmTutorial from "./components/tutorials/HelmTutorial";
 import JenkinsTutorial from "./components/tutorials/JenkinsTutorial";
 
-const technologies = [
-  {
-    name: "Docker",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round">
-        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8z" />
-        <path d="m3.3 7 8.7 5 8.7-5" />
-        <path d="M12 22V12" />
-      </svg>
-    ),
-    description: "Containerization and local development",
-    color: "#2496ED",
-  },
-  {
-    name: "Kubernetes",
-    icon: <Server />,
-    description: "Container orchestration and scaling",
-    color: "#326CE5",
-  },
-  {
-    name: "Jenkins",
-    icon: <GitBranch />,
-    description: "CI/CD pipeline automation",
-    color: "#D33833",
-  },
-];
+
 
 function App() {
   const location = useLocation();
@@ -117,29 +83,14 @@ function App() {
       {/* Header */}
       <header className="header">
         <div className="header__container">
-          <div className="header__brand">
-            <h1>DevOpsLab</h1>
-            <p>DevOps Portfolio Showcase</p>
-          </div>
           <div className="header__actions">
             {/* Theme Switcher Button */}
             <button
               className="theme-toggle"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               aria-label="Switch theme">
-              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} style={{color: "white"}}/>}
             </button>
-            {/* Technology tabs */}
-            <div className="header__tech-tabs">
-              {technologies.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="nav-tab">
-                  <span className="nav-tab__icon">{tech.icon}</span>
-                  {tech.name}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </header>

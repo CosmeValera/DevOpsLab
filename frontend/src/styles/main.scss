@@ -61,8 +61,14 @@
   
   &__commands {
     display: grid;
-    gap: $space-4;
-    margin: $space-6 0;
+    gap: $space-2;
+    margin: $space-4 0;
+    
+    h4 {
+      @include heading-4;
+      margin-bottom: $space-2;
+      font-size: $text-sm;
+    }
   }
   
   &__features {
@@ -102,7 +108,7 @@
 .jenkins {
   &__status {
     @include grid-auto-fit(200px);
-    gap: $space-4;
+    gap: $space-6;
     margin: $space-6 0;
   }
   

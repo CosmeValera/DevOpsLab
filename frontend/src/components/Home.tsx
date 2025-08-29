@@ -27,9 +27,9 @@ const Home: React.FC<HomeProps> = ({ initialTab = "deployments" }) => {
     <div className="home">
       {/* Hero Section */}
       <div className="home__hero">
-        <h1 className="home__title">DevOps Portfolio Showcase</h1>
+        <h1 className="home__title">DevOps Lab</h1>
         <p className="home__subtitle">
-          Explore different deployment methods, learn through interactive tutorials, and manage CI/CD pipelines with modern DevOps tools.
+          Explore different methods to deploy this very application, learn through hands-on tutorials, and discover CI/CD automation with industry-standard DevOps tools.
         </p>
       </div>
 

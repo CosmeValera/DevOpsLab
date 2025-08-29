@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Server, 
   Settings, 
   Package,
-  Container,
+  Box,
   Layers,
-  CheckCircle
+  CheckCircle,
+  ArrowRight
 } from "lucide-react";
 import CopyCommandBox from "../shared/CopyCommandBox";
 
@@ -15,7 +16,7 @@ const deploymentMethods = [
     id: "docker",
     title: "Docker",
     description: "Basic containerization with Docker",
-    icon: <Container className="tech-card__icon" />,
+    icon: <Box />,
     path: "/deployments/docker",
     commands: [
       "docker build -t devopslab-frontend .",
@@ -28,7 +29,7 @@ const deploymentMethods = [
     id: "docker-compose",
     title: "Docker Compose",
     description: "Multi-container orchestration",
-    icon: <Layers className="tech-card__icon" />,
+    icon: <Layers />,
     path: "/deployments/docker",
     commands: [
       "docker-compose up -d",
@@ -41,7 +42,7 @@ const deploymentMethods = [
     id: "kubernetes",
     title: "Kubernetes",
     description: "Native Kubernetes orchestration",
-    icon: <Server className="tech-card__icon" />,
+    icon: <Server />,
     path: "/deployments/kubernetes",
     commands: [
       "kubectl apply -f deployments/k8s/",
@@ -55,7 +56,7 @@ const deploymentMethods = [
     id: "kustomize",
     title: "Kustomize",
     description: "Template-free configuration management",
-    icon: <Settings className="tech-card__icon" />,
+    icon: <Settings />,
     path: "/deployments/kustomize",
     commands: [
       "kubectl apply -k deployments/kustomize/overlays/dev",
@@ -68,7 +69,7 @@ const deploymentMethods = [
     id: "helm",
     title: "Helm",
     description: "Kubernetes package manager",
-    icon: <Package className="tech-card__icon" />,
+    icon: <Package />,
     path: "/deployments/helm",
     commands: [
       "helm install devopslab ./deployments/helm",
@@ -81,21 +82,28 @@ const deploymentMethods = [
 ];
 
 const DeploymentPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="home-section">
       <div className="section__header">
         <h2 className="section__title">Deployment Methods</h2>
         <p className="section__subtitle">
-          Explore different ways to deploy the application
+          Explore different ways to deploy this application
         </p>
       </div>
 
       <div className="home-section__grid">
         {deploymentMethods.map((method) => (
-          <Link
+          <div
             key={method.id}
-            to={method.path}
-            className={`tech-card card--interactive ${method.techClass}`}>
+            className={`tech-card card--interactive ${method.techClass}`}
+            onClick={() => handleCardClick(method.path)}
+            style={{ cursor: 'pointer' }}>
             <div className="tech-card__icon">
               {method.icon}
             </div>
@@ -118,7 +126,18 @@ const DeploymentPage: React.FC = () => {
                 </span>
               ))}
             </div>
-          </Link>
+
+            <div className="tech-card__footer">
+              <Link 
+                to={method.path}
+                className="btn btn--primary btn--with-icon"
+                style={{ width: "100%" }}
+                onClick={(e) => e.stopPropagation()}>
+                <ArrowRight size={16} />
+                How to Deploy
+              </Link>
+            </div>
+          </div>
         ))}
       </div>
     </div>

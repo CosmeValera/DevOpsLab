@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, Clock, CheckCircle, Users } from "lucide-react";
 
 const tutorialData = [
@@ -81,6 +81,12 @@ const tutorialData = [
 ];
 
 const TutorialsPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="tutorial">
       <div className="tutorial__header">
@@ -90,7 +96,11 @@ const TutorialsPage: React.FC = () => {
 
       <div className="tutorial__grid">
         {tutorialData.map((tutorial) => (
-          <div key={tutorial.id} className="tutorial-card card card--interactive">
+          <div 
+            key={tutorial.id} 
+            className="tutorial-card card card--interactive"
+            onClick={() => handleCardClick(tutorial.path)}
+            style={{ cursor: 'pointer' }}>
             <div className="tutorial-card__header">
               <div>
                 <h3 className="tutorial-card__title">{tutorial.title}</h3>
@@ -124,7 +134,8 @@ const TutorialsPage: React.FC = () => {
               <Link 
                 to={tutorial.path}
                 className="btn btn--primary btn--with-icon"
-                style={{ width: "100%" }}>
+                style={{ width: "100%" }}
+                onClick={(e) => e.stopPropagation()}>
                 <BookOpen size={16} />
                 Start Tutorial
               </Link>

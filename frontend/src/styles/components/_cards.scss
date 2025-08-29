@@ -59,15 +59,23 @@
   @include card-interactive;
   text-align: center;
   padding: $space-8;
-  min-height: 320px;
+  min-height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-decoration: none;
+  justify-content: flex-start;
+  text-decoration: none !important;
   color: inherit;
   position: relative;
   overflow: hidden;
+  
+  &:hover {
+    text-decoration: none !important;
+    
+    * {
+      text-decoration: none !important;
+    }
+  }
   
   // Subtle gradient overlay
   &::before {
@@ -127,10 +135,13 @@
     flex-wrap: wrap;
     gap: $space-2;
     justify-content: center;
-    margin-top: auto;
+    margin: $space-4 0;
   }
   
   &__feature {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
     padding: $space-1 $space-3;
     background: rgba($primary-blue, 0.1);
     color: var(--text-secondary);
@@ -138,6 +149,17 @@
     font-size: $text-xs;
     font-weight: $font-medium;
     border: $border-width solid rgba($primary-blue, 0.2);
+    
+    svg {
+      color: $success;
+      flex-shrink: 0;
+    }
+  }
+  
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-4;
+    border-top: $border-width solid var(--border-color);
   }
   
   // Technology specific accents

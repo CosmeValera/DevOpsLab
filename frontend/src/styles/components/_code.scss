@@ -42,10 +42,10 @@
   background: var(--code-bg);
   border: $border-width solid var(--border-color);
   border-radius: $border-radius;
-  padding: $space-4;
-  margin: $space-4 0;
+  padding: $space-3;
+  margin: $space-2 0;
   font-family: $font-family-mono;
-  font-size: $text-sm;
+  font-size: $text-xs;
   color: var(--code-text);
   user-select: all;
   transition: all $transition-normal;
@@ -60,8 +60,10 @@
   
   &__content {
     margin: 0;
-    word-break: break-all;
+    word-break: break-word;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height: 1.4;
   }
   
   &__prefix {
