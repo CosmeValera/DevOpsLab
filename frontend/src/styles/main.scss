@@ -52,7 +52,7 @@
 .tutorial-layout {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 $space-4;
+  padding: $space-6 $space-4 0;
 }
 
 // Tutorial Header
@@ -60,6 +60,7 @@
   @include card-base;
   padding: $space-8;
   margin-bottom: $space-6;
+  margin-top: $space-4;
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   border: $border-width solid var(--border-color);
   

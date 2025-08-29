@@ -133,14 +133,10 @@ const TutorialsPage: React.FC = () => {
                 <div className="tutorial-card__icon">
                   <IconComponent size={32} />
                 </div>
-                <div className="tutorial-card__meta">
+                <div className="tutorial-card__level-badge">
                   <span className={`badge badge--${tutorial.levelColor}`}>
                     <Users size={12} />
                     {tutorial.level}
-                  </span>
-                  <span className="tutorial-card__duration">
-                    <Clock size={12} />
-                    {tutorial.duration}
                   </span>
                 </div>
               </div>
@@ -150,14 +146,18 @@ const TutorialsPage: React.FC = () => {
                 <p className="tutorial-card__description">{tutorial.description}</p>
                 <p className="tutorial-card__long-description">{tutorial.longDescription}</p>
                 
-                <div className="tutorial-card__details">
-                  <div className="tutorial-card__detail">
-                    <span className="detail-label">Reading time:</span>
-                    <span className="detail-value">{tutorial.estimatedReadingTime}</span>
+                <div className="tutorial-card__meta-info">
+                  <div className="tutorial-card__meta-item">
+                    <Clock size={14} />
+                    <span>Duration: {tutorial.duration}</span>
                   </div>
-                  <div className="tutorial-card__detail">
-                    <span className="detail-label">Prerequisites:</span>
-                    <span className="detail-value">{tutorial.prerequisites}</span>
+                  <div className="tutorial-card__meta-item">
+                    <BookOpen size={14} />
+                    <span>Reading: {tutorial.estimatedReadingTime}</span>
+                  </div>
+                  <div className="tutorial-card__meta-item">
+                    <Users size={14} />
+                    <span>Prerequisites: {tutorial.prerequisites}</span>
                   </div>
                 </div>
 
