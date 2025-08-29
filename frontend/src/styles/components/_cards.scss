@@ -179,6 +179,22 @@
     }
   }
   
+  &--docker-compose {
+    .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#1E88E5, 0.1) 0%, rgba(#1E88E5, 0.05) 100%);
+      color: #1E88E5;
+    }
+    
+    &:hover .tech-card__icon {
+      background: linear-gradient(135deg, rgba(#1E88E5, 0.2) 0%, rgba(#1E88E5, 0.1) 100%);
+    }
+    
+    .tech-card__feature {
+      background: rgba(#1E88E5, 0.1);
+      border-color: rgba(#1E88E5, 0.2);
+    }
+  }
+  
   &--kubernetes {
     .tech-card__icon {
       background: linear-gradient(135deg, rgba(#326CE5, 0.1) 0%, rgba(#326CE5, 0.05) 100%);

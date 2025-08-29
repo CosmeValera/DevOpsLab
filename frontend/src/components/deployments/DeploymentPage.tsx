@@ -30,13 +30,13 @@ const deploymentMethods = [
     title: "Docker Compose",
     description: "Multi-container orchestration",
     icon: <Layers />,
-    path: "/deployments/docker",
+    path: "/deployments/docker-compose",
     commands: [
       "docker-compose up -d",
       "docker-compose down"
     ],
     features: ["Multi-service", "Declarative config", "Automatic networking"],
-    techClass: "tech-card--docker"
+    techClass: "tech-card--docker-compose"
   },
   {
     id: "kubernetes",

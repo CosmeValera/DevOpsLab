@@ -50,6 +50,7 @@ function App() {
       return [
         { id: "back", label: "Go back", path: "/deployments" },
         { id: "docker", label: "Docker", path: "/deployments/docker" },
+        { id: "docker-compose", label: "Docker Compose", path: "/deployments/docker-compose" },
         {
           id: "kubernetes",
           label: "Kubernetes",
@@ -70,7 +71,8 @@ function App() {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path.startsWith("/deployments/docker")) setActiveTab("docker");
+    if (path === "/deployments/docker") setActiveTab("docker");
+    else if (path === "/deployments/docker-compose") setActiveTab("docker-compose");
     else if (path.startsWith("/deployments/kubernetes"))
       setActiveTab("kubernetes");
     else if (path.startsWith("/deployments/kustomize"))
