@@ -48,6 +48,616 @@
   }
 }
 
+// Tutorial Layout Styles
+.tutorial-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-4;
+}
+
+// Tutorial Header
+.tutorial-header {
+  @include card-base;
+  padding: $space-8;
+  margin-bottom: $space-6;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border: $border-width solid var(--border-color);
+  
+  &__content {
+    max-width: 800px;
+  }
+  
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-6;
+    
+    @include max-md {
+      flex-direction: column;
+      gap: $space-4;
+      align-items: flex-start;
+    }
+  }
+  
+  &__back {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    transition: color $transition-normal;
+    
+    &:hover {
+      color: $primary-blue;
+    }
+  }
+  
+  &__badges {
+    display: flex;
+    gap: $space-2;
+  }
+  
+  &__title {
+    @include heading-1;
+    margin-bottom: $space-4;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  &__description {
+    @include body-text;
+    color: var(--text-secondary);
+    margin-bottom: $space-6;
+    font-size: $text-lg;
+    line-height: 1.6;
+  }
+  
+  &__info {
+    display: flex;
+    gap: $space-6;
+    
+    @include max-md {
+      flex-direction: column;
+      gap: $space-3;
+    }
+  }
+  
+  &__info-item {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    
+    .info-label {
+      font-size: $text-sm;
+      color: var(--text-muted);
+      font-weight: $font-medium;
+    }
+    
+    .info-value {
+      font-size: $text-sm;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+// Tutorial Navigation
+.tutorial-nav {
+  background: var(--bg-secondary);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-lg;
+  margin-bottom: $space-6;
+  overflow: hidden;
+  
+  &__container {
+    padding: 0 $space-4;
+  }
+  
+  &__tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  &__tab {
+    display: flex;
+    align-items: center;
+    padding: $space-4 $space-6;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: $font-medium;
+    font-size: $text-sm;
+    border-bottom: 3px solid transparent;
+    transition: all $transition-normal;
+    white-space: nowrap;
+    
+    &:hover {
+      color: var(--text-primary);
+      background: var(--bg-primary);
+    }
+    
+    &--active {
+      color: $primary-blue;
+      border-bottom-color: $primary-blue;
+      background: var(--bg-primary);
+    }
+  }
+}
+
+// Tutorial Content
+.tutorial-content {
+  margin-bottom: $space-8;
+}
+
+.tutorial-article {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Tutorial Sections
+.tutorial-section {
+  margin-bottom: $space-8;
+  
+  h2 {
+    @include heading-2;
+    margin-bottom: $space-4;
+    color: var(--text-primary);
+  }
+  
+  h3 {
+    @include heading-3;
+    margin-bottom: $space-3;
+    color: var(--text-primary);
+  }
+  
+  h4 {
+    @include heading-4;
+    margin-bottom: $space-2;
+    color: var(--text-primary);
+  }
+  
+  p {
+    @include body-text;
+    margin-bottom: $space-4;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  
+  ul, ol {
+    margin-bottom: $space-4;
+    padding-left: $space-6;
+    
+    li {
+      @include body-text;
+      color: var(--text-secondary);
+      margin-bottom: $space-2;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Info Box
+.info-box {
+  @include card-base;
+  padding: $space-4;
+  margin: $space-4 0;
+  background: rgba($primary-blue, 0.05);
+  border: $border-width solid rgba($primary-blue, 0.2);
+  border-radius: $border-radius-lg;
+  display: flex;
+  gap: $space-3;
+  align-items: flex-start;
+  
+  svg {
+    color: $primary-blue;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  h4 {
+    margin-bottom: $space-2;
+    color: $primary-blue;
+  }
+  
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// Concept Grid
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $space-4;
+  margin: $space-4 0;
+}
+
+.concept-card {
+  @include card-base;
+  padding: $space-4;
+  text-align: center;
+  border: $border-width solid var(--border-color);
+  
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.1) 100%);
+    border-radius: $border-radius-lg;
+    color: $primary-blue;
+    margin: 0 auto $space-3;
+  }
+  
+  h3 {
+    margin-bottom: $space-2;
+    color: var(--text-primary);
+  }
+  
+  p {
+    margin-bottom: 0;
+    font-size: $text-sm;
+  }
+}
+
+// Comparison Table
+.comparison-table {
+  @include card-base;
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  margin: $space-4 0;
+  
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--bg-secondary);
+    border-bottom: $border-width solid var(--border-color);
+  }
+  
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: $border-width solid var(--border-color);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  &__cell {
+    padding: $space-3 $space-4;
+    font-size: $text-sm;
+    color: var(--text-secondary);
+    
+    &:first-child {
+      font-weight: $font-medium;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+  }
+}
+
+// Code Example
+.code-example {
+  margin: $space-4 0;
+  
+  h4 {
+    margin-bottom: $space-3;
+  }
+}
+
+.code-block {
+  @include card-base;
+  background: var(--bg-secondary);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-lg;
+  padding: $space-4;
+  font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: $text-sm;
+  line-height: 1.5;
+  overflow-x: auto;
+  color: var(--text-primary);
+}
+
+// Dockerfile Instructions
+.dockerfile-instructions {
+  margin: $space-4 0;
+  
+  h4 {
+    margin-bottom: $space-3;
+  }
+}
+
+.instruction-list {
+  display: grid;
+  gap: $space-2;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-2 $space-3;
+  background: var(--bg-secondary);
+  border-radius: $border-radius-md;
+  
+  code {
+    background: var(--bg-primary);
+    padding: $space-1 $space-2;
+    border-radius: $border-radius-sm;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: $text-sm;
+    color: $primary-blue;
+    font-weight: $font-medium;
+    min-width: 80px;
+    text-align: center;
+  }
+  
+  span {
+    font-size: $text-sm;
+    color: var(--text-secondary);
+  }
+}
+
+// Workflow Steps
+.workflow-steps {
+  display: grid;
+  gap: $space-4;
+  margin: $space-4 0;
+}
+
+.workflow-step {
+  display: flex;
+  gap: $space-4;
+  align-items: flex-start;
+  
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    color: white;
+    border-radius: 50%;
+    font-weight: $font-bold;
+    font-size: $text-sm;
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+    
+    h4 {
+      margin-bottom: $space-2;
+    }
+    
+    p {
+      margin-bottom: $space-2;
+    }
+  }
+}
+
+.command-example {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-3;
+  background: var(--bg-secondary);
+  border-radius: $border-radius-md;
+  border: $border-width solid var(--border-color);
+  
+  svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  
+  code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: $text-sm;
+    color: var(--text-primary);
+  }
+}
+
+// Commands Grid
+.commands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $space-4;
+  margin: $space-4 0;
+}
+
+.command-card {
+  @include card-base;
+  padding: $space-4;
+  border: $border-width solid var(--border-color);
+  
+  h4 {
+    margin-bottom: $space-3;
+    color: var(--text-primary);
+  }
+}
+
+.command-list {
+  display: grid;
+  gap: $space-2;
+}
+
+.command-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-2 0;
+  border-bottom: 1px solid var(--border-color);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: $text-sm;
+    color: $primary-blue;
+    background: var(--bg-secondary);
+    padding: $space-1 $space-2;
+    border-radius: $border-radius-sm;
+  }
+  
+  span {
+    font-size: $text-sm;
+    color: var(--text-secondary);
+    text-align: right;
+    max-width: 150px;
+  }
+}
+
+// Best Practices
+.best-practices {
+  display: grid;
+  gap: $space-3;
+  margin: $space-4 0;
+}
+
+.practice-item {
+  display: flex;
+  gap: $space-3;
+  align-items: flex-start;
+  padding: $space-3;
+  border-radius: $border-radius-lg;
+  
+  &--good {
+    background: rgba($success, 0.05);
+    border: $border-width solid rgba($success, 0.2);
+    
+    svg {
+      color: $success;
+    }
+  }
+  
+  &--warning {
+    background: rgba($warning, 0.05);
+    border: $border-width solid rgba($warning, 0.2);
+    
+    svg {
+      color: $warning;
+    }
+  }
+  
+  h4 {
+    margin-bottom: $space-1;
+  }
+  
+  p {
+    margin-bottom: 0;
+    font-size: $text-sm;
+  }
+}
+
+// Next Steps
+.next-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $space-4;
+  margin: $space-4 0;
+}
+
+.next-step {
+  @include card-base;
+  padding: $space-4;
+  text-align: center;
+  border: $border-width solid var(--border-color);
+  
+  h4 {
+    margin-bottom: $space-2;
+    color: $primary-blue;
+  }
+  
+  p {
+    margin-bottom: 0;
+    font-size: $text-sm;
+  }
+}
+
+// Tutorial Footer
+.tutorial-footer {
+  margin-top: $space-8;
+  padding-top: $space-6;
+  border-top: $border-width solid var(--border-color);
+}
+
+.tutorial-footer__navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-4;
+  
+  @include max-md {
+    flex-direction: column;
+  }
+}
+
+.tutorial-footer__nav-link {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4;
+  background: var(--bg-secondary);
+  border: $border-width solid var(--border-color);
+  border-radius: $border-radius-lg;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: all $transition-normal;
+  flex: 1;
+  
+  &:hover {
+    background: var(--bg-primary);
+    border-color: $primary-blue;
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($primary-blue, 0.1);
+  }
+  
+  &--prev {
+    text-align: left;
+  }
+  
+  &--next {
+    text-align: right;
+    flex-direction: row-reverse;
+  }
+  
+  svg {
+    color: $primary-blue;
+    flex-shrink: 0;
+  }
+  
+  .nav-label {
+    display: block;
+    font-size: $text-xs;
+    color: var(--text-muted);
+    font-weight: $font-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .nav-title {
+    display: block;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: inherit;
+  }
+}
+
 // Deployment page styles
 .deployment {
   &__grid {

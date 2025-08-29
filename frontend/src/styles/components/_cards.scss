@@ -268,6 +268,24 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
   
   &__header {
     margin-bottom: $space-4;
@@ -277,14 +295,71 @@
     gap: $space-3;
   }
   
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.1) 100%);
+    border-radius: $border-radius-lg;
+    color: $primary-blue;
+    flex-shrink: 0;
+  }
+  
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    align-items: flex-end;
+  }
+  
   &__title {
     @include heading-4;
     margin-bottom: $space-2;
+    color: var(--text-primary);
   }
   
   &__description {
     @include small-text;
-    opacity: 0.8;
+    color: $primary-blue;
+    font-weight: $font-medium;
+    margin-bottom: $space-3;
+  }
+  
+  &__long-description {
+    @include small-text;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: $space-4;
+  }
+  
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    margin-bottom: $space-4;
+    padding: $space-3;
+    background: var(--bg-secondary);
+    border-radius: $border-radius-md;
+    border: $border-width solid var(--border-color);
+  }
+  
+  &__detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $text-sm;
+    
+    .detail-label {
+      color: var(--text-muted);
+      font-weight: $font-medium;
+    }
+    
+    .detail-value {
+      color: var(--text-secondary);
+      font-weight: $font-normal;
+    }
   }
   
   &__duration {
@@ -293,18 +368,20 @@
     gap: $space-1;
     font-size: $text-xs;
     color: var(--text-muted);
-    margin-top: $space-1;
   }
   
   &__content {
     flex: 1;
     margin-bottom: $space-4;
-    
+  }
+  
+  &__topics {
     h4 {
       @include heading-4;
-      color: $primary-blue;
+      color: var(--text-primary);
       margin-bottom: $space-3;
       font-size: $text-sm;
+      font-weight: $font-semibold;
     }
     
     ul {
@@ -314,15 +391,17 @@
       
       li {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: $space-2;
-        padding: $space-1 0;
+        padding: $space-2 0;
         color: var(--text-secondary);
         font-size: $text-sm;
+        line-height: 1.5;
         
         svg {
           color: $success;
           flex-shrink: 0;
+          margin-top: 2px;
         }
       }
     }
@@ -332,6 +411,19 @@
     margin-top: auto;
     padding-top: $space-4;
     border-top: $border-width solid var(--border-color);
+    
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $space-2;
+      transition: all $transition-normal;
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+      }
+    }
   }
   
   &__badge {

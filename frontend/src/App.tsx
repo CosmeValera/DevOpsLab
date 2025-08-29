@@ -61,9 +61,9 @@ function App() {
       ];
     }
 
-    // Individual tutorial pages navigation
+    // Individual tutorial pages navigation - removed to avoid duplication with tutorial layout navigation
     if (path.startsWith("/tutorials/")) {
-      return [{ id: "back", label: "Go back", path: "/tutorials" }];
+      return [] as { id: string; label: string; path: string }[];
     }
 
     return [];
@@ -71,13 +71,16 @@ function App() {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path === "/deployments/docker") setActiveTab("docker");
-    else if (path === "/deployments/docker-compose") setActiveTab("docker-compose");
+    if (path === "/deployments/docker")
+      setActiveTab("docker");
+    else if (path === "/deployments/docker-compose")
+      setActiveTab("docker-compose");
     else if (path.startsWith("/deployments/kubernetes"))
       setActiveTab("kubernetes");
     else if (path.startsWith("/deployments/kustomize"))
       setActiveTab("kustomize");
-    else if (path.startsWith("/deployments/helm")) setActiveTab("helm");
+    else if (path.startsWith("/deployments/helm"))
+      setActiveTab("helm");
     else setActiveTab("back");
   }, [location.pathname]);
 
