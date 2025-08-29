@@ -135,6 +135,20 @@
     border-radius: $border-radius-lg;
     font-weight: $font-medium;
     box-shadow: $shadow-sm;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba($primary-blue, 0.05) 0%, rgba($primary-indigo, 0.05) 100%);
+      opacity: 0;
+      transition: opacity $transition-normal;
+    }
     
     &:first-child {
       background: var(--hover-bg);
@@ -142,6 +156,7 @@
       
       &:hover {
         background: rgba($neutral-300, 0.2);
+        transform: translateY(-1px);
       }
     }
     
@@ -153,12 +168,24 @@
       &:hover {
         background: rgba($primary-blue, 0.15);
         color: $primary-blue;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.2);
+        
+        &::before {
+          opacity: 1;
+        }
       }
       
       &.nav-tab--active {
         background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
         color: white;
-        box-shadow: $shadow-md;
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.4);
+        transform: translateY(-1px);
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba($primary-blue, 0.5);
+        }
       }
     }
   }

@@ -97,6 +97,48 @@ const KubernetesDeployment: React.FC = () => {
         <div className="deployment__commands">
           <CommandSteps steps={commandSteps} />
         </div>
+        
+        {/* Verification Section */}
+        <div className="deployment__section">
+          <h2 className="deployment__section-title">Verify Deployment</h2>
+          <p className="deployment__section-description">
+            After deploying to Kubernetes, verify your application is running correctly.
+          </p>
+          
+          <div className="verification-steps">
+            <div className="verification-step">
+              <div className="verification-step__icon">🌐</div>
+              <div className="verification-step__content">
+                <h4>Frontend Application</h4>
+                <p>Access the application through port-forward: <code>http://localhost:3000</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🔌</div>
+              <div className="verification-step__content">
+                <h4>Backend API</h4>
+                <p>Test the API through port-forward: <code>http://localhost:3001</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">📊</div>
+              <div className="verification-step__content">
+                <h4>Cluster Status</h4>
+                <p>Check all resources: <code>kubectl get all -n devopslab</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🔍</div>
+              <div className="verification-step__content">
+                <h4>Pod Logs</h4>
+                <p>Monitor logs: <code>kubectl logs -f deployment/frontend-deployment -n devopslab</code></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Architecture Overview */}

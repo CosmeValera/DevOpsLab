@@ -284,8 +284,8 @@
   }
   
   &__number {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
     color: white;
     border-radius: 50%;
@@ -293,9 +293,20 @@
     align-items: center;
     justify-content: center;
     font-weight: $font-bold;
-    font-size: $text-sm;
+    font-size: $text-base;
     flex-shrink: 0;
-    box-shadow: 0 2px 4px rgba($primary-blue, 0.3);
+    box-shadow: 0 4px 8px rgba($primary-blue, 0.4);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+      border-radius: 50%;
+      opacity: 0.3;
+      z-index: -1;
+    }
   }
   
   &__info {
@@ -306,13 +317,18 @@
     @include heading-4;
     margin: 0 0 $space-2 0;
     color: var(--text-primary);
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   &__description {
-    @include small-text;
+    @include body-text;
     margin: 0;
     color: var(--text-secondary);
     line-height: $leading-relaxed;
+    font-size: $text-sm;
   }
   
   &__commands {
@@ -322,6 +338,62 @@
     
     .command-with-info {
       margin: 0;
+    }
+  }
+}
+
+// Verification steps styling
+.verification-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $space-6;
+  margin-top: $space-6;
+}
+
+.verification-step {
+  background: rgba($neutral-800, 0.3);
+  border: $border-width solid rgba($primary-blue, 0.1);
+  border-radius: $border-radius-lg;
+  padding: $space-5;
+  transition: all $transition-normal;
+  
+  [data-theme="dark"] & {
+    background: rgba($neutral-700, 0.2);
+  }
+  
+  &:hover {
+    border-color: rgba($primary-blue, 0.2);
+    box-shadow: 0 4px 12px rgba($primary-blue, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  &__icon {
+    font-size: 2rem;
+    margin-bottom: $space-3;
+    display: block;
+  }
+  
+  &__content {
+    h4 {
+      @include heading-5;
+      margin: 0 0 $space-2 0;
+      color: var(--text-primary);
+    }
+    
+    p {
+      @include body-text;
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: $leading-relaxed;
+      
+      code {
+        @include inline-code;
+        background: rgba($primary-blue, 0.1);
+        color: $primary-blue;
+        padding: $space-1 $space-2;
+        border-radius: $border-radius-sm;
+        font-size: $text-xs;
+      }
     }
   }
 }

@@ -115,6 +115,48 @@ const HelmDeployment: React.FC = () => {
         <div className="deployment__commands">
           <CommandSteps steps={commandSteps} />
         </div>
+        
+        {/* Verification Section */}
+        <div className="deployment__section">
+          <h2 className="deployment__section-title">Verify Deployment</h2>
+          <p className="deployment__section-description">
+            After deploying with Helm, verify your application and monitor the release status.
+          </p>
+          
+          <div className="verification-steps">
+            <div className="verification-step">
+              <div className="verification-step__icon">🌐</div>
+              <div className="verification-step__content">
+                <h4>Frontend Application</h4>
+                <p>Access the application through port-forward: <code>http://localhost:3000</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🔌</div>
+              <div className="verification-step__content">
+                <h4>Backend API</h4>
+                <p>Test the API through port-forward: <code>http://localhost:3001</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">📦</div>
+              <div className="verification-step__content">
+                <h4>Helm Release Status</h4>
+                <p>Check release: <code>helm status devopslab</code> and <code>helm list</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">📊</div>
+              <div className="verification-step__content">
+                <h4>Kubernetes Resources</h4>
+                <p>Monitor resources: <code>kubectl get all -n devopslab</code></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Helm Chart Structure */}

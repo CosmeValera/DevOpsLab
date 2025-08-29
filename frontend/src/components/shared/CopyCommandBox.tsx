@@ -25,10 +25,10 @@ const CopyCommandBox: React.FC<CopyCommandBoxProps> = ({ command }) => {
       tabIndex={0}
       onClick={handleClick}
       title="Click to copy">
-      <p className="copy-command-box__content">
-        <span className="copy-command-box__prefix copy-command-box__prefix--dollar"></span>
-        {command}
-      </p>
+      <div className="command-content">
+        <span className="command-prompt">$</span>
+        <span className="command-text">{command}</span>
+      </div>
       <button
         className={`copy-btn ${copied ? "copy-btn--copied" : ""}`}
         onClick={(e) => {

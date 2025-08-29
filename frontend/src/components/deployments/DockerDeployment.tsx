@@ -65,6 +65,40 @@ const DockerDeployment: React.FC = () => {
         <div className="deployment__commands">
           <CommandSteps steps={commandSteps} />
         </div>
+        
+        {/* Verification Section */}
+        <div className="deployment__section">
+          <h2 className="deployment__section-title">Verify Deployment</h2>
+          <p className="deployment__section-description">
+            After running the containers, verify your deployment is working correctly.
+          </p>
+          
+          <div className="verification-steps">
+            <div className="verification-step">
+              <div className="verification-step__icon">🌐</div>
+              <div className="verification-step__content">
+                <h4>Frontend Application</h4>
+                <p>Visit <code>http://localhost:3000</code> in your browser to access the React application.</p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🔌</div>
+              <div className="verification-step__content">
+                <h4>Backend API</h4>
+                <p>Test the API at <code>http://localhost:3001</code> or use <code>curl http://localhost:3001/health</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">📊</div>
+              <div className="verification-step__content">
+                <h4>Container Status</h4>
+                <p>Check running containers with <code>docker ps</code> to ensure both containers are healthy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Key Benefits */}

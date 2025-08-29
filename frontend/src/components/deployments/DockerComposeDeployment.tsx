@@ -65,31 +65,46 @@ const DockerComposeDeployment: React.FC = () => {
         <div className="deployment__commands">
           <CommandSteps steps={commandSteps} />
         </div>
-      </div>
-
-      {/* Configuration Overview */}
-      <div className="deployment__section">
-        <h2 className="deployment__section-title">Docker Compose Configuration</h2>
-        <p className="deployment__section-description">
-          The docker-compose.yml file defines all services and their dependencies:
-        </p>
         
-        <div className="configuration-overview">
-          <div className="config-service">
-            <h4>Frontend Service</h4>
-            <p>React application served on port 3000</p>
-          </div>
-          <div className="config-service">
-            <h4>Backend Service</h4>
-            <p>Node.js API server running on port 3001</p>
-          </div>
-          <div className="config-service">
-            <h4>Database Service</h4>
-            <p>PostgreSQL database with persistent storage</p>
-          </div>
-          <div className="config-service">
-            <h4>Jenkins Service</h4>
-            <p>CI/CD automation server on port 8080</p>
+        {/* Verification Section */}
+        <div className="deployment__section">
+          <h2 className="deployment__section-title">Verify Deployment</h2>
+          <p className="deployment__section-description">
+            After starting the services, verify your complete application stack is running.
+          </p>
+          
+          <div className="verification-steps">
+            <div className="verification-step">
+              <div className="verification-step__icon">🌐</div>
+              <div className="verification-step__content">
+                <h4>Frontend Application</h4>
+                <p>Visit <code>http://localhost:3000</code> to access the React application.</p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🔌</div>
+              <div className="verification-step__content">
+                <h4>Backend API</h4>
+                <p>Test the API at <code>http://localhost:3001</code> or use <code>curl http://localhost:3001/health</code></p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">🗄️</div>
+              <div className="verification-step__content">
+                <h4>Database</h4>
+                <p>Connect to PostgreSQL at <code>localhost:5432</code> with credentials from docker-compose.yml</p>
+              </div>
+            </div>
+            
+            <div className="verification-step">
+              <div className="verification-step__icon">⚙️</div>
+              <div className="verification-step__content">
+                <h4>Jenkins CI/CD</h4>
+                <p>Access Jenkins at <code>http://localhost:8080</code> for CI/CD pipeline management.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

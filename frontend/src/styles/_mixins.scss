@@ -220,6 +220,15 @@
   margin: 0 0 $space-3 0;
 }
 
+@mixin heading-5 {
+  font-family: $font-family-primary;
+  font-size: $text-base;
+  font-weight: $font-semibold;
+  line-height: $leading-snug;
+  color: var(--text-primary);
+  margin: 0 0 $space-2 0;
+}
+
 @mixin body-text {
   font-family: $font-family-primary;
   font-size: $text-base;

@@ -85,7 +85,10 @@
     }
   }
   
-  p {
+  .command-content {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
     margin: 0;
     padding: $space-4 $space-5;
     word-break: break-word;
@@ -96,7 +99,21 @@
     z-index: 1;
   }
   
+  .command-prompt {
+    color: $primary-blue;
+    font-weight: $font-bold;
+    flex-shrink: 0;
+  }
+  
+  .command-text {
+    color: var(--text-primary);
+    flex: 1;
+  }
+  
   &__content {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
     margin: 0;
     word-break: break-word;
     white-space: pre-wrap;
@@ -129,28 +146,34 @@
     top: $space-2;
     right: $space-2;
     opacity: 0;
-    transition: opacity $transition-normal;
-    background: var(--card-bg);
-    border: $border-width solid var(--border-color);
+    transition: all $transition-normal;
+    background: rgba($primary-blue, 0.1);
+    border: $border-width solid rgba($primary-blue, 0.2);
     border-radius: $border-radius-sm;
-    padding: $space-1 $space-2;
+    padding: $space-2;
     font-size: $text-xs;
-    color: var(--text-secondary);
+    color: $primary-blue;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     &:hover {
-      color: var(--text-primary);
-      background: var(--hover-bg);
+      color: white;
+      background: $primary-blue;
+      transform: scale(1.05);
     }
     
     &--copied {
       color: $success;
+      background: rgba($success, 0.1);
+      border-color: rgba($success, 0.3);
       opacity: 1;
     }
     
     svg {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
     }
   }
 }
