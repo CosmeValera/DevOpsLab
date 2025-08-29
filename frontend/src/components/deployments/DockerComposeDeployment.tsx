@@ -1,32 +1,44 @@
 import React from "react";
 import { Layers } from "lucide-react";
-import CommandTooltip from "../shared/CommandTooltip";
+import CommandSteps from "../shared/CommandSteps";
 
 const DockerComposeDeployment: React.FC = () => {
-  const dockerComposeCommands = [
+  const commandSteps = [
     {
-      command: "git clone https://github.com/cosmevalera/devopslab",
-      explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+      title: "Setup Repository",
+      description: "Clone the repository and navigate to the project directory",
+      commands: [
+        {
+          command: "git clone https://github.com/cosmevalera/devopslab",
+          explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+        },
+        {
+          command: "cd devopslab",
+          explanation: "Navigate into the cloned repository directory"
+        }
+      ]
     },
     {
-      command: "cd devopslab",
-      explanation: "Navigate into the cloned repository directory"
-    },
-    {
-      command: "docker-compose up -d",
-      explanation: "Start all services defined in docker-compose.yml in detached mode (background)"
-    },
-    {
-      command: "docker-compose ps",
-      explanation: "Check the status of all running containers managed by Docker Compose"
-    },
-    {
-      command: "docker-compose logs -f",
-      explanation: "Follow the logs of all services in real-time to monitor application behavior"
-    },
-    {
-      command: "docker-compose down",
-      explanation: "Stop and remove all containers, networks, and volumes created by docker-compose up"
+      title: "Docker Compose Operations",
+      description: "Manage the complete application stack with Docker Compose commands",
+      commands: [
+        {
+          command: "docker-compose up -d",
+          explanation: "Start all services defined in docker-compose.yml in detached mode (background)"
+        },
+        {
+          command: "docker-compose ps",
+          explanation: "Check the status of all running containers managed by Docker Compose"
+        },
+        {
+          command: "docker-compose logs -f",
+          explanation: "Follow the logs of all services in real-time to monitor application behavior"
+        },
+        {
+          command: "docker-compose down",
+          explanation: "Stop and remove all containers, networks, and volumes created by docker-compose up"
+        }
+      ]
     }
   ];
 
@@ -51,13 +63,7 @@ const DockerComposeDeployment: React.FC = () => {
         </p>
         
         <div className="deployment__commands">
-          {dockerComposeCommands.map((item, index) => (
-            <CommandTooltip 
-              key={index}
-              command={item.command}
-              explanation={item.explanation}
-            />
-          ))}
+          <CommandSteps steps={commandSteps} />
         </div>
       </div>
 

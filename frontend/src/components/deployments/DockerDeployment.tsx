@@ -1,32 +1,44 @@
 import React from "react";
 import { Box } from "lucide-react";
-import CommandTooltip from "../shared/CommandTooltip";
+import CommandSteps from "../shared/CommandSteps";
 
 const DockerDeployment: React.FC = () => {
-  const dockerCommands = [
+  const commandSteps = [
     {
-      command: "git clone https://github.com/cosmevalera/devopslab",
-      explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+      title: "Setup Repository",
+      description: "Clone the repository and navigate to the project directory",
+      commands: [
+        {
+          command: "git clone https://github.com/cosmevalera/devopslab",
+          explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+        },
+        {
+          command: "cd devopslab",
+          explanation: "Navigate into the cloned repository directory"
+        }
+      ]
     },
     {
-      command: "cd devopslab",
-      explanation: "Navigate into the cloned repository directory"
-    },
-    {
-      command: "docker build -t devopslab-frontend ./frontend",
-      explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
-    },
-    {
-      command: "docker build -t devopslab-backend ./backend", 
-      explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
-    },
-    {
-      command: "docker run -d --name frontend -p 3000:3000 devopslab-frontend",
-      explanation: "Run the frontend container in detached mode, mapping port 3000 to access the application"
-    },
-    {
-      command: "docker run -d --name backend -p 3001:3001 devopslab-backend",
-      explanation: "Run the backend container in detached mode, mapping port 3001 for API access"
+      title: "Build & Run Containers",
+      description: "Build Docker images and run containers for the application services",
+      commands: [
+        {
+          command: "docker build -t devopslab-frontend ./frontend",
+          explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
+        },
+        {
+          command: "docker build -t devopslab-backend ./backend", 
+          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
+        },
+        {
+          command: "docker run -d --name frontend -p 3000:3000 devopslab-frontend",
+          explanation: "Run the frontend container in detached mode, mapping port 3000 to access the application"
+        },
+        {
+          command: "docker run -d --name backend -p 3001:3001 devopslab-backend",
+          explanation: "Run the backend container in detached mode, mapping port 3001 for API access"
+        }
+      ]
     }
   ];
 
@@ -51,13 +63,7 @@ const DockerDeployment: React.FC = () => {
         </p>
         
         <div className="deployment__commands">
-          {dockerCommands.map((item, index) => (
-            <CommandTooltip 
-              key={index}
-              command={item.command}
-              explanation={item.explanation}
-            />
-          ))}
+          <CommandSteps steps={commandSteps} />
         </div>
       </div>
 

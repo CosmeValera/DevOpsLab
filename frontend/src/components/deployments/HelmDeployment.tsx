@@ -1,40 +1,94 @@
 import React from "react";
 import { Package } from "lucide-react";
-import CommandTooltip from "../shared/CommandTooltip";
+import CommandSteps from "../shared/CommandSteps";
 
 const HelmDeployment: React.FC = () => {
-  const helmCommands = [
+  const commandSteps = [
     {
-      command: "kubectl apply -f deployments/k8s/namespace.yaml",
-      explanation: "Create the devopslab namespace for the Helm deployment"
+      title: "Setup Repository",
+      description: "Clone the repository and navigate to the project directory",
+      commands: [
+        {
+          command: "git clone https://github.com/cosmevalera/devopslab",
+          explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+        },
+        {
+          command: "cd devopslab",
+          explanation: "Navigate into the cloned repository directory"
+        }
+      ]
     },
     {
-      command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
-      explanation: "Create a ConfigMap with the database initialization script"
+      title: "Namespace & ConfigMap",
+      description: "Set up the Kubernetes namespace and configure the database initialization",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/namespace.yaml",
+          explanation: "Create the devopslab namespace for the Helm deployment"
+        },
+        {
+          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
+          explanation: "Create a ConfigMap with the database initialization script"
+        }
+      ]
     },
     {
-      command: "helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml",
-      explanation: "Install the DevOpsLab Helm chart with development values"
+      title: "Minikube Setup",
+      description: "Start Minikube and load the required Docker images into the cluster",
+      commands: [
+        {
+          command: "minikube start",
+          explanation: "Start Minikube cluster for local Kubernetes development environment"
+        },
+        {
+          command: "minikube image load devopslab-frontend",
+          explanation: "Load the frontend Docker image into Minikube's Docker daemon"
+        },
+        {
+          command: "minikube image load devopslab-backend",
+          explanation: "Load the backend Docker image into Minikube's Docker daemon"
+        }
+      ]
     },
     {
-      command: "helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml",
-      explanation: "Install the DevOpsLab Helm chart with production values"
+      title: "Helm Operations",
+      description: "Deploy and manage the application using Helm charts",
+      commands: [
+        {
+          command: "helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml",
+          explanation: "Install the DevOpsLab Helm chart with development values"
+        },
+        {
+          command: "helm upgrade devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml",
+          explanation: "Update an existing Helm release with new configuration or chart version"
+        },
+        {
+          command: "helm list",
+          explanation: "List all Helm releases and their current status"
+        },
+        {
+          command: "helm uninstall devopslab",
+          explanation: "Remove the DevOpsLab Helm release and all associated resources"
+        }
+      ]
     },
     {
-      command: "helm upgrade devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-prod.yaml",
-      explanation: "Update an existing Helm release with new configuration or chart version"
-    },
-    {
-      command: "helm uninstall devopslab",
-      explanation: "Remove the DevOpsLab Helm release and all associated resources"
-    },
-    {
-      command: "helm list",
-      explanation: "List all Helm releases and their current status"
-    },
-    {
-      command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
-      explanation: "Forward local port 3000 to access the frontend service"
+      title: "Access & Monitor",
+      description: "Access the deployed application and monitor the cluster status",
+      commands: [
+        {
+          command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
+          explanation: "Forward local port 3000 to access the frontend service"
+        },
+        {
+          command: "kubectl port-forward svc/backend-service 3001:80 -n devopslab",
+          explanation: "Forward local port 3001 to access the backend API service"
+        },
+        {
+          command: "kubectl get all -n devopslab",
+          explanation: "View all resources in the devopslab namespace including pods, services, and deployments"
+        }
+      ]
     }
   ];
 
@@ -59,13 +113,7 @@ const HelmDeployment: React.FC = () => {
         </p>
         
         <div className="deployment__commands">
-          {helmCommands.map((item, index) => (
-            <CommandTooltip 
-              key={index}
-              command={item.command}
-              explanation={item.explanation}
-            />
-          ))}
+          <CommandSteps steps={commandSteps} />
         </div>
       </div>
 

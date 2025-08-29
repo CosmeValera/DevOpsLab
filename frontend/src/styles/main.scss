@@ -252,6 +252,80 @@
   }
 }
 
+// Enhanced command steps component
+.command-steps {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+}
+
+.command-step {
+  background: rgba($neutral-800, 0.3);
+  border: $border-width solid rgba($primary-blue, 0.1);
+  border-radius: $border-radius-lg;
+  padding: $space-6;
+  position: relative;
+  transition: all $transition-normal;
+  
+  [data-theme="dark"] & {
+    background: rgba($neutral-700, 0.2);
+  }
+  
+  &:hover {
+    border-color: rgba($primary-blue, 0.2);
+    box-shadow: 0 4px 12px rgba($primary-blue, 0.05);
+  }
+  
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    margin-bottom: $space-6;
+  }
+  
+  &__number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font-bold;
+    font-size: $text-sm;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba($primary-blue, 0.3);
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__title {
+    @include heading-4;
+    margin: 0 0 $space-2 0;
+    color: var(--text-primary);
+  }
+  
+  &__description {
+    @include small-text;
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+  }
+  
+  &__commands {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    
+    .command-with-info {
+      margin: 0;
+    }
+  }
+}
+
 .deployment__benefits {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

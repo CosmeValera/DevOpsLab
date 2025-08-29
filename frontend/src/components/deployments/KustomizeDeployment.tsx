@@ -1,36 +1,80 @@
 import React from "react";
 import { Settings } from "lucide-react";
-import CommandTooltip from "../shared/CommandTooltip";
+import CommandSteps from "../shared/CommandSteps";
 
 const KustomizeDeployment: React.FC = () => {
-  const kustomizeCommands = [
+  const commandSteps = [
     {
-      command: "kubectl apply -f deployments/k8s/namespace.yaml",
-      explanation: "Create the devopslab namespace for organizing application resources"
+      title: "Setup Repository",
+      description: "Clone the repository and navigate to the project directory",
+      commands: [
+        {
+          command: "git clone https://github.com/cosmevalera/devopslab",
+          explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+        },
+        {
+          command: "cd devopslab",
+          explanation: "Navigate into the cloned repository directory"
+        }
+      ]
     },
     {
-      command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
-      explanation: "Create a ConfigMap with the database initialization script"
+      title: "Namespace & ConfigMap",
+      description: "Set up the Kubernetes namespace and configure the database initialization",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/namespace.yaml",
+          explanation: "Create the devopslab namespace for organizing application resources"
+        },
+        {
+          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
+          explanation: "Create a ConfigMap with the database initialization script"
+        }
+      ]
     },
     {
-      command: "kubectl apply -k deployments/kustomize/overlays/dev",
-      explanation: "Deploy the application using Kustomize with development environment configuration"
+      title: "Minikube Setup",
+      description: "Start Minikube and load the required Docker images into the cluster",
+      commands: [
+        {
+          command: "minikube start",
+          explanation: "Start Minikube cluster for local Kubernetes development environment"
+        },
+        {
+          command: "minikube image load devopslab-frontend",
+          explanation: "Load the frontend Docker image into Minikube's Docker daemon"
+        },
+        {
+          command: "minikube image load devopslab-backend",
+          explanation: "Load the backend Docker image into Minikube's Docker daemon"
+        }
+      ]
     },
     {
-      command: "kubectl apply -k deployments/kustomize/overlays/prod",
-      explanation: "Deploy the application using Kustomize with production environment configuration"
-    },
-    {
-      command: "kubectl kustomize deployments/kustomize/overlays/dev",
-      explanation: "Preview the generated Kubernetes manifests for development without applying them"
-    },
-    {
-      command: "kubectl delete -k deployments/kustomize/overlays/dev",
-      explanation: "Remove all resources deployed with the development Kustomize configuration"
-    },
-    {
-      command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
-      explanation: "Forward local port 3000 to access the frontend service"
+      title: "Deploy with Kustomize",
+      description: "Use Kustomize to deploy environment-specific configurations",
+      commands: [
+        {
+          command: "kubectl apply -k deployments/kustomize/overlays/dev",
+          explanation: "Deploy the application using Kustomize with development environment configuration"
+        },
+        {
+          command: "kubectl kustomize deployments/kustomize/overlays/dev",
+          explanation: "Preview the generated Kubernetes manifests for development without applying them"
+        },
+        {
+          command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
+          explanation: "Forward local port 3000 to access the frontend service"
+        },
+        {
+          command: "kubectl port-forward svc/backend-service 3001:80 -n devopslab",
+          explanation: "Forward local port 3001 to access the backend API service"
+        },
+        {
+          command: "kubectl get all -n devopslab",
+          explanation: "View all resources in the devopslab namespace including pods, services, and deployments"
+        }
+      ]
     }
   ];
 
@@ -55,13 +99,7 @@ const KustomizeDeployment: React.FC = () => {
         </p>
         
         <div className="deployment__commands">
-          {kustomizeCommands.map((item, index) => (
-            <CommandTooltip 
-              key={index}
-              command={item.command}
-              explanation={item.explanation}
-            />
-          ))}
+          <CommandSteps steps={commandSteps} />
         </div>
       </div>
 

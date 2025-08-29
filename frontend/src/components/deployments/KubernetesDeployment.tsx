@@ -1,40 +1,76 @@
 import React from "react";
 import { Server } from "lucide-react";
-import CommandTooltip from "../shared/CommandTooltip";
+import CommandSteps from "../shared/CommandSteps";
 
 const KubernetesDeployment: React.FC = () => {
-  const kubernetesCommands = [
+  const commandSteps = [
     {
-      command: "kubectl apply -f deployments/k8s/namespace.yaml",
-      explanation: "Create the devopslab namespace to organize and isolate application resources"
+      title: "Setup Repository",
+      description: "Clone the repository and navigate to the project directory",
+      commands: [
+        {
+          command: "git clone https://github.com/cosmevalera/devopslab",
+          explanation: "Clone the DevOpsLab repository from GitHub to your local machine"
+        },
+        {
+          command: "cd devopslab",
+          explanation: "Navigate into the cloned repository directory"
+        }
+      ]
     },
     {
-      command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
-      explanation: "Create a ConfigMap containing the database initialization script"
+      title: "Namespace & ConfigMap",
+      description: "Set up the Kubernetes namespace and configure the database initialization",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/namespace.yaml",
+          explanation: "Create the devopslab namespace to organize and isolate application resources"
+        },
+        {
+          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
+          explanation: "Create a ConfigMap containing the database initialization script"
+        }
+      ]
     },
     {
-      command: "minikube start",
-      explanation: "Start Minikube cluster for local Kubernetes development environment"
+      title: "Minikube Setup",
+      description: "Start Minikube and load the required Docker images into the cluster",
+      commands: [
+        {
+          command: "minikube start",
+          explanation: "Start Minikube cluster for local Kubernetes development environment"
+        },
+        {
+          command: "minikube image load devopslab-frontend",
+          explanation: "Load the frontend Docker image into Minikube's Docker daemon"
+        },
+        {
+          command: "minikube image load devopslab-backend",
+          explanation: "Load the backend Docker image into Minikube's Docker daemon"
+        }
+      ]
     },
     {
-      command: "minikube image load devopslab-frontend",
-      explanation: "Load the frontend Docker image into Minikube's Docker daemon"
-    },
-    {
-      command: "minikube image load devopslab-backend",
-      explanation: "Load the backend Docker image into Minikube's Docker daemon"
-    },
-    {
-      command: "kubectl apply -f deployments/k8s/",
-      explanation: "Deploy all Kubernetes manifests (deployments, services, configmaps) to the cluster"
-    },
-    {
-      command: "kubectl get pods -n devopslab",
-      explanation: "Check the status of all pods in the devopslab namespace"
-    },
-    {
-      command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
-      explanation: "Forward local port 3000 to the frontend service to access the application"
+      title: "Deploy to Kubernetes",
+      description: "Deploy the application manifests and access the services",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/",
+          explanation: "Deploy all Kubernetes manifests (deployments, services, configmaps) to the cluster"
+        },
+        {
+          command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
+          explanation: "Forward local port 3000 to the frontend service to access the application"
+        },
+        {
+          command: "kubectl port-forward svc/backend-service 3001:80 -n devopslab",
+          explanation: "Forward local port 3001 to access the backend API service"
+        },
+        {
+          command: "kubectl get all -n devopslab",
+          explanation: "View all resources in the devopslab namespace including pods, services, and deployments"
+        }
+      ]
     }
   ];
 
@@ -59,13 +95,7 @@ const KubernetesDeployment: React.FC = () => {
         </p>
         
         <div className="deployment__commands">
-          {kubernetesCommands.map((item, index) => (
-            <CommandTooltip 
-              key={index}
-              command={item.command}
-              explanation={item.explanation}
-            />
-          ))}
+          <CommandSteps steps={commandSteps} />
         </div>
       </div>
 
