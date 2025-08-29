@@ -1,52 +1,72 @@
-import React from 'react'
-import CopyCommandBox from '../shared/CopyCommandBox'
+import React from "react";
+import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsPage: React.FC = () => {
   return (
     <div>
-                   <div className="jenkins-header">
+      <div className="jenkins-header">
         <h2 className="jenkins-title">Jenkins CI/CD</h2>
-        <p className="jenkins-subtitle">
-          Automated deployments and pipelines
-        </p>
+        <p className="jenkins-subtitle">Automated deployments and pipelines</p>
       </div>
 
       {/* Jenkins Setup */}
       <div className="card jenkins-setup">
-        <h3 className="setup-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v6m0 6v6"/>
-            <path d="m21 12-6-3.5v7z"/>
-            <path d="m3 12 6-3.5v7z"/>
-            <path d="m21 7.5-6 3.5v0"/>
-            <path d="m3 16.5 6-3.5v0"/>
-            <path d="m21 16.5-6-3.5v0"/>
-            <path d="m3 7.5 6 3.5v0"/>
+        <h3
+          className="setup-title"
+          style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className="w-5 h-5">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 1v6m0 6v6" />
+            <path d="m21 12-6-3.5v7z" />
+            <path d="m3 12 6-3.5v7z" />
+            <path d="m21 7.5-6 3.5v0" />
+            <path d="m3 16.5 6-3.5v0" />
+            <path d="m21 16.5-6-3.5v0" />
+            <path d="m3 7.5 6 3.5v0" />
           </svg>
           Jenkins Configuration
         </h3>
-                 <p className="common-p-small">
-           Jenkins runs automatically with docker-compose
-         </p>
+        <p className="common-p-small">
+          Jenkins runs automatically with docker-compose
+        </p>
         <CopyCommandBox command="docker-compose up -d" />
-                 <p className="common-p-small-mt8">
-           Access Jenkins at: http://localhost:8080
-         </p>
-        
-                 {/* Jenkins Password Command */}
-         <div className="warning-box">
-           <h4 className="warning-title">
-             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4">
-               <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-               <path d="M12 9v4"/>
-               <path d="m12 17.02.01 0"/>
-             </svg>
-             Get Jenkins Initial Password
-           </h4>
-           <p className="common-p-small-mb8">
-             After starting Jenkins, get the initial admin password:
-           </p>
+        <p className="common-p-small-mt8">
+          Access Jenkins at: http://localhost:8080
+        </p>
+
+        {/* Jenkins Password Command */}
+        <div className="warning-box">
+          <h4 className="warning-title">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="w-4 h-4">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+              <path d="M12 9v4" />
+              <path d="m12 17.02.01 0" />
+            </svg>
+            Get Jenkins Initial Password
+          </h4>
+          <p className="common-p-small-mb8">
+            After starting Jenkins, get the initial admin password:
+          </p>
           <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
         </div>
       </div>
@@ -57,9 +77,7 @@ const JenkinsPage: React.FC = () => {
         <div className="card">
           <div className="pipeline-header">
             <h3 className="pipeline-title">Master Pipeline</h3>
-            <span className="status-badge status-success">
-              Success
-            </span>
+            <span className="status-badge status-success">Success</span>
           </div>
           <p className="pipeline-description">
             Master pipeline that executes all deployment types
@@ -81,13 +99,9 @@ const JenkinsPage: React.FC = () => {
         <div className="card">
           <div className="pipeline-header">
             <h3 className="pipeline-title">Docker Pipeline</h3>
-            <span className="status-badge status-success">
-              Success
-            </span>
+            <span className="status-badge status-success">Success</span>
           </div>
-          <p className="pipeline-description">
-            Build and deploy with Docker
-          </p>
+          <p className="pipeline-description">Build and deploy with Docker</p>
           <div className="pipeline-stages">
             <h4 className="stages-title">Stages:</h4>
             <div className="stages-badges">
@@ -102,13 +116,9 @@ const JenkinsPage: React.FC = () => {
         <div className="card">
           <div className="pipeline-header">
             <h3 className="pipeline-title">Kubernetes Pipeline</h3>
-            <span className="status-badge status-running">
-              Running
-            </span>
+            <span className="status-badge status-running">Running</span>
           </div>
-          <p className="pipeline-description">
-            Native Kubernetes deployment
-          </p>
+          <p className="pipeline-description">Native Kubernetes deployment</p>
           <div className="pipeline-stages">
             <h4 className="stages-title">Stages:</h4>
             <div className="stages-badges">
@@ -123,13 +133,9 @@ const JenkinsPage: React.FC = () => {
         <div className="card">
           <div className="pipeline-header">
             <h3 className="pipeline-title">Helm Pipeline</h3>
-            <span className="status-badge status-pending">
-              Pending
-            </span>
+            <span className="status-badge status-pending">Pending</span>
           </div>
-          <p className="pipeline-description">
-            Deploy using Helm Charts
-          </p>
+          <p className="pipeline-description">Deploy using Helm Charts</p>
           <div className="pipeline-stages">
             <h4 className="stages-title">Stages:</h4>
             <div className="stages-badges">
@@ -143,18 +149,30 @@ const JenkinsPage: React.FC = () => {
 
       {/* Jenkinsfile */}
       <div className="card jenkinsfile-section">
-        <h3 className="jenkinsfile-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-            <polyline points="14,2 14,8 20,8"/>
+        <h3
+          className="jenkinsfile-title"
+          style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            className="w-5 h-5">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <polyline points="14,2 14,8 20,8" />
           </svg>
           Jenkinsfile
         </h3>
-                 <p className="common-p-small">
-           Pipeline as code for complete automation
-         </p>
-                 <pre className="code-block">
-{`pipeline {
+        <p className="common-p-small">
+          Pipeline as code for complete automation
+        </p>
+        <pre className="code-block">
+          {`pipeline {
     agent any
     stages {
         stage('Build') {
@@ -191,7 +209,7 @@ const JenkinsPage: React.FC = () => {
         </pre>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default JenkinsPage
+export default JenkinsPage;
