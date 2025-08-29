@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
   Star, 
   AlertTriangle, 
@@ -10,11 +10,56 @@ import {
   FileText,
   ExternalLink,
   Terminal,
-  Zap
+  Zap,
+  User
 } from "lucide-react";
 import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState("master");
+
+  const pipelineConfigs = {
+    master: {
+      name: "Master Pipeline",
+      description: "Orchestrates all deployment types in parallel",
+      stages: [
+        { name: "Checkout", command: "git checkout main" },
+        { name: "Build", command: "docker build -t devopslab ." },
+        { name: "Test", command: "npm test" },
+        { name: "Deploy Docker", command: "docker-compose up -d" },
+        { name: "Deploy K8s", command: "kubectl apply -f k8s/" },
+        { name: "Deploy Helm", command: "helm upgrade --install devopslab ./helm" }
+      ]
+    },
+    docker: {
+      name: "Docker Pipeline",
+      description: "Container-based deployment workflow",
+      stages: [
+        { name: "Build Image", command: "docker build -t devopslab-frontend ." },
+        { name: "Push Registry", command: "docker push registry/devopslab-frontend:latest" },
+        { name: "Deploy Container", command: "docker run -p 3000:3000 devopslab-frontend" }
+      ]
+    },
+    kubernetes: {
+      name: "Kubernetes Pipeline",
+      description: "Native K8s orchestration workflow",
+      stages: [
+        { name: "Apply Manifests", command: "kubectl apply -f k8s/backend/" },
+        { name: "Verify Deployment", command: "kubectl rollout status deployment/backend" },
+        { name: "Health Check", command: "kubectl get pods -l app=backend" }
+      ]
+    },
+    helm: {
+      name: "Helm Pipeline",
+      description: "Chart-based deployment workflow",
+      stages: [
+        { name: "Lint Chart", command: "helm lint ./helm/devopslab" },
+        { name: "Install/Upgrade", command: "helm upgrade --install devopslab ./helm/devopslab" },
+        { name: "Test Release", command: "helm test devopslab" }
+      ]
+    }
+  };
+
   return (
     <div className="jenkins-page">
       {/* Header Section */}
@@ -57,24 +102,34 @@ const JenkinsPage: React.FC = () => {
 
           <div className="setup-card__content">
             <div className="command-section">
-              <h4>Start Jenkins</h4>
+              <h4>1. Start Jenkins</h4>
               <CopyCommandBox command="docker-compose up -d" />
             </div>
 
             <div className="access-info">
               <div className="access-info__item">
                 <ExternalLink size={16} />
-                <span>Access Jenkins at: <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a></span>
+                <span>2. Access Jenkins at: <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a></span>
               </div>
             </div>
 
             <div className="warning-section">
               <div className="warning-header">
                 <AlertTriangle size={16} />
-                <h4>Get Initial Admin Password</h4>
+                <h4>3. Get Initial Admin Password</h4>
               </div>
-              <p>After starting Jenkins, retrieve the initial admin password:</p>
+              <p>After starting Jenkins, retrieve the initial admin password for the <strong>admin</strong> user:</p>
               <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
+            </div>
+
+            <div className="admin-info">
+              <div className="admin-info__item">
+                <User size={16} />
+                <div className="admin-info__text">
+                  <span><strong>Default Admin User:</strong> admin</span>
+                  <span>Use the password from the command above to log in as administrator</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -105,36 +160,7 @@ const JenkinsPage: React.FC = () => {
                 <span className="status-badge status-success">Success</span>
               </div>
             </div>
-
-            <div className="pipeline-card__stages">
-              <h4>Pipeline Stages</h4>
-              <div className="stages-grid">
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Checkout</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Build</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Test</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Deploy Docker</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Deploy K8s</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Deploy Helm</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           {/* Docker Pipeline */}
@@ -149,24 +175,7 @@ const JenkinsPage: React.FC = () => {
                 <span className="status-badge status-success">Success</span>
               </div>
             </div>
-
-            <div className="pipeline-card__stages">
-              <h4>Pipeline Stages</h4>
-              <div className="stages-grid">
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Build Image</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Push Registry</span>
-                </div>
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Deploy Container</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           {/* Kubernetes Pipeline */}
@@ -181,24 +190,7 @@ const JenkinsPage: React.FC = () => {
                 <span className="status-badge status-running">Running</span>
               </div>
             </div>
-
-            <div className="pipeline-card__stages">
-              <h4>Pipeline Stages</h4>
-              <div className="stages-grid">
-                <div className="stage-item stage-item--completed">
-                  <CheckCircle size={14} />
-                  <span>Apply Manifests</span>
-                </div>
-                <div className="stage-item stage-item--running">
-                  <Clock size={14} />
-                  <span>Verify Deployment</span>
-                </div>
-                <div className="stage-item stage-item--pending">
-                  <Pause size={14} />
-                  <span>Health Check</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           {/* Helm Pipeline */}
@@ -213,93 +205,74 @@ const JenkinsPage: React.FC = () => {
                 <span className="status-badge status-pending">Pending</span>
               </div>
             </div>
-
-            <div className="pipeline-card__stages">
-              <h4>Pipeline Stages</h4>
-              <div className="stages-grid">
-                <div className="stage-item stage-item--pending">
-                  <Pause size={14} />
-                  <span>Lint Chart</span>
-                </div>
-                <div className="stage-item stage-item--pending">
-                  <Pause size={14} />
-                  <span>Install/Upgrade</span>
-                </div>
-                <div className="stage-item stage-item--pending">
-                  <Pause size={14} />
-                  <span>Test Release</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
 
-      {/* Jenkinsfile Section */}
+      {/* Pipeline Configurations Section */}
       <div className="jenkins-section">
         <div className="section-header">
           <h2 className="section-title">
             <FileText size={20} />
-            Pipeline as Code
+            Pipeline Configurations
           </h2>
           <p className="section-description">
-            Complete automation with declarative Jenkinsfile
+            Explore different pipeline configurations for each deployment type
           </p>
         </div>
 
-        <div className="jenkinsfile-card">
-          <div className="jenkinsfile-card__header">
-            <div className="jenkinsfile-card__icon">
+        <div className="pipeline-configs-card">
+          <div className="pipeline-configs-card__header">
+            <div className="pipeline-configs-card__icon">
               <Terminal size={24} />
             </div>
-            <div className="jenkinsfile-card__title">
-              <h3>Jenkinsfile</h3>
-              <p>Declarative pipeline for complete automation</p>
+            <div className="pipeline-configs-card__title">
+              <h3>Pipeline as Code</h3>
+              <p>Declarative pipelines for complete automation</p>
             </div>
           </div>
 
-          <div className="jenkinsfile-card__content">
-            <pre className="code-block">
+          <div className="pipeline-configs-card__content">
+            <div className="pipeline-tabs">
+              <div className="pipeline-tabs__header">
+                {Object.entries(pipelineConfigs).map(([key, config]) => (
+                  <button
+                    key={key}
+                    className={`pipeline-tab ${activeTab === key ? 'pipeline-tab--active' : ''}`}
+                    onClick={() => setActiveTab(key)}
+                  >
+                    {config.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="pipeline-tabs__content">
+                <div className="pipeline-config">
+                  <div className="pipeline-config__header">
+                    <h4>{pipelineConfigs[activeTab as keyof typeof pipelineConfigs].name}</h4>
+                    <p>{pipelineConfigs[activeTab as keyof typeof pipelineConfigs].description}</p>
+                  </div>
+
+                  <div className="pipeline-config__jenkinsfile">
+                    <h5>Jenkinsfile Example:</h5>
+                    <pre className="code-block">
 {`pipeline {
     agent any
-
+    
     stages {
-        stage('Build') {
-            steps {
-                sh 'docker build -t devopslab .'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Deploy') {
-            parallel {
-                stage('Docker') {
-                    steps {
-                        sh 'docker-compose up -d'
-                    }
-                }
-
-                stage('Kubernetes') {
-                    steps {
-                        sh 'kubectl apply -f k8s/'
-                    }
-                }
-
-                stage('Helm') {
-                    steps {
-                        sh 'helm upgrade --install devopslab ./helm'
-                    }
-                }
-            }
-        }
+${pipelineConfigs[activeTab as keyof typeof pipelineConfigs].stages.map((stage) => `        stage('${stage.name}') {
+             steps {
+                 sh '${stage.command}'
+             }
+         }`).join('\n')}
     }
 }`}
-            </pre>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1242,6 +1242,10 @@
     letter-spacing: 0.5px;
     opacity: 0.8;
   }
+  
+  & + .access-info {
+    margin-top: $space-6;
+  }
 }
 
 // Access Info
@@ -1265,6 +1269,10 @@
         text-decoration: underline;
       }
     }
+  }
+  
+  & + .warning-section {
+    margin-top: $space-6;
   }
 }
 
@@ -1296,6 +1304,42 @@
     color: var(--text-secondary);
     font-size: $text-sm;
     margin-bottom: $space-3;
+  }
+  
+  & + .admin-info {
+    margin-top: $space-6;
+  }
+}
+
+// Admin Info
+.admin-info {
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-3;
+    padding: $space-4;
+    background: linear-gradient(135deg, 
+      rgba($success, 0.1) 0%, 
+      rgba($success-light, 0.05) 100%);
+    border: 1px solid rgba($success, 0.2);
+    border-radius: $border-radius-lg;
+    color: var(--text-secondary);
+  }
+  
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    
+    span:first-child {
+      color: var(--text-primary);
+      font-weight: $font-medium;
+    }
+    
+    span:last-child {
+      font-size: $text-sm;
+      opacity: 0.8;
+    }
   }
 }
 
@@ -1498,6 +1542,196 @@
       color: var(--text-primary);
       overflow-x: auto;
       box-shadow: inset 0 1px 0 rgba(white, 0.05);
+    }
+  }
+}
+
+// Pipeline Configs Card
+.pipeline-configs-card {
+  @include card-base;
+  padding: $space-8;
+  background: linear-gradient(135deg, 
+    var(--bg-primary) 0%, 
+    var(--bg-secondary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-xl;
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin-bottom: $space-6;
+    padding-bottom: $space-4;
+    border-bottom: 1px solid rgba(var(--border-color), 0.3);
+  }
+  
+  &__icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, 
+      rgba($primary-indigo, 0.15) 0%, 
+      rgba($primary-blue, 0.1) 100%);
+    border-radius: $border-radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary-indigo;
+  }
+  
+  &__title {
+    flex: 1;
+    
+    h3 {
+      @include heading-3;
+      margin-bottom: $space-1;
+      color: var(--text-primary);
+    }
+    
+    p {
+      @include body-text;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+    }
+  }
+}
+
+// Pipeline Tabs
+.pipeline-tabs {
+  &__header {
+    display: flex;
+    gap: $space-2;
+    margin-bottom: $space-6;
+    padding-bottom: $space-4;
+    border-bottom: 1px solid rgba(var(--border-color), 0.3);
+    overflow-x: auto;
+    
+    @media (max-width: $breakpoint-md) {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// Pipeline Tab
+.pipeline-tab {
+  padding: $space-3 $space-4;
+  background: transparent;
+  border: 1px solid rgba(var(--border-color), 0.5);
+  border-radius: $border-radius-lg;
+  color: var(--text-secondary);
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: all $transition-normal;
+  white-space: nowrap;
+  
+  &:hover {
+    background: rgba($primary-blue, 0.05);
+    border-color: rgba($primary-blue, 0.3);
+    color: var(--text-primary);
+  }
+  
+  &--active {
+    background: linear-gradient(135deg, 
+      rgba($primary-blue, 0.15) 0%, 
+      rgba($primary-indigo, 0.1) 100%);
+    border-color: rgba($primary-blue, 0.4);
+    color: $primary-blue;
+    font-weight: $font-semibold;
+  }
+}
+
+// Pipeline Config
+.pipeline-config {
+  &__header {
+    margin-bottom: $space-6;
+    
+    h4 {
+      @include heading-3;
+      margin-bottom: $space-2;
+      color: var(--text-primary);
+    }
+    
+    p {
+      @include body-text;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+    }
+  }
+  
+  &__stages {
+    margin-bottom: $space-8;
+    
+    h5 {
+      @include heading-4;
+      margin-bottom: $space-4;
+      color: var(--text-primary);
+      font-size: $text-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+  }
+  
+  &__jenkinsfile {
+    h5 {
+      @include heading-4;
+      margin-bottom: $space-4;
+      color: var(--text-primary);
+      font-size: $text-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Pipeline Stages
+.pipeline-stages {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+// Pipeline Stage
+.pipeline-stage {
+  padding: $space-4;
+  background: rgba($neutral-800, 0.3);
+  border: 1px solid rgba(var(--border-color), 0.3);
+  border-radius: $border-radius-lg;
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-3;
+  }
+  
+  &__number {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, 
+      rgba($primary-blue, 0.2) 0%, 
+      rgba($primary-indigo, 0.15) 100%);
+    border: 1px solid rgba($primary-blue, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $text-xs;
+    font-weight: $font-bold;
+    color: $primary-blue;
+  }
+  
+  &__name {
+    font-size: $text-sm;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+  
+  &__command {
+    .copy-command-box {
+      margin: 0;
+      font-size: $text-xs;
     }
   }
 }
