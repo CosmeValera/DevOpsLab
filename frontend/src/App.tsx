@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
 import DockerDeployment from "./components/deployments/DockerDeployment";
+import DockerComposeDeployment from "./components/deployments/DockerComposeDeployment";
 import KubernetesDeployment from "./components/deployments/KubernetesDeployment";
 import KustomizeDeployment from "./components/deployments/KustomizeDeployment";
 import HelmDeployment from "./components/deployments/HelmDeployment";
@@ -97,7 +98,7 @@ function App() {
 
       {/* Main Navigation */}
       {navItems.length > 0 && (
-        <nav className="header border-t">
+        <nav className="deployment-nav">
           <div className="header__container">
             <div className="nav-tabs">
               {navItems.map((item) => (
@@ -130,6 +131,7 @@ function App() {
 
           {/* Individual deployment pages */}
           <Route path="/deployments/docker" element={<DockerDeployment />} />
+          <Route path="/deployments/docker-compose" element={<DockerComposeDeployment />} />
           <Route
             path="/deployments/kubernetes"
             element={<KubernetesDeployment />}

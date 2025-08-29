@@ -112,6 +112,58 @@
   }
 }
 
+// Enhanced deployment navigation
+.deployment-nav {
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: $border-width solid var(--border-color);
+  margin-bottom: $space-8;
+  
+  .header__container {
+    padding: $space-4 0;
+  }
+  
+  .nav-tabs {
+    gap: $space-3;
+    
+    @include max-md {
+      gap: $space-2;
+    }
+  }
+  
+  .nav-tab {
+    border-radius: $border-radius-lg;
+    font-weight: $font-medium;
+    box-shadow: $shadow-sm;
+    
+    &:first-child {
+      background: var(--hover-bg);
+      border-color: var(--border-hover);
+      
+      &:hover {
+        background: rgba($neutral-300, 0.2);
+      }
+    }
+    
+    &:not(:first-child) {
+      background: rgba($primary-blue, 0.1);
+      border-color: rgba($primary-blue, 0.2);
+      color: $primary-blue;
+      
+      &:hover {
+        background: rgba($primary-blue, 0.15);
+        color: $primary-blue;
+      }
+      
+      &.nav-tab--active {
+        background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+        color: white;
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+}
+
 // Main navigation tabs (for home page sections)
 .main-nav {
   margin-bottom: $space-8;
