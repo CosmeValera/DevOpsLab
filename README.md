@@ -398,28 +398,6 @@ kubectl logs -f deployment/backend
 docker logs -f jenkins
 ```
 
-## 🚀 Future Enhancements
-
-### Planned Features
-
-- [ ] **Self-hosted deployment** with Terraform
-- [ ] **Custom domain** with SSL certificates
-- [ ] **Monitoring stack** (Prometheus + Grafana)
-- [ ] **Log aggregation** (ELK stack)
-- [ ] **Security scanning** in CI/CD pipeline
-- [ ] **Multi-cloud deployment** (AWS, GCP, Azure)
-- [ ] **GitOps workflow** with ArgoCD
-- [ ] **Service mesh** integration (Istio)
-
-### Production Considerations
-
-- [ ] **High availability** setup
-- [ ] **Auto-scaling** policies
-- [ ] **Backup and disaster recovery**
-- [ ] **Security hardening**
-- [ ] **Performance optimization**
-- [ ] **Cost optimization**
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -428,11 +406,7 @@ docker logs -f jenkins
 4. Add tests
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Links
+## 🔗 Documentation Links
 
 - [Docker Documentation](https://docs.docker.com/)
 - [Kubernetes Documentation](https://kubernetes.io/docs/)

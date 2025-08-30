@@ -3,30 +3,43 @@ import org.jenkinsci.plugins.workflow.job.WorkflowJob
 import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
 import hudson.plugins.git.*
 
-// Get Jenkins instance
+// Jenkins instance
 def jenkins = Jenkins.get()
 
-def jobName = "MySCMPipeline"
-def job = jenkins.getItem(jobName)
+// Repo + branch config
+def repoUrl = "https://github.com/CosmeValera/DevOpsLab"
+def branchSpec = "*/dev"
 
-if (job == null) {
-    println "--> Creating pipeline job '${jobName}'"
+// Map of jobName -> Jenkinsfile path
+def pipelines = [
+    "MasterPipeline"    : "jenkins/master.Jenkinsfile",
+    "DockerPipeline"    : "jenkins/docker.Jenkinsfile",
+    "KubernetesPipeline": "jenkins/k8s.Jenkinsfile",
+    "HelmPipeline"      : "jenkins/helm.Jenkinsfile"
+]
 
-    job = jenkins.createProject(WorkflowJob, jobName)
+pipelines.each { jobName, jenkinsfilePath ->
+    def job = jenkins.getItem(jobName)
 
-    // Define SCM (Git)
-    def scm = new GitSCM("https://github.com/CosmeValera/DevOpsLab")
-    scm.branches = [new BranchSpec("*/dev")]
-    scm.doGenerateSubmoduleConfigurations = false
+    if (job == null) {
+        println "--> Creating pipeline job '${jobName}'"
 
-    // Pipeline definition from SCM
-    def flowDefinition = new CpsScmFlowDefinition(scm, "jenkins/Jenkinsfile")
-    flowDefinition.setLightweight(true)
+        job = jenkins.createProject(WorkflowJob, jobName)
 
-    job.setDefinition(flowDefinition)
-    job.save()
+        // Define SCM (Git)
+        def scm = new GitSCM(repoUrl)
+        scm.branches = [new BranchSpec(branchSpec)]
+        scm.doGenerateSubmoduleConfigurations = false
 
-    println "--> Pipeline job '${jobName}' created"
-} else {
-    println "--> Pipeline job '${jobName}' already exists, skipping creation"
+        // Pipeline definition from SCM
+        def flowDefinition = new CpsScmFlowDefinition(scm, jenkinsfilePath)
+        flowDefinition.setLightweight(true)
+
+        job.setDefinition(flowDefinition)
+        job.save()
+
+        println "--> Pipeline job '${jobName}' created"
+    } else {
+        println "--> Pipeline job '${jobName}' already exists, skipping creation"
+    }
 }

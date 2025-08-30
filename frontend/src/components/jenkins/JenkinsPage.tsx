@@ -102,8 +102,13 @@ const JenkinsPage: React.FC = () => {
 
           <div className="setup-card__content">
             <div className="command-section">
-              <h4>1. Start Jenkins</h4>
+              <h4>1. Start Jenkins with docker-compose</h4>
               <CopyCommandBox command="docker-compose up -d" />
+            </div>
+            <div className="command-section">
+              <h4>(Or with docker)</h4>
+              <CopyCommandBox command="docker build -t devopslab-jenkins ./jenkins" />
+              <CopyCommandBox command="docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home devopslab-jenkins" />
             </div>
 
             <div className="access-info">
