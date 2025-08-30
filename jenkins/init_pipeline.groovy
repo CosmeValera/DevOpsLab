@@ -15,6 +15,7 @@ def pipelines = [
     "MasterPipeline"    : "jenkins/master.Jenkinsfile",
     "DockerPipeline"    : "jenkins/docker.Jenkinsfile",
     "KubernetesPipeline": "jenkins/k8s.Jenkinsfile",
+    "KustomizePipeline" : "jenkins/kustomize.Jenkinsfile",
     "HelmPipeline"      : "jenkins/helm.Jenkinsfile"
 ]
 

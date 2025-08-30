@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    
     stages {
         stage('Docker') {
             steps {
@@ -9,6 +10,11 @@ pipeline {
         stage('Kubernetes') {
             steps {
                 build job: 'KubernetesPipeline'
+            }
+        }
+        stage('Kustomize') {
+            steps {
+                build job: 'KustomizePipeline'
             }
         }
         stage('Helm') {
