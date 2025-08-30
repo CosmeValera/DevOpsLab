@@ -32,3 +32,6 @@ RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/
 
 # Switch back to jenkins user
 USER jenkins
+
+# Add predefined pipeline job
+COPY init_pipeline.groovy /usr/share/jenkins/ref/init.groovy.d/init_pipeline.groovy
