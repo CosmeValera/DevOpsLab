@@ -92,7 +92,7 @@ docker build -t devopslab-jenkins ./jenkins
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
 docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home devopslab-jenkins
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Delete images
 docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine
@@ -278,14 +278,9 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 ### Start Jenkins in Docker
 
 ```bash
-# Start Jenkins container
-docker run -d \
-  --name jenkins \
-  -p 8080:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  jenkins/jenkins:lts
+# Start Build and start Jenkins container
+docker build -t devopslab-jenkins ./jenkins
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Get initial admin password
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
