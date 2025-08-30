@@ -1,31 +1,32 @@
 import jenkins.model.*
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
-import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
+import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
+import hudson.plugins.git.*
 
-def jenkins = Jenkins.instance
+// Get Jenkins instance
+def jenkins = Jenkins.get()
 
-// Create a Pipeline job called "MyPipeline"
-def jobName = "MyPipeline"
+def jobName = "MySCMPipeline"
 def job = jenkins.getItem(jobName)
+
 if (job == null) {
-    job = new WorkflowJob(jenkins, jobName)
-    def pipelineScript = """
-pipeline {
-    agent any
-    
-    stages {
-        stage ("TEST") {
-            steps {
-                echo "Hello World!"
-            }
-        }
-    }
-}
-"""
-    job.setDefinition(new CpsFlowDefinition(pipelineScript, true))
-    jenkins.add(job, jobName)
+    println "--> Creating pipeline job '${jobName}'"
+
+    job = jenkins.createProject(WorkflowJob, jobName)
+
+    // Define SCM (Git)
+    def scm = new GitSCM("https://github.com/CosmeValera/DevOpsLab")
+    scm.branches = [new BranchSpec("*/dev")]
+    scm.doGenerateSubmoduleConfigurations = false
+
+    // Pipeline definition from SCM
+    def flowDefinition = new CpsScmFlowDefinition(scm, "jenkins/Jenkinsfile")
+    flowDefinition.setLightweight(true)
+
+    job.setDefinition(flowDefinition)
     job.save()
-    println("Created pipeline job: ${jobName}")
+
+    println "--> Pipeline job '${jobName}' created"
 } else {
-    println("Pipeline job '${jobName}' already exists, skipping creation.")
+    println "--> Pipeline job '${jobName}' already exists, skipping creation"
 }

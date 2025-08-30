@@ -86,11 +86,13 @@ docker-compose logs -f
 # Build images
 docker build -t devopslab-frontend ./frontend
 docker build -t devopslab-backend ./backend
+docker build -t devopslab-jenkins ./jenkins
 
 # Run containers
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
 docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home devopslab-jenkins
 
 # Delete images
 docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine

@@ -16,6 +16,13 @@ RUN apt-get update && \
     apt-get update && \
     apt-get -y install docker-ce-cli
 
+# Install plugins
+RUN jenkins-plugin-cli --plugins \
+    git \
+    workflow-aggregator \
+    pipeline-github-lib \
+    configuration-as-code
+
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
