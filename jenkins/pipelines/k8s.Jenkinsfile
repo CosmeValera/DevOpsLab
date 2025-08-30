@@ -13,7 +13,7 @@ pipeline {
         stage('Minikube Setup') {
             steps {
                 sh '''
-                minikube start
+                minikube start --driver=docker
                 minikube image load devopslab-frontend
                 minikube image load devopslab-backend
                 minikube image load devopslab-jenkins

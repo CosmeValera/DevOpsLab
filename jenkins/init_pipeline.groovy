@@ -12,11 +12,11 @@ def branchSpec = "*/dev"
 
 // Map of jobName -> Jenkinsfile path
 def pipelines = [
-    "MasterPipeline"    : "jenkins/master.Jenkinsfile",
-    "DockerPipeline"    : "jenkins/docker.Jenkinsfile",
-    "KubernetesPipeline": "jenkins/k8s.Jenkinsfile",
-    "KustomizePipeline" : "jenkins/kustomize.Jenkinsfile",
-    "HelmPipeline"      : "jenkins/helm.Jenkinsfile"
+    "MasterPipeline"    : "jenkins/pipelines/master.Jenkinsfile",
+    "DockerPipeline"    : "jenkins/pipelines/docker.Jenkinsfile",
+    "KubernetesPipeline": "jenkins/pipelines/k8s.Jenkinsfile",
+    "KustomizePipeline" : "jenkins/pipelines/kustomize.Jenkinsfile",
+    "HelmPipeline"      : "jenkins/pipelines/helm.Jenkinsfile"
 ]
 
 pipelines.each { jobName, jenkinsfilePath ->

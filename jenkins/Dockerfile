@@ -16,6 +16,16 @@ RUN apt-get update && \
     apt-get update && \
     apt-get -y install docker-ce-cli
 
+# Install docker-compose v2
+RUN curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 \
+    -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
+
+# Install Minikube
+RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
+    install minikube-linux-amd64 /usr/local/bin/minikube && \
+    rm minikube-linux-amd64
+
 # Install plugins
 RUN jenkins-plugin-cli --plugins \
     git \
