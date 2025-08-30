@@ -113,24 +113,28 @@
     }
   }
   
-  &:hover &__icon {
-    transform: scale(1.1);
-    background: linear-gradient(135deg, rgba($primary-blue, 0.2) 0%, rgba($primary-indigo, 0.1) 100%);
-  }
-  
   &__title {
     @include heading-3;
-    margin-bottom: $space-3;
-    color: var(--text-primary);
+    & {
+      margin-bottom: $space-3;
+      color: var(--text-primary);
+    }
   }
   
   &__description {
     @include body-text;
-    margin-bottom: $space-6;
-    color: var(--text-secondary);
-    font-size: $text-sm;
-    line-height: 1.6;
-    max-width: 280px;
+    & {
+      margin-bottom: $space-6;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+      line-height: 1.6;
+      max-width: 280px;
+    }
+  }
+  
+  &:hover &__icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba($primary-blue, 0.2) 0%, rgba($primary-indigo, 0.1) 100%);
   }
   
   // Compact commands preview
