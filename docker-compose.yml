@@ -62,27 +62,28 @@ services:
       - devopslab-network
     restart: unless-stopped
 
-  # Jenkins
-  jenkins:
-    build:
-      context: ./jenkins
-      dockerfile: Dockerfile
-    container_name: jenkins
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - JENKINS_OPTS=--httpPort=8080
-    networks:
-      - devopslab-network
+# This can cause a clash when executing the pipeline of Docker inside Jenkins
+  # # Jenkins
+  # jenkins:
+  #   build:
+  #     context: ./jenkins
+  #     dockerfile: Dockerfile
+  #   container_name: jenkins
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:8080"
+  #     - "50000:50000"
+  #   volumes:
+  #     - jenkins_home:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - JENKINS_OPTS=--httpPort=8080
+  #   networks:
+  #     - devopslab-network
 
 volumes:
   postgres_data:
-  jenkins_home:
+  # jenkins_home:
 
 networks:
   devopslab-network:
