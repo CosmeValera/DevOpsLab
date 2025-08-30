@@ -27,20 +27,20 @@ const DockerDeployment: React.FC = () => {
           explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
         },
         {
-          command: "docker build -t devopslab-backend ./backend", 
-          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
-        },
-        {
-          command: "docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins", 
-          explanation: "Build a Docker image for the jenkins application with the tag 'devopslab-jenkins'"
-        },
-        {
           command: "docker run -d --name frontend -p 3000:3000 devopslab-frontend",
           explanation: "Run the frontend container in detached mode, mapping port 3000 to access the application"
         },
         {
+          command: "docker build -t devopslab-backend ./backend", 
+          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
+        },
+        {
           command: "docker run -d --name backend -p 3001:3001 devopslab-backend",
           explanation: "Run the backend container in detached mode, mapping port 3001 for API access"
+        },
+        {
+          command: "docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins", 
+          explanation: "Build a Docker image for the jenkins application with the tag 'devopslab-jenkins'"
         },
         {
           command: "docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home devopslab-jenkins",

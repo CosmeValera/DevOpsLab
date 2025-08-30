@@ -5,8 +5,10 @@ pipeline {
         stage('Clean Up Old Services') {
             steps {
                 sh '''
-                # Clean old networks/volumes for this project
-                docker-compose down -v --remove-orphans || true
+                docker rmi -f devopslab-frontend
+                docker rm -f frontend
+                docker rmi -f devopslab-backend
+                docker rm -f backend
                 '''
             }
         }
@@ -14,7 +16,10 @@ pipeline {
         stage('Build Images and Start Services') {
             steps {
                 sh '''
-                docker-compose up -d
+                docker build -t devopslab-frontend ./frontend
+                docker run -d --name frontend -p 3000:3000 devopslab-frontend
+                docker build -t devopslab-backend ./backend
+                docker run -d --name backend -p 3001:3001 devopslab-backend
                 '''
             }
         }
@@ -22,15 +27,7 @@ pipeline {
         stage('Check Services') {
             steps {
                 sh '''
-                docker-compose ps
-                '''
-            }
-        }
-
-        stage('Stop Services') {
-            steps {
-                sh '''
-                docker-compose down -v --remove-orphans
+                docker ps
                 '''
             }
         }
