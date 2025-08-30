@@ -31,7 +31,7 @@ const DockerDeployment: React.FC = () => {
           explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
         },
         {
-          command: "docker build -t devopslab-jenkins ./jenkins", 
+          command: "docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins", 
           explanation: "Build a Docker image for the jenkins application with the tag 'devopslab-jenkins'"
         },
         {

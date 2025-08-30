@@ -107,7 +107,7 @@ const JenkinsPage: React.FC = () => {
             </div>
             <div className="command-section">
               <h4>(Or with docker)</h4>
-              <CopyCommandBox command="docker build -t devopslab-jenkins ./jenkins" />
+              <CopyCommandBox command="docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins" />
               <CopyCommandBox command="docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins" />
             </div>
 
@@ -125,16 +125,21 @@ const JenkinsPage: React.FC = () => {
               </div>
               <p>After starting Jenkins, retrieve the initial admin password for the <strong>admin</strong> user:</p>
               <CopyCommandBox command="docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword" />
-            </div>
 
-            <div className="admin-info">
-              <div className="admin-info__item">
-                <User size={16} />
-                <div className="admin-info__text">
-                  <span><strong>Default Admin User:</strong> admin</span>
-                  <span>Use the password from the command above to log in as administrator</span>
+              <div className="admin-info">
+                <div className="admin-info__item">
+                  <User size={16} />
+                  <div className="admin-info__text">
+                    <span><strong>Default Admin User:</strong> admin</span>
+                    <span>Use the password from the command above to log in as administrator</span>
+                  </div>
                 </div>
               </div>
+            </div>
+            
+            <div className="command-section">
+              <h4>4. Remove Jenkins (if needed)</h4>
+              <CopyCommandBox command="docker rm -f jenkins && docker rmi -f devopslab-jenkins && docker volume rm jenkins_home" />
             </div>
           </div>
         </div>

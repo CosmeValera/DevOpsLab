@@ -86,7 +86,7 @@ docker-compose logs -f
 # Build images
 docker build -t devopslab-frontend ./frontend
 docker build -t devopslab-backend ./backend
-docker build -t devopslab-jenkins ./jenkins
+docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
 
 # Run containers
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
@@ -279,7 +279,7 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 
 ```bash
 # Start Build and start Jenkins container
-docker build -t devopslab-jenkins ./jenkins
+docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
 docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Get initial admin password

@@ -47,6 +47,10 @@ RUN curl https://get.helm.sh/helm-v3.12.0-linux-amd64.tar.gz | tar xz && \
 RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash && \
     mv kustomize /usr/local/bin/
 
+# --- Add Jenkins user to Docker group matching host ---
+ARG DOCKER_GID
+RUN groupadd -g "$DOCKER_GID" docker && usermod -aG docker jenkins
+
 # Switch back to jenkins user
 USER jenkins
 
