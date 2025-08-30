@@ -1,9 +1,26 @@
 pipeline {
     agent any
+
     stages {
-        stage("Docker") {
+        stage('Build Images and Start Services') {
             steps {
-                echo "Hello I'm Docker pipeline"
+                sh '''
+                docker-compose up -d
+                '''
+            }
+        }
+        stage('Check Services') {
+            steps {
+                sh '''
+                docker-compose ps
+                '''
+            }
+        }
+        stage('Stop Services') {
+            steps {
+                sh '''
+                docker-compose down
+                '''
             }
         }
     }
