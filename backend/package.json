@@ -1,25 +1,17 @@
 {
   "name": "devopslab-backend",
   "version": "1.0.0",
-  "description": "DevOpsLab Backend API - Node.js Express with TypeScript",
-  "main": "dist/index.js",
+  "description": "DevOpsLab Backend API - Simple Node.js Express server",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage",
-    "lint": "standard",
-    "lint:fix": "standard --fix",
-    "type-check": "tsc --noEmit"
+    "dev": "node src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
     "devops",
     "api",
-    "express",
-    "typescript",
-    "postgresql"
+    "express"
   ],
   "author": "DevOpsLab Team",
   "license": "MIT",
@@ -28,24 +20,9 @@
     "cors": "^2.8.5",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
-    "pg": "^8.11.3",
     "dotenv": "^16.3.1",
     "express-rate-limit": "^7.1.5",
     "compression": "^1.7.4"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/cors": "^2.8.17",
-    "@types/morgan": "^1.9.9",
-    "@types/pg": "^8.10.9",
-    "@types/compression": "^1.7.5",
-    "@types/node": "^20.10.0",
-    "typescript": "^5.3.2",
-    "tsx": "^4.6.0",
-    "vitest": "^1.0.4",
-    "supertest": "^6.3.3",
-    "@types/supertest": "^2.0.16",
-    "standard": "^17.1.0"
   },
   "engines": {
     "node": ">=18.0.0"

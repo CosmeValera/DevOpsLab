@@ -86,11 +86,13 @@ docker-compose logs -f
 # Build images
 docker build -t devopslab-frontend ./frontend
 docker build -t devopslab-backend ./backend
+docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
 
 # Run containers
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
 docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Delete images
 docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine
@@ -103,6 +105,23 @@ docker image prune -f
 - kubectl
 - Kubernetes cluster (minikube, kind, or cloud provider)
 
+### Start Minikube and Load images
+```bash
+# Load images 
+docker build -t devopslab-frontend ./frontend
+docker build -t devopslab-backend ./backend
+
+# Start minikube (if using local cluster)
+minikube start
+
+# Load the images inside Minikube
+minikube image load devopslab-frontend
+minikube image load devopslab-backend
+minikube image load postgres:15-alpine
+
+minikube ssh -- docker images # Check
+```
+
 ### Predeploy commands
 
 ```bash
@@ -111,20 +130,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
-```
-
-### Load images
-```bash
-# Start minikube (if using local cluster)
-minikube start
-
-# Load the images inside Minikube
-minikube image load devopslab-frontend
-minikube image load devopslab-jenkins
-minikube image load devopslab-backend
-minikube image load postgres:15-alpine
-
-minikube ssh -- docker images # Check
 ```
 
 ### Deploy to Kubernetes
@@ -154,6 +159,10 @@ kubectl logs -f deployment/backend -n devopslab
 - kubectl
 - Kustomize (optional, kubectl has built-in support)
 
+### First steps
+
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+
 
 ### Predeploy commands
 
@@ -164,8 +173,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
-
-> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 ### Deploy with Kustomize
 
@@ -198,6 +205,10 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 - Helm 3.x
 - Kubernetes cluster
 
+### First steps
+
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+
 ### Predeploy commands
 
 ```bash
@@ -207,8 +218,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
-
-> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 ### Deploy with Helm
 
@@ -276,14 +285,9 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 ### Start Jenkins in Docker
 
 ```bash
-# Start Jenkins container
-docker run -d \
-  --name jenkins \
-  -p 8080:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  jenkins/jenkins:lts
+# Start Build and start Jenkins container
+docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Get initial admin password
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
@@ -396,28 +400,6 @@ kubectl logs -f deployment/backend
 docker logs -f jenkins
 ```
 
-## 🚀 Future Enhancements
-
-### Planned Features
-
-- [ ] **Self-hosted deployment** with Terraform
-- [ ] **Custom domain** with SSL certificates
-- [ ] **Monitoring stack** (Prometheus + Grafana)
-- [ ] **Log aggregation** (ELK stack)
-- [ ] **Security scanning** in CI/CD pipeline
-- [ ] **Multi-cloud deployment** (AWS, GCP, Azure)
-- [ ] **GitOps workflow** with ArgoCD
-- [ ] **Service mesh** integration (Istio)
-
-### Production Considerations
-
-- [ ] **High availability** setup
-- [ ] **Auto-scaling** policies
-- [ ] **Backup and disaster recovery**
-- [ ] **Security hardening**
-- [ ] **Performance optimization**
-- [ ] **Cost optimization**
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -426,11 +408,7 @@ docker logs -f jenkins
 4. Add tests
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Links
+## 🔗 Documentation Links
 
 - [Docker Documentation](https://docs.docker.com/)
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
