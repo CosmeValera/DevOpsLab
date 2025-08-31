@@ -6,9 +6,9 @@ pipeline {
             steps {
                 sh '''
                 docker rmi -f devopslab-frontend
-                docker rm -f frontend
+                docker rm -f frontend-in-jenkins
                 docker rmi -f devopslab-backend
-                docker rm -f backend
+                docker rm -f backend-in-jenkins
                 '''
             }
         }
@@ -17,9 +17,9 @@ pipeline {
             steps {
                 sh '''
                 docker build -t devopslab-frontend ./frontend
-                docker run -d --name frontend -p 3000:3000 devopslab-frontend
+                docker run -d --name frontend-in-jenkins -p 4000:3000 devopslab-frontend
                 docker build -t devopslab-backend ./backend
-                docker run -d --name backend -p 3001:3001 devopslab-backend
+                docker run -d --name backend-in-jenkins -p 4001:3001 devopslab-backend
                 '''
             }
         }
