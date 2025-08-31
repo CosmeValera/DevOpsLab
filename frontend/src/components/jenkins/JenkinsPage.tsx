@@ -224,9 +224,28 @@ const JenkinsPage: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            <div className="warning-section">
+              <div className="warning-header">
+                <AlertTriangle size={16} />
+                <h4>4. Configure Backend Authentication</h4>
+              </div>
+              <p>Create a <strong>.env</strong> file in the backend directory with Jenkins credentials for the pipeline status to work:</p>
+              <CopyCommandBox command='echo -e "JENKINS_HOST=http://localhost:8080\nJENKINS_USER=admin\nJENKINS_TOKEN=$(docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword)\nPORT=3001\nNODE_ENV=development" > backend/.env' />
+              
+              <div className="admin-info">
+                <div className="admin-info__item">
+                  <Settings size={16} />
+                  <div className="admin-info__text">
+                    <span><strong>Backend Configuration:</strong> This creates the .env file with Jenkins authentication</span>
+                    <span>The backend will use these credentials to fetch pipeline status from Jenkins</span>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <div className="command-section">
-              <h4>4. Remove Jenkins (if needed)</h4>
+              <h4>5. Remove Jenkins (if needed)</h4>
               <CopyCommandBox command="docker rm -f jenkins && docker rmi -f devopslab-jenkins && docker volume rm jenkins_home" />
             </div>
           </div>
