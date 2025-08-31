@@ -31,6 +31,10 @@ const DockerDeployment: React.FC = () => {
           explanation: "Run the frontend container in detached mode, mapping port 3000 to access the application"
         },
         {
+          command: "localhost:3000",
+          explanation: "Access the frontend application at localhost:3000"
+        },
+        {
           command: "docker build -t devopslab-backend ./backend", 
           explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
         },
@@ -39,12 +43,20 @@ const DockerDeployment: React.FC = () => {
           explanation: "Run the backend container in detached mode, mapping port 3001 for API access"
         },
         {
+          command: "localhost:3001",
+          explanation: "Access the backend application at localhost:3001"
+        },
+        {
           command: "docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins", 
           explanation: "Build a Docker image for the jenkins application with the tag 'devopslab-jenkins'"
         },
         {
-          command: "docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home devopslab-jenkins",
+          command: "docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins",
           explanation: "Run the jenkins container in detached mode, mapping port 8080 for Jenkins access"
+        },
+        {
+          command: "localhost:8080",
+          explanation: "Access the Jenkins application at localhost:8080"
         }
       ]
     }

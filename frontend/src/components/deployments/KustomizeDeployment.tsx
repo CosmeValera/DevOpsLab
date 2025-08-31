@@ -19,17 +19,17 @@ const KustomizeDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Namespace & ConfigMap",
-      description: "Set up the Kubernetes namespace and configure the database initialization",
+      title: "Build Images",
+      description: "Build Docker images for the application services",
       commands: [
         {
-          command: "kubectl apply -f deployments/k8s/namespace.yaml",
-          explanation: "Create the devopslab namespace for organizing application resources"
+          command: "docker build -t devopslab-frontend ./frontend",
+          explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
         },
         {
-          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
-          explanation: "Create a ConfigMap with the database initialization script"
-        }
+          command: "docker build -t devopslab-backend ./backend", 
+          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
+        },
       ]
     },
     {
@@ -47,21 +47,53 @@ const KustomizeDeployment: React.FC = () => {
         {
           command: "minikube image load devopslab-backend",
           explanation: "Load the backend Docker image into Minikube's Docker daemon"
+        },
+        {
+          command: "minikube image load postgres:15-alpine",
+          explanation: "Load the postgres Docker image into Minikube's Docker daemon"
+        }
+      ]
+    },
+    {
+      title: "Predeploy Setup",
+      description: "Set up the Kubernetes namespace and configure the database initialization",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/namespace.yaml",
+          explanation: "Create the devopslab namespace to organize and isolate application resources"
+        },
+        {
+          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
+          explanation: "Create a ConfigMap containing the database initialization script"
         }
       ]
     },
     {
       title: "Deploy with Kustomize",
-      description: "Use Kustomize to deploy environment-specific configurations",
+      description: "Use Kustomize to preview, deploy and delete environment-specific configurations",
       commands: [
         {
-          command: "kubectl apply -k deployments/kustomize/overlays/dev",
+          command: "kubectl kustomize deployments/kustomize/overlays/dev # Preview manifests",
+          explanation: "Preview the generated Kubernetes manifests for development without applying them"
+        },
+        {
+          command: "kubectl apply -k deployments/kustomize/overlays/dev # Dev",
           explanation: "Deploy the application using Kustomize with development environment configuration"
         },
         {
-          command: "kubectl kustomize deployments/kustomize/overlays/dev",
-          explanation: "Preview the generated Kubernetes manifests for development without applying them"
+          command: "kubectl apply -k deployments/kustomize/overlays/prod # Prod",
+          explanation: "Deploy the application using Kustomize with production environment configuration"
         },
+        {
+          command: "kubectl delete -k deployments/kustomize/overlays/dev # Delete",
+          explanation: "Delete the application using Kustomize with development environment configuration"
+        }
+      ]
+    },
+    {
+      title: "Access & Monitor",
+      description: "Access the deployed application and monitor the cluster status",
+      commands: [
         {
           command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
           explanation: "Forward local port 3000 to access the frontend service"

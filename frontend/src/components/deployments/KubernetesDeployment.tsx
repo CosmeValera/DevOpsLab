@@ -19,7 +19,7 @@ const KubernetesDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Build Containers",
+      title: "Build Images",
       description: "Build Docker images for the application services",
       commands: [
         {
@@ -55,7 +55,7 @@ const KubernetesDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Namespace & ConfigMap",
+      title: "Predeploy Setup",
       description: "Set up the Kubernetes namespace and configure the database initialization",
       commands: [
         {
@@ -70,15 +70,25 @@ const KubernetesDeployment: React.FC = () => {
     },
     {
       title: "Deploy to Kubernetes",
-      description: "Deploy the application manifests and access the services",
+      description: "Deploy or delete the application manifests",
       commands: [
         {
           command: "kubectl apply -f deployments/k8s/",
           explanation: "Deploy all Kubernetes manifests (deployments, services, configmaps) to the cluster"
         },
         {
+          command: "kubectl delete -f deployments/k8s/",
+          explanation: "Delete all Kubernetes manifests (deployments, services, configmaps) to the cluster"
+        }
+      ]
+    },
+    {
+      title: "Access & Monitor",
+      description: "Access the deployed application and monitor the cluster status",
+      commands: [
+        {
           command: "kubectl port-forward svc/frontend-service 3000:80 -n devopslab",
-          explanation: "Forward local port 3000 to the frontend service to access the application"
+          explanation: "Forward local port 3000 to access the frontend service"
         },
         {
           command: "kubectl port-forward svc/backend-service 3001:80 -n devopslab",

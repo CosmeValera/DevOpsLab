@@ -49,7 +49,7 @@ const deploymentMethods = [
     path: "/deployments/kubernetes",
     commands: [
       "kubectl apply -f deployments/k8s/",
-      "kubectl get pods",
+      "kubectl get all",
       "kubectl port-forward svc/front 3000:3000"
     ],
     features: ["Scalability", "High availability", "Service discovery"],

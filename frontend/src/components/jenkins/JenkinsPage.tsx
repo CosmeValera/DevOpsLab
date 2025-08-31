@@ -71,7 +71,7 @@ const JenkinsPage: React.FC = () => {
           <div className="jenkins-header__text">
             <h1 className="jenkins-header__title">Jenkins CI/CD</h1>
             <p className="jenkins-header__subtitle">
-              Automated deployments and pipelines for seamless DevOps workflows
+              Automated deployments and pipelines for smooth DevOps workflows
             </p>
           </div>
         </div>
