@@ -69,7 +69,7 @@ const HelmDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Helm Operations",
+      title: "Deploy with Helm",
       description: "Deploy and manage the application using Helm charts",
       commands: [
         {

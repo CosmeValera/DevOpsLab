@@ -65,7 +65,7 @@ EOF
       }
     }
 
-    stage('Deploy to K8s') {
+    stage('Deploy to Kubernetes') {
       steps {
         sh '''
         kubectl apply -f deployments/k8s/frontend/
