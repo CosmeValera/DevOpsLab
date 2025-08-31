@@ -19,17 +19,17 @@ const KubernetesDeployment: React.FC = () => {
       ]
     },
     {
-      title: "Namespace & ConfigMap",
-      description: "Set up the Kubernetes namespace and configure the database initialization",
+      title: "Build Containers",
+      description: "Build Docker images for the application services",
       commands: [
         {
-          command: "kubectl apply -f deployments/k8s/namespace.yaml",
-          explanation: "Create the devopslab namespace to organize and isolate application resources"
+          command: "docker build -t devopslab-frontend ./frontend",
+          explanation: "Build a Docker image for the frontend application with the tag 'devopslab-frontend'"
         },
         {
-          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
-          explanation: "Create a ConfigMap containing the database initialization script"
-        }
+          command: "docker build -t devopslab-backend ./backend", 
+          explanation: "Build a Docker image for the backend application with the tag 'devopslab-backend'"
+        },
       ]
     },
     {
@@ -47,6 +47,24 @@ const KubernetesDeployment: React.FC = () => {
         {
           command: "minikube image load devopslab-backend",
           explanation: "Load the backend Docker image into Minikube's Docker daemon"
+        },
+        {
+          command: "minikube image load postgres:15-alpine",
+          explanation: "Load the postgres Docker image into Minikube's Docker daemon"
+        }
+      ]
+    },
+    {
+      title: "Namespace & ConfigMap",
+      description: "Set up the Kubernetes namespace and configure the database initialization",
+      commands: [
+        {
+          command: "kubectl apply -f deployments/k8s/namespace.yaml",
+          explanation: "Create the devopslab namespace to organize and isolate application resources"
+        },
+        {
+          command: "kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab",
+          explanation: "Create a ConfigMap containing the database initialization script"
         }
       ]
     },

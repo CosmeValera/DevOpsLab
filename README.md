@@ -105,6 +105,23 @@ docker image prune -f
 - kubectl
 - Kubernetes cluster (minikube, kind, or cloud provider)
 
+### Start Minikube and Load images
+```bash
+# Load images 
+docker build -t devopslab-frontend ./frontend
+docker build -t devopslab-backend ./backend
+
+# Start minikube (if using local cluster)
+minikube start
+
+# Load the images inside Minikube
+minikube image load devopslab-frontend
+minikube image load devopslab-backend
+minikube image load postgres:15-alpine
+
+minikube ssh -- docker images # Check
+```
+
 ### Predeploy commands
 
 ```bash
@@ -113,20 +130,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
-```
-
-### Load images
-```bash
-# Start minikube (if using local cluster)
-minikube start
-
-# Load the images inside Minikube
-minikube image load devopslab-frontend
-minikube image load devopslab-jenkins
-minikube image load devopslab-backend
-minikube image load postgres:15-alpine
-
-minikube ssh -- docker images # Check
 ```
 
 ### Deploy to Kubernetes
@@ -156,6 +159,10 @@ kubectl logs -f deployment/backend -n devopslab
 - kubectl
 - Kustomize (optional, kubectl has built-in support)
 
+### First steps
+
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+
 
 ### Predeploy commands
 
@@ -166,8 +173,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
-
-> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 ### Deploy with Kustomize
 
@@ -200,6 +205,10 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 - Helm 3.x
 - Kubernetes cluster
 
+### First steps
+
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+
 ### Predeploy commands
 
 ```bash
@@ -209,8 +218,6 @@ kubectl apply -f deployments/k8s/namespace.yaml
 # Create the Postgres init ConfigMap for the database
 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
-
-> Remember to load the images into the Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 ### Deploy with Helm
 
