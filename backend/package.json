@@ -1,7 +1,7 @@
 {
   "name": "devopslab-backend",
   "version": "1.0.0",
-  "description": "DevOpsLab Backend API - Simple Node.js Express server",
+  "description": "DevOpsLab Backend API - Jenkins Pipeline Status Service",
   "main": "src/index.js",
   "scripts": {
     "dev": "node src/index.js",
@@ -11,7 +11,8 @@
   "keywords": [
     "devops",
     "api",
-    "express"
+    "express",
+    "jenkins"
   ],
   "author": "DevOpsLab Team",
   "license": "MIT",
@@ -22,7 +23,8 @@
     "morgan": "^1.10.0",
     "dotenv": "^16.3.1",
     "express-rate-limit": "^7.1.5",
-    "compression": "^1.7.4"
+    "compression": "^1.7.4",
+    "axios": "^1.6.0"
   },
   "engines": {
     "node": ">=18.0.0"

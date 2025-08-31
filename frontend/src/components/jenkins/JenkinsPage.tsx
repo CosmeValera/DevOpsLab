@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Star, 
   AlertTriangle, 
@@ -11,13 +11,142 @@ import {
   ExternalLink,
   Terminal,
   Zap,
-  User
+  User,
+  RefreshCw,
+  XCircle
 } from "lucide-react";
 import CopyCommandBox from "../shared/CopyCommandBox";
 import { pipelineConfigs } from "./pipelineConfigs";
 
+// API Configuration
+const API_BASE_URL = 'http://localhost:3001';
+
+// Types for pipeline status
+interface PipelineStatus {
+  name: string;
+  status: 'running' | 'success' | 'failure' | 'pending' | 'error' | 'aborted' | 'unstable' | 'unknown';
+  statusText: string;
+  building: boolean;
+  result: string | null;
+  timestamp: number | null;
+  duration: number | null;
+  url: string | null;
+  consoleUrl: string | null;
+  jobUrl: string;
+  lastBuildNumber: number | null;
+  estimatedDuration: number | null;
+  description: string;
+  error?: boolean;
+}
+
+interface PipelineResponse {
+  success: boolean;
+  timestamp: string;
+  jenkinsHost: string;
+  pipelines: PipelineStatus[];
+  summary: {
+    total: number;
+    running: number;
+    success: number;
+    failed: number;
+    pending: number;
+    error: number;
+  };
+}
+
 const JenkinsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("master");
+  const [pipelineData, setPipelineData] = useState<PipelineResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  // Function to fetch pipeline status from backend
+  const fetchPipelineStatus = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch(`${API_BASE_URL}/api/pipelines/status`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data: PipelineResponse = await response.json();
+      setPipelineData(data);
+      setLastUpdated(new Date());
+    } catch (err) {
+      console.error('Error fetching pipeline status:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch pipeline status');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Function to get status icon based on pipeline status
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'running':
+        return <Clock size={16} />;
+      case 'success':
+        return <CheckCircle size={16} />;
+      case 'failure':
+      case 'error':
+        return <XCircle size={16} />;
+      case 'pending':
+        return <Pause size={16} />;
+      case 'aborted':
+      case 'unstable':
+        return <AlertTriangle size={16} />;
+      default:
+        return <Clock size={16} />;
+    }
+  };
+
+  // Function to get status badge class
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'running':
+        return 'status-badge status-running';
+      case 'success':
+        return 'status-badge status-success';
+      case 'failure':
+      case 'error':
+        return 'status-badge status-failure';
+      case 'pending':
+        return 'status-badge status-pending';
+      case 'aborted':
+      case 'unstable':
+        return 'status-badge status-warning';
+      default:
+        return 'status-badge status-unknown';
+    }
+  };
+
+  // Function to handle pipeline card click
+  const handlePipelineClick = (pipeline: PipelineStatus) => {
+    if (pipeline.building && pipeline.consoleUrl) {
+      // If building, open console URL
+      window.open(pipeline.consoleUrl, '_blank');
+    } else if (pipeline.jobUrl) {
+      // Otherwise, open job URL
+      window.open(pipeline.jobUrl, '_blank');
+    }
+  };
+
+  // Initial fetch
+  useEffect(() => {
+    fetchPipelineStatus();
+  }, []);
+
+  // Auto-refresh every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchPipelineStatus();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="jenkins-page">
@@ -106,88 +235,117 @@ const JenkinsPage: React.FC = () => {
 
       {/* Pipeline Status Section */}
       <div className="jenkins-section">
-        <div className="section-header">
-          <h2 className="section-title">
-            <Play size={20} />
-            Pipeline Status
-          </h2>
-          <p className="section-description">
-            Monitor the status of your automated deployment pipelines
-          </p>
+        <div className="section-header-pipeline-status">
+          <div className="section-header__left">
+            <h2 className="section-title">
+              <Play size={20} />
+              Pipeline Status
+            </h2>
+            <p className="section-description">
+              Monitor the status of your automated deployment pipelines
+            </p>
+          </div>
+          <div className="section-header__right">
+            <button 
+              className="refresh-button"
+              onClick={fetchPipelineStatus}
+              disabled={loading}
+            >
+              <RefreshCw size={16} className={loading ? 'spinning' : ''} />
+              Refresh
+            </button>
+            {lastUpdated && (
+              <div className="last-updated">
+                Last updated: {lastUpdated.toLocaleTimeString()}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="pipelines-grid">
-          {/* Master Pipeline */}
-          <div className="pipeline-card pipeline-card--master">
-            <div className="pipeline-card__header">
-              <div className="pipeline-card__title">
-                <h3>Master Pipeline</h3>
-                <p>Orchestrates all deployment types</p>
-              </div>
-              <div className="pipeline-card__status">
-                <Clock size={16} />
-                <span className="status-badge status-running">Running</span>
-              </div>
-            </div>
+        {error && (
+          <div className="error-message">
+            <AlertTriangle size={16} />
+            <span>Error: {error}</span>
+            <button onClick={fetchPipelineStatus} className="retry-button">
+              Retry
+            </button>
           </div>
+        )}
 
-          {/* Docker Pipeline */}
-          <div className="pipeline-card">
-            <div className="pipeline-card__header">
-              <div className="pipeline-card__title">
-                <h3>Docker Pipeline</h3>
-                <p>Container-based deployment</p>
-              </div>
-              <div className="pipeline-card__status">
-                <CheckCircle size={16} />
-                <span className="status-badge status-success">Success</span>
-              </div>
-            </div>
+        {loading && !pipelineData && (
+          <div className="loading-message">
+            <RefreshCw size={20} className="spinning" />
+            <span>Loading pipeline status...</span>
           </div>
+        )}
 
-          {/* Kubernetes Pipeline */}
-          <div className="pipeline-card">
-            <div className="pipeline-card__header">
-              <div className="pipeline-card__title">
-                <h3>Kubernetes Pipeline</h3>
-                <p>Native K8s orchestration</p>
+        {pipelineData && (
+          <>
+            {/* Summary Stats */}
+            <div className="pipeline-summary">
+              <div className="summary-stat">
+                <span className="summary-label">Total:</span>
+                <span className="summary-value">{pipelineData.summary.total}</span>
               </div>
-              <div className="pipeline-card__status">
-                <CheckCircle size={16} />
-                <span className="status-badge status-success">Success</span>
+              <div className="summary-stat">
+                <span className="summary-label">Running:</span>
+                <span className="summary-value summary-running">{pipelineData.summary.running}</span>
+              </div>
+              <div className="summary-stat">
+                <span className="summary-label">Success:</span>
+                <span className="summary-value summary-success">{pipelineData.summary.success}</span>
+              </div>
+              <div className="summary-stat">
+                <span className="summary-label">Failed:</span>
+                <span className="summary-value summary-failed">{pipelineData.summary.failed}</span>
+              </div>
+              <div className="summary-stat">
+                <span className="summary-label">Pending:</span>
+                <span className="summary-value summary-pending">{pipelineData.summary.pending}</span>
               </div>
             </div>
-          </div>
-          
-          {/* Kustomize Pipeline */}
-          <div className="pipeline-card">
-            <div className="pipeline-card__header">
-              <div className="pipeline-card__title">
-                <h3>Kustomize Pipeline</h3>
-                <p>Environment-specific configurations</p>
-              </div>
-              <div className="pipeline-card__status">
-                <Clock size={16} />
-                <span className="status-badge status-running">Running</span>
-              </div>
-            </div>
-          </div>
 
-          {/* Helm Pipeline */}
-          <div className="pipeline-card">
-            <div className="pipeline-card__header">
-              <div className="pipeline-card__title">
-                <h3>Helm Pipeline</h3>
-                <p>Chart-based deployment</p>
-              </div>
-              <div className="pipeline-card__status">
-                <Pause size={16} />
-                <span className="status-badge status-pending">Pending</span>
-              </div>
+            <div className="pipelines-grid">
+              {pipelineData.pipelines.map((pipeline) => (
+                <div 
+                  key={pipeline.name}
+                  className={`pipeline-card ${pipeline.name === 'MasterPipeline' ? 'pipeline-card--master' : ''} ${pipeline.error ? 'pipeline-card--error' : ''}`}
+                  onClick={() => handlePipelineClick(pipeline)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="pipeline-card__header">
+                    <div className="pipeline-card__title">
+                      <h3>{pipeline.name}</h3>
+                      <p>{pipeline.description || 'Pipeline job'}</p>
+                      {pipeline.lastBuildNumber && (
+                        <small>Build #{pipeline.lastBuildNumber}</small>
+                      )}
+                    </div>
+                    <div className="pipeline-card__status">
+                      {getStatusIcon(pipeline.status)}
+                      <span className={getStatusBadgeClass(pipeline.status)}>
+                        {pipeline.statusText}
+                      </span>
+                    </div>
+                  </div>
+                  {pipeline.building && pipeline.estimatedDuration && (
+                    <div className="pipeline-card__progress">
+                      <div className="progress-bar">
+                        <div className="progress-fill" style={{ width: '50%' }}></div>
+                      </div>
+                      <small>Estimated: {Math.round(pipeline.estimatedDuration / 1000)}s</small>
+                    </div>
+                  )}
+                  {pipeline.duration && !pipeline.building && (
+                    <div className="pipeline-card__duration">
+                      <small>Duration: {Math.round(pipeline.duration / 1000)}s</small>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-          </div>
-
-        </div>
+          </>
+        )}
       </div>
 
       {/* Pipeline Configurations Section */}

@@ -1157,6 +1157,38 @@
     text-align: center;
   }
   
+  .section-header-pipeline-status {
+    margin-bottom: $space-6;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    @include max-md {
+      flex-direction: column;
+      gap: $space-4;
+    }
+    
+    &__left {
+      text-align: left;
+      flex: 1;
+    }
+    
+    &__right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $space-2;
+      
+      @include max-md {
+        align-items: flex-start;
+      }
+    }
+    .section-title {
+      justify-content: left;
+    }
+  }
+
+  
   .section-title {
     @include heading-2;
     display: flex;
@@ -1173,6 +1205,75 @@
     font-size: $text-lg;
     max-width: 600px;
     margin: 0 auto;
+  }
+  
+  .refresh-button {
+    @include btn-base;
+    @include btn-secondary;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $text-sm;
+    padding: $space-2 $space-3;
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+  .last-updated {
+    font-size: $text-xs;
+    color: var(--text-secondary);
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4;
+    background: linear-gradient(135deg, 
+      rgba($error, 0.1) 0%, 
+      rgba($error-light, 0.05) 100%);
+    border: 1px solid rgba($error, 0.2);
+    border-radius: $border-radius-lg;
+    margin-bottom: $space-6;
+    
+    .retry-button {
+      @include btn-base;
+      @include btn-secondary;
+      font-size: $text-xs;
+      padding: $space-1 $space-2;
+      margin-left: auto;
+    }
+  }
+  
+  .loading-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    padding: $space-8;
+    color: var(--text-secondary);
+    
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -1343,6 +1444,62 @@
   }
 }
 
+// Pipeline Summary
+.pipeline-summary {
+  display: flex;
+  justify-content: center;
+  gap: $space-6;
+  margin-bottom: $space-6;
+  padding: $space-4;
+  background: linear-gradient(135deg, 
+    var(--bg-primary) 0%, 
+    var(--bg-secondary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  
+  @include max-md {
+    flex-wrap: wrap;
+    gap: $space-4;
+  }
+  
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-1;
+    
+    .summary-label {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: $font-medium;
+    }
+    
+    .summary-value {
+      font-size: $text-xl;
+      font-weight: $font-bold;
+      color: var(--text-primary);
+      
+      &.summary-running {
+        color: $warning;
+      }
+      
+      &.summary-success {
+        color: $success;
+      }
+      
+      &.summary-failed {
+        color: $error;
+      }
+      
+      &.summary-pending {
+        color: $neutral-500;
+      }
+    }
+  }
+}
+
 // Pipelines Grid
 .pipelines-grid {
   display: grid;
@@ -1370,6 +1527,13 @@
     border-color: rgba($primary-blue, 0.3);
     background: linear-gradient(135deg, 
       rgba($primary-blue, 0.05) 0%, 
+      var(--bg-primary) 100%);
+  }
+  
+  &--error {
+    border-color: rgba($error, 0.3);
+    background: linear-gradient(135deg, 
+      rgba($error, 0.05) 0%, 
       var(--bg-primary) 100%);
   }
   
@@ -1426,6 +1590,58 @@
         color: var(--text-secondary);
         border: 1px solid rgba($neutral-500, 0.2);
       }
+      
+      &.status-failure {
+        background: rgba($error, 0.15);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+      }
+      
+      &.status-warning {
+        background: rgba($warning, 0.15);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+      }
+      
+      &.status-unknown {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+    }
+  }
+  
+  &__progress {
+    margin-top: $space-3;
+    
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba($neutral-500, 0.2);
+      border-radius: $border-radius;
+      overflow: hidden;
+      margin-bottom: $space-2;
+      
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $warning 0%, $primary-blue 100%);
+        border-radius: $border-radius;
+        transition: width 0.3s ease;
+      }
+    }
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+    }
+  }
+  
+  &__duration {
+    margin-top: $space-3;
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
     }
   }
   
