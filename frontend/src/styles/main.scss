@@ -1209,16 +1209,31 @@
   
   .refresh-button {
     @include btn-base;
-    @include btn-secondary;
     display: flex;
     align-items: center;
     gap: $space-2;
     font-size: $text-sm;
     padding: $space-2 $space-3;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-md;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color-hover);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
     
     &:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+      transform: none;
     }
     
     .spinning {
@@ -1250,6 +1265,112 @@
       font-size: $text-xs;
       padding: $space-1 $space-2;
       margin-left: auto;
+    }
+  }
+
+  // Enhanced Global Error Message
+  .global-error-message {
+    display: flex;
+    gap: $space-4;
+    padding: $space-6;
+    background: linear-gradient(135deg, 
+      rgba($error, 0.08) 0%, 
+      rgba($error-light, 0.04) 100%);
+    border: 1px solid rgba($error, 0.15);
+    border-radius: $border-radius-xl;
+    margin-bottom: $space-6;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, $error, $error-light);
+    }
+    
+    .error-icon-container {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, 
+        rgba($error, 0.15) 0%, 
+        rgba($error-light, 0.1) 100%);
+      border-radius: $border-radius-lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $error;
+      border: 1px solid rgba($error, 0.2);
+    }
+    
+    .global-error-content {
+      flex: 1;
+      
+      h4 {
+        @include heading-4;
+        color: var(--text-primary);
+        margin-bottom: $space-2;
+        font-weight: 600;
+      }
+      
+      .error-description {
+        @include body-text;
+        color: var(--text-secondary);
+        font-size: $text-base;
+        margin-bottom: $space-4;
+        line-height: 1.5;
+      }
+      
+      .global-error-actions {
+        display: flex;
+        gap: $space-3;
+        align-items: center;
+        
+        .retry-button {
+          @include btn-base;
+          background: linear-gradient(135deg, $error 0%, $error-light 100%);
+          color: white;
+          border: none;
+          padding: $space-2 $space-4;
+          border-radius: $border-radius-md;
+          font-size: $text-sm;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: $space-2;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba($error, 0.3);
+          }
+          
+          &:active {
+            transform: translateY(0);
+          }
+        }
+        
+        .jenkins-link {
+          @include btn-base;
+          @include btn-secondary;
+          display: flex;
+          align-items: center;
+          gap: $space-2;
+          padding: $space-2 $space-4;
+          font-size: $text-sm;
+          text-decoration: none;
+          border: 1px solid var(--border-color);
+          
+          &:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-color-hover);
+          }
+        }
+      }
     }
   }
   

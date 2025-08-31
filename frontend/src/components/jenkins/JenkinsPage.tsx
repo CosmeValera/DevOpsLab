@@ -37,6 +37,7 @@ interface PipelineStatus {
   estimatedDuration: number | null;
   description: string;
   error?: boolean;
+  errorType?: 'auth_required' | 'auth_invalid' | 'not_found' | 'server_error' | 'connection_failed' | 'host_not_found' | 'timeout' | 'unknown';
 }
 
 interface PipelineResponse {
@@ -77,7 +78,25 @@ const JenkinsPage: React.FC = () => {
       setLastUpdated(new Date());
     } catch (err) {
       console.error('Error fetching pipeline status:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch pipeline status');
+      
+      // Provide more specific error messages
+      let errorMessage = 'Failed to fetch pipeline status';
+      
+      if (err instanceof Error) {
+        if (err.message.includes('Failed to fetch')) {
+          errorMessage = 'Cannot connect to backend server. Please check if the backend is running on port 3001.';
+        } else if (err.message.includes('HTTP error! status: 500')) {
+          errorMessage = 'Backend server error. Please check backend logs.';
+        } else if (err.message.includes('HTTP error! status: 404')) {
+          errorMessage = 'Backend endpoint not found. Please check backend configuration.';
+        } else {
+          errorMessage = err.message;
+        }
+      }
+      
+      // Clear pipeline data when we get a backend error to prevent flickering
+      setPipelineData(null);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -123,8 +142,40 @@ const JenkinsPage: React.FC = () => {
     }
   };
 
+  // Function to get user-friendly error message for pipeline errors
+  const getPipelineErrorMessage = (pipeline: PipelineStatus) => {
+    if (!pipeline.error || !pipeline.errorType) {
+      return pipeline.description;
+    }
+
+    switch (pipeline.errorType) {
+      case 'auth_required':
+        return 'Authentication required. Please configure Jenkins credentials in backend/.env file.';
+      case 'auth_invalid':
+        return 'Invalid Jenkins credentials. Please check your username and token.';
+      case 'not_found':
+        return 'Pipeline has never been executed. Run it for the first time in Jenkins.';
+      case 'connection_failed':
+        return 'Cannot connect to Jenkins. Please check if Jenkins is running on port 8080.';
+      case 'host_not_found':
+        return 'Jenkins host not found. Please check JENKINS_HOST configuration.';
+      case 'timeout':
+        return 'Connection to Jenkins timed out. Please check if Jenkins is accessible.';
+      case 'server_error':
+        return 'Jenkins server error. Please check Jenkins logs.';
+      default:
+        return pipeline.description;
+    }
+  };
+
   // Function to handle pipeline card click
   const handlePipelineClick = (pipeline: PipelineStatus) => {
+    if (pipeline.error) {
+      // For error states, open Jenkins main page to help user troubleshoot
+      window.open('http://localhost:8080', '_blank');
+      return;
+    }
+    
     if (pipeline.building && pipeline.consoleUrl) {
       // If building, open console URL
       window.open(pipeline.consoleUrl, '_blank');
@@ -281,88 +332,131 @@ const JenkinsPage: React.FC = () => {
           </div>
         </div>
 
-        {error && (
-          <div className="error-message">
-            <AlertTriangle size={16} />
-            <span>Error: {error}</span>
-            <button onClick={fetchPipelineStatus} className="retry-button">
-              Retry
-            </button>
-          </div>
-        )}
 
-        {loading && !pipelineData && (
+
+        {/* Show loading only on initial load when we have no data */}
+        {loading && !pipelineData && !error && (
           <div className="loading-message">
             <RefreshCw size={20} className="spinning" />
             <span>Loading pipeline status...</span>
           </div>
         )}
 
-        {pipelineData && (
-          <>
-            {/* Summary Stats */}
-            <div className="pipeline-summary">
-              <div className="summary-stat">
-                <span className="summary-label">Total:</span>
-                <span className="summary-value">{pipelineData.summary.total}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-label">Running:</span>
-                <span className="summary-value summary-running">{pipelineData.summary.running}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-label">Success:</span>
-                <span className="summary-value summary-success">{pipelineData.summary.success}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-label">Failed:</span>
-                <span className="summary-value summary-failed">{pipelineData.summary.failed}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-label">Pending:</span>
-                <span className="summary-value summary-pending">{pipelineData.summary.pending}</span>
+        {/* Show error message when there's a backend connection error */}
+        {error && (
+          <div className="global-error-message">
+            <div className="error-icon-container">
+              <AlertTriangle size={24} />
+            </div>
+            <div className="global-error-content">
+              <h4>Backend Connection Issue</h4>
+              <p className="error-description">{error}</p>
+              <div className="global-error-actions">
+                <button onClick={fetchPipelineStatus} className="retry-button">
+                  <RefreshCw size={16} />
+                  Retry Connection
+                </button>
               </div>
             </div>
+          </div>
+        )}
 
-            <div className="pipelines-grid">
-              {pipelineData.pipelines.map((pipeline) => (
-                <div 
-                  key={pipeline.name}
-                  className={`pipeline-card ${pipeline.name === 'MasterPipeline' ? 'pipeline-card--master' : ''} ${pipeline.error ? 'pipeline-card--error' : ''}`}
-                  onClick={() => handlePipelineClick(pipeline)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className="pipeline-card__header">
-                    <div className="pipeline-card__title">
-                      <h3>{pipeline.name}</h3>
-                      <p>{pipeline.description || 'Pipeline job'}</p>
-                      {pipeline.lastBuildNumber && (
-                        <small>Build #{pipeline.lastBuildNumber}</small>
-                      )}
-                    </div>
-                    <div className="pipeline-card__status">
-                      {getStatusIcon(pipeline.status)}
-                      <span className={getStatusBadgeClass(pipeline.status)}>
-                        {pipeline.statusText}
-                      </span>
-                    </div>
-                  </div>
-                  {pipeline.building && pipeline.estimatedDuration && (
-                    <div className="pipeline-card__progress">
-                      <div className="progress-bar">
-                        <div className="progress-fill" style={{ width: '50%' }}></div>
-                      </div>
-                      <small>Estimated: {Math.round(pipeline.estimatedDuration / 1000)}s</small>
-                    </div>
-                  )}
-                  {pipeline.duration && !pipeline.building && (
-                    <div className="pipeline-card__duration">
-                      <small>Duration: {Math.round(pipeline.duration / 1000)}s</small>
-                    </div>
-                  )}
+        {/* Show pipeline data only when we have data AND no backend errors */}
+        {pipelineData && !error && (
+          <>
+            {/* Check if all pipelines have the same error type (Jenkins issues) */}
+            {pipelineData.summary.error === pipelineData.summary.total && pipelineData.pipelines.length > 0 ? (
+              <div className="global-error-message">
+                <div className="error-icon-container">
+                  <AlertTriangle size={24} />
                 </div>
-              ))}
-            </div>
+                <div className="global-error-content">
+                  <h4>Jenkins Connection Issue</h4>
+                  <p className="error-description">{getPipelineErrorMessage(pipelineData.pipelines[0])}</p>
+                  <div className="global-error-actions">
+                    <button onClick={fetchPipelineStatus} className="retry-button">
+                      <RefreshCw size={16} />
+                      Retry Connection
+                    </button>
+                    <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer" className="jenkins-link">
+                      <ExternalLink size={16} />
+                      Open Jenkins
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Only show summary stats and pipeline grid if there are no global Jenkins errors */}
+                {pipelineData.summary.error !== pipelineData.summary.total && (
+                  <>
+                    {/* Summary Stats */}
+                    <div className="pipeline-summary">
+                      <div className="summary-stat">
+                        <span className="summary-label">Total:</span>
+                        <span className="summary-value">{pipelineData.summary.total}</span>
+                      </div>
+                      <div className="summary-stat">
+                        <span className="summary-label">Running:</span>
+                        <span className="summary-value summary-running">{pipelineData.summary.running}</span>
+                      </div>
+                      <div className="summary-stat">
+                        <span className="summary-label">Success:</span>
+                        <span className="summary-value summary-success">{pipelineData.summary.success}</span>
+                      </div>
+                      <div className="summary-stat">
+                        <span className="summary-label">Failed:</span>
+                        <span className="summary-value summary-failed">{pipelineData.summary.failed}</span>
+                      </div>
+                      <div className="summary-stat">
+                        <span className="summary-label">Pending:</span>
+                        <span className="summary-value summary-pending">{pipelineData.summary.pending}</span>
+                      </div>
+                    </div>
+
+                    <div className="pipelines-grid">
+                      {pipelineData.pipelines.map((pipeline) => (
+                        <div 
+                          key={pipeline.name}
+                          className={`pipeline-card ${pipeline.name === 'MasterPipeline' ? 'pipeline-card--master' : ''} ${pipeline.error ? 'pipeline-card--error' : ''}`}
+                          onClick={() => handlePipelineClick(pipeline)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          <div className="pipeline-card__header">
+                            <div className="pipeline-card__title">
+                              <h3>{pipeline.name}</h3>
+                              <p>{pipeline.error ? getPipelineErrorMessage(pipeline) : (pipeline.description || 'Pipeline job')}</p>
+                              {pipeline.lastBuildNumber && !pipeline.error && (
+                                <small>Build #{pipeline.lastBuildNumber}</small>
+                              )}
+                            </div>
+                            <div className="pipeline-card__status">
+                              {getStatusIcon(pipeline.status)}
+                              <span className={getStatusBadgeClass(pipeline.status)}>
+                                {pipeline.statusText}
+                              </span>
+                            </div>
+                          </div>
+                          {pipeline.building && pipeline.estimatedDuration && (
+                            <div className="pipeline-card__progress">
+                              <div className="progress-bar">
+                                <div className="progress-fill" style={{ width: '50%' }}></div>
+                              </div>
+                              <small>Estimated: {Math.round(pipeline.estimatedDuration / 1000)}s</small>
+                            </div>
+                          )}
+                          {pipeline.duration && !pipeline.building && (
+                            <div className="pipeline-card__duration">
+                              <small>Duration: {Math.round(pipeline.duration / 1000)}s</small>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </>
         )}
       </div>

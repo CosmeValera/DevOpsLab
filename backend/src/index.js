@@ -111,13 +111,34 @@ const fetchPipelineStatus = async (jobName) => {
     
     // Provide more detailed error information for debugging
     let errorDescription = error.message
+    let errorType = 'unknown'
+    
     if (error.response) {
-      errorDescription = `HTTP ${error.response.status}: ${error.response.statusText}`
-      if (error.response.status === 403) {
-        errorDescription += ' - Authentication required. Please check JENKINS_USER and JENKINS_TOKEN environment variables.'
-      } else if (error.response.status === 404) {
-        errorDescription += ' - Job not found. Please check if the pipeline job exists in Jenkins.'
+      const status = error.response.status
+      errorDescription = `HTTP ${status}: ${error.response.statusText}`
+      
+      if (status === 403) {
+        errorDescription = 'Authentication required. Please check JENKINS_USER and JENKINS_TOKEN environment variables.'
+        errorType = 'auth_required'
+      } else if (status === 401) {
+        errorDescription = 'Invalid credentials. Please check your Jenkins username and token.'
+        errorType = 'auth_invalid'
+      } else if (status === 404) {
+        errorDescription = 'Pipeline has never been executed. Run it for the first time in Jenkins.'
+        errorType = 'not_found'
+      } else if (status === 500) {
+        errorDescription = 'Jenkins server error. Please check Jenkins logs.'
+        errorType = 'server_error'
       }
+    } else if (error.code === 'ECONNREFUSED') {
+      errorDescription = 'Cannot connect to Jenkins. Please check if Jenkins is running on port 8080.'
+      errorType = 'connection_failed'
+    } else if (error.code === 'ENOTFOUND') {
+      errorDescription = 'Jenkins host not found. Please check JENKINS_HOST configuration.'
+      errorType = 'host_not_found'
+    } else if (error.code === 'ETIMEDOUT') {
+      errorDescription = 'Connection to Jenkins timed out. Please check if Jenkins is accessible.'
+      errorType = 'timeout'
     }
     
     // Return error status
@@ -134,8 +155,9 @@ const fetchPipelineStatus = async (jobName) => {
       jobUrl: `${JENKINS_HOST}/job/${jobName}/`,
       lastBuildNumber: null,
       estimatedDuration: null,
-      description: `Error: ${errorDescription}`,
-      error: true
+      description: errorDescription,
+      error: true,
+      errorType: errorType
     }
   }
 }
