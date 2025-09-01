@@ -1617,6 +1617,10 @@
       &.summary-pending {
         color: $neutral-500;
       }
+      
+      &.summary-neutral {
+        color: $neutral-500;
+      }
     }
   }
 }
@@ -1725,6 +1729,12 @@
       }
       
       &.status-unknown {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+      
+      &.status-neutral {
         background: rgba($neutral-500, 0.15);
         color: var(--text-secondary);
         border: 1px solid rgba($neutral-500, 0.2);

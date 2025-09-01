@@ -236,8 +236,25 @@ const fetchPipelineStatus = async (jobName) => {
         errorDescription = 'Invalid credentials. Please check your Jenkins username and token.'
         errorType = 'auth_invalid'
       } else if (status === 404) {
-        errorDescription = 'Pipeline has never been executed. Run it for the first time in Jenkins.'
-        errorType = 'not_found'
+        // Pipeline has never been executed - this is not an error, just a neutral state
+        return {
+          name: jobName,
+          status: 'never_built',
+          statusText: 'Never Built',
+          building: false,
+          result: null,
+          timestamp: null,
+          duration: null,
+          url: null,
+          consoleUrl: null,
+          jobUrl: `${JENKINS_HOST}/job/${jobName}/`,
+          lastBuildNumber: null,
+          estimatedDuration: null,
+          description: 'Pipeline has never been executed. Run it for the first time in Jenkins.',
+          error: false,
+          errorType: null,
+          stages: null
+        }
       } else if (status === 500) {
         errorDescription = 'Jenkins server error. Please check Jenkins logs.'
         errorType = 'server_error'
@@ -346,7 +363,8 @@ app.get('/api/pipelines/status', async (req, res) => {
         success: pipelineStatuses.filter(p => p.status === 'success').length,
         failed: pipelineStatuses.filter(p => p.status === 'failure').length,
         pending: pipelineStatuses.filter(p => p.status === 'pending').length,
-        error: pipelineStatuses.filter(p => p.status === 'error').length
+        error: pipelineStatuses.filter(p => p.status === 'error').length,
+        neverBuilt: pipelineStatuses.filter(p => p.status === 'never_built').length
       }
     }
     
