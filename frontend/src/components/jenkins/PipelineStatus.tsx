@@ -33,21 +33,7 @@ interface PipelineStatus {
   stages?: PipelineStages | null;
 }
 
-interface PipelineResponse {
-  success: boolean;
-  timestamp: string;
-  jenkinsHost: string;
-  pipelines: PipelineStatus[];
-  summary: {
-    total: number;
-    running: number;
-    success: number;
-    failed: number;
-    pending: number;
-    error: number;
-    neverBuilt: number;
-  };
-}
+
 
 interface PipelineStage {
   id: string;
@@ -76,7 +62,7 @@ interface PipelineStages {
   } | null;
 }
 
-const PipelineStatusDisplay = () => {
+const PipelineStatus: React.FC = () => {
 
   const [pipelineData, setPipelineData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -553,4 +539,4 @@ const PipelineStatusDisplay = () => {
   );
 };
 
-export default PipelineStatusDisplay;
+export default PipelineStatus;
