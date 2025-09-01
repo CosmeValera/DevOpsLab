@@ -90,7 +90,7 @@ EOF
     stage('Deploy with Helm') {
       steps {
         sh '''
-        helm install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml
+        helm upgrade --install devopslab ./deployments/helm/devopslab -f ./deployments/helm/devopslab/values-dev.yaml
         '''
       }
     }
