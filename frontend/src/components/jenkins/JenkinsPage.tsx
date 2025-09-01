@@ -38,6 +38,7 @@ interface PipelineStatus {
   description: string;
   error?: boolean;
   errorType?: 'auth_required' | 'auth_invalid' | 'not_found' | 'server_error' | 'connection_failed' | 'host_not_found' | 'timeout' | 'unknown';
+  stages?: PipelineStages | null;
 }
 
 interface PipelineResponse {
@@ -53,6 +54,26 @@ interface PipelineResponse {
     pending: number;
     error: number;
   };
+}
+
+interface PipelineStage {
+  id: string;
+  name: string;
+  status: 'success' | 'failure' | 'running' | 'paused' | 'pending' | 'unknown';
+  startTimeMillis: number;
+  durationMillis: number;
+  isCurrent: boolean;
+}
+
+interface PipelineStages {
+  stages: PipelineStage[];
+  currentStageIndex: number;
+  runId: string;
+  runName: string;
+  runStatus: string;
+  startTimeMillis: number;
+  endTimeMillis: number;
+  durationMillis: number;
 }
 
 const JenkinsPage: React.FC = () => {
@@ -142,6 +163,95 @@ const JenkinsPage: React.FC = () => {
     }
   };
 
+  // Function to get stage status badge class
+  const getStageStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'running':
+        return 'stage-status-badge stage-status-running';
+      case 'success':
+        return 'stage-status-badge stage-status-success';
+      case 'failure':
+        return 'stage-status-badge stage-status-failure';
+      case 'paused':
+        return 'stage-status-badge stage-status-paused';
+      case 'pending':
+        return 'stage-status-badge stage-status-pending';
+      default:
+        return 'stage-status-badge stage-status-unknown';
+    }
+  };
+
+  // Function to get stage status icon
+  const getStageStatusIcon = (status: string) => {
+    switch (status) {
+      case 'running':
+        return <Clock size={14} />;
+      case 'success':
+        return <CheckCircle size={14} />;
+      case 'failure':
+        return <XCircle size={14} />;
+      case 'paused':
+        return <Pause size={14} />;
+      case 'pending':
+        return <Clock size={14} />;
+      default:
+        return <Clock size={14} />;
+    }
+  };
+
+  // Function to format duration
+  const formatDuration = (millis: number) => {
+    if (millis < 1000) return `${millis}ms`;
+    return `${Math.round(millis / 1000)}s`;
+  };
+
+  // Component to render pipeline stages
+  const PipelineStages: React.FC<{ stages: PipelineStages }> = ({ stages }) => {
+    return (
+      <div className="pipeline-stages">
+        <div className="pipeline-stages__header">
+          <h5>Pipeline Stages</h5>
+          <small>Run: {stages.runName}</small>
+        </div>
+        <div className="pipeline-stages__list">
+          {stages.stages.map((stage, index) => (
+            <div 
+              key={stage.id}
+              className={`pipeline-stage ${index === stages.currentStageIndex ? 'pipeline-stage--current' : ''} ${stage.status === 'running' ? 'pipeline-stage--running' : ''}`}
+            >
+              <div className="pipeline-stage__header">
+                <div className="pipeline-stage__status">
+                  {getStageStatusIcon(stage.status)}
+                  <span className={getStageStatusBadgeClass(stage.status)}>
+                    {stage.status}
+                  </span>
+                </div>
+                <div className="pipeline-stage__name">
+                  <span className="pipeline-stage__number">{index + 1}</span>
+                  <span className="pipeline-stage__title">{stage.name}</span>
+                </div>
+              </div>
+              <div className="pipeline-stage__details">
+                {stage.durationMillis > 0 && (
+                  <small className="pipeline-stage__duration">
+                    Duration: {formatDuration(stage.durationMillis)}
+                  </small>
+                )}
+                {stage.status === 'running' && (
+                  <div className="pipeline-stage__progress">
+                    <div className="stage-progress-bar">
+                      <div className="stage-progress-fill"></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   // Function to get user-friendly error message for pipeline errors
   const getPipelineErrorMessage = (pipeline: PipelineStatus) => {
     if (!pipeline.error || !pipeline.errorType) {
@@ -190,11 +300,11 @@ const JenkinsPage: React.FC = () => {
     fetchPipelineStatus();
   }, []);
 
-  // Auto-refresh every 5 seconds
+  // Auto-refresh every 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       fetchPipelineStatus();
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -449,6 +559,11 @@ const JenkinsPage: React.FC = () => {
                             <div className="pipeline-card__duration">
                               <small>Duration: {Math.round(pipeline.duration / 1000)}s</small>
                             </div>
+                          )}
+                          
+                          {/* Show pipeline stages if available */}
+                          {pipeline.stages && pipeline.stages.stages.length > 0 && (
+                            <PipelineStages stages={pipeline.stages} />
                           )}
                         </div>
                       ))}

@@ -1779,6 +1779,193 @@
   }
 }
 
+// Pipeline Stages
+.pipeline-stages {
+  margin-top: $space-4;
+  padding-top: $space-4;
+  border-top: 1px solid var(--border-color);
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-3;
+    
+    h5 {
+      @include heading-4;
+      margin: 0;
+      color: var(--text-primary);
+      font-size: $text-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: $space-1 $space-2;
+      border-radius: $border-radius;
+      border: 1px solid var(--border-color);
+    }
+  }
+  
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+}
+
+.pipeline-stage {
+  padding: $space-3;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  transition: all $transition-normal;
+  
+  &--current {
+    border-color: rgba($primary-blue, 0.4);
+    background: linear-gradient(135deg, 
+      rgba($primary-blue, 0.05) 0%, 
+      var(--bg-secondary) 100%);
+    box-shadow: 0 2px 8px rgba($primary-blue, 0.1);
+  }
+  
+  &--running {
+    border-color: rgba($warning, 0.4);
+    background: linear-gradient(135deg, 
+      rgba($warning, 0.05) 0%, 
+      var(--bg-secondary) 100%);
+  }
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
+  }
+  
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    
+    .stage-status-badge {
+      padding: $space-1 $space-2;
+      border-radius: $border-radius-md;
+      font-size: $text-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &.stage-status-success {
+        background: rgba($success, 0.15);
+        color: $success;
+        border: 1px solid rgba($success, 0.2);
+      }
+      
+      &.stage-status-running {
+        background: rgba($warning, 0.15);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+      }
+      
+      &.stage-status-failure {
+        background: rgba($error, 0.15);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+      }
+      
+      &.stage-status-paused {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+      
+      &.stage-status-pending {
+        background: rgba($neutral-500, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.15);
+      }
+      
+      &.stage-status-unknown {
+        background: rgba($neutral-500, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.15);
+      }
+    }
+  }
+  
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex: 1;
+    margin-left: $space-3;
+  }
+  
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--text-secondary);
+  }
+  
+  &__title {
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: var(--text-primary);
+  }
+  
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &__duration {
+    font-size: $text-xs;
+    color: var(--text-secondary);
+  }
+  
+  &__progress {
+    flex: 1;
+    margin-left: $space-3;
+    
+    .stage-progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba($neutral-500, 0.2);
+      border-radius: $border-radius;
+      overflow: hidden;
+      
+      .stage-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $warning 0%, $primary-blue 100%);
+        border-radius: $border-radius;
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
 // Stages Grid
 .stages-grid {
   display: flex;

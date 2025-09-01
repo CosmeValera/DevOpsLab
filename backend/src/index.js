@@ -27,8 +27,8 @@ const PIPELINE_JOBS = [
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 1 * 60 * 1000, // 1 minute window
+  max: 300, // limit each IP to 300 requests per minute (5 per second)
   message: 'Too many requests from this IP, please try again later.'
 })
 
@@ -44,6 +44,94 @@ app.use(express.urlencoded({ extended: true })) // Parse URL-encoded bodies
 // Helper function to get Jenkins API URL
 const getJenkinsApiUrl = (jobName, endpoint = 'lastBuild/api/json') => {
   return `${JENKINS_HOST}/job/${jobName}/${endpoint}`
+}
+
+// Helper function to get Jenkins Workflow API URL
+const getJenkinsWorkflowApiUrl = (jobName, endpoint = 'wfapi/runs') => {
+  return `${JENKINS_HOST}/job/${jobName}/${endpoint}`
+}
+
+// Helper function to fetch pipeline stages from Jenkins Workflow API
+const fetchPipelineStages = async (jobName) => {
+  try {
+    // Create Basic Auth header if credentials are provided
+    const authHeaders = {}
+    if (JENKINS_USER && JENKINS_TOKEN) {
+      const auth = Buffer.from(`${JENKINS_USER}:${JENKINS_TOKEN}`).toString('base64')
+      authHeaders['Authorization'] = `Basic ${auth}`
+    }
+    
+    const response = await axios.get(getJenkinsWorkflowApiUrl(jobName), {
+      timeout: 5000,
+      headers: {
+        'Accept': 'application/json',
+        ...authHeaders
+      }
+    })
+    
+    const runs = response.data
+    
+    // Get the latest run (first in the array)
+    if (runs && runs.length > 0) {
+      const latestRun = runs[0]
+      
+      // Map stage statuses to our internal format
+      const mapStageStatus = (jenkinsStatus) => {
+        switch (jenkinsStatus) {
+          case 'SUCCESS':
+            return 'success'
+          case 'FAILED':
+            return 'failure'
+          case 'IN_PROGRESS':
+            return 'running'
+          case 'PAUSED_PENDING_INPUT':
+            return 'paused'
+          case 'NOT_EXECUTED':
+            return 'pending'
+          default:
+            return 'unknown'
+        }
+      }
+      
+      // Process stages and find current stage
+      const stages = latestRun.stages ? latestRun.stages.map(stage => ({
+        id: stage.id,
+        name: stage.name,
+        status: mapStageStatus(stage.status),
+        startTimeMillis: stage.startTimeMillis,
+        durationMillis: stage.durationMillis,
+        isCurrent: stage.status === 'IN_PROGRESS'
+      })) : []
+      
+      // Find the current stage (the one that's IN_PROGRESS or the last one if none are running)
+      let currentStageIndex = -1
+      if (stages.length > 0) {
+        const runningStage = stages.findIndex(stage => stage.status === 'running')
+        if (runningStage !== -1) {
+          currentStageIndex = runningStage
+        } else {
+          // If no stage is running, highlight the last completed stage
+          currentStageIndex = stages.length - 1
+        }
+      }
+      
+      return {
+        stages,
+        currentStageIndex,
+        runId: latestRun.id,
+        runName: latestRun.name,
+        runStatus: latestRun.status,
+        startTimeMillis: latestRun.startTimeMillis,
+        endTimeMillis: latestRun.endTimeMillis,
+        durationMillis: latestRun.durationMillis
+      }
+    }
+    
+    return null
+  } catch (error) {
+    console.error(`Error fetching stages for ${jobName}:`, error.message)
+    return null
+  }
 }
 
 // Helper function to fetch pipeline status from Jenkins
@@ -91,6 +179,12 @@ const fetchPipelineStatus = async (jobName) => {
       statusText = 'Pending'
     }
     
+    // Fetch stage information if pipeline is running
+    let stageInfo = null
+    if (buildData.building || status === 'running') {
+      stageInfo = await fetchPipelineStages(jobName)
+    }
+    
     return {
       name: jobName,
       status,
@@ -104,7 +198,8 @@ const fetchPipelineStatus = async (jobName) => {
       jobUrl: `${JENKINS_HOST}/job/${jobName}/`,
       lastBuildNumber: buildData.number,
       estimatedDuration: buildData.estimatedDuration,
-      description: buildData.description || ''
+      description: buildData.description || '',
+      stages: stageInfo
     }
   } catch (error) {
     console.error(`Error fetching status for ${jobName}:`, error.message)
@@ -157,7 +252,8 @@ const fetchPipelineStatus = async (jobName) => {
       estimatedDuration: null,
       description: errorDescription,
       error: true,
-      errorType: errorType
+      errorType: errorType,
+      stages: null
     }
   }
 }
