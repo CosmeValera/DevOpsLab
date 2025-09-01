@@ -71,9 +71,18 @@ const fetchPipelineStages = async (jobName) => {
     
     const runs = response.data
     
-    // Get the latest run (first in the array)
+    // Get the latest run (first in the array) and previous successful run for timing estimates
     if (runs && runs.length > 0) {
       const latestRun = runs[0]
+      
+      // Find the last successful run for timing estimates
+      let lastSuccessfulRun = null
+      for (let i = 1; i < runs.length; i++) {
+        if (runs[i].status === 'SUCCESS') {
+          lastSuccessfulRun = runs[i]
+          break
+        }
+      }
       
       // Map stage statuses to our internal format
       const mapStageStatus = (jenkinsStatus) => {
@@ -123,7 +132,15 @@ const fetchPipelineStages = async (jobName) => {
         runStatus: latestRun.status,
         startTimeMillis: latestRun.startTimeMillis,
         endTimeMillis: latestRun.endTimeMillis,
-        durationMillis: latestRun.durationMillis
+        durationMillis: latestRun.durationMillis,
+        // Add timing estimates from previous successful run
+        lastSuccessfulRun: lastSuccessfulRun ? {
+          durationMillis: lastSuccessfulRun.durationMillis,
+          stages: lastSuccessfulRun.stages ? lastSuccessfulRun.stages.map(stage => ({
+            name: stage.name,
+            durationMillis: stage.durationMillis
+          })) : []
+        } : null
       }
     }
     

@@ -1952,7 +1952,44 @@
         background: linear-gradient(90deg, $warning 0%, $primary-blue 100%);
         border-radius: $border-radius;
         animation: pulse 2s ease-in-out infinite;
+        transition: width 0.3s ease;
       }
+    }
+  }
+}
+
+// Pipeline timing display
+.pipeline-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-2;
+  
+  small {
+    color: var(--text-secondary);
+    font-size: $text-xs;
+    
+    &:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+  }
+}
+
+// Stage timing display
+.stage-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-2;
+  
+  small {
+    color: var(--text-secondary);
+    font-size: $text-xs;
+    
+    &:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
     }
   }
 }

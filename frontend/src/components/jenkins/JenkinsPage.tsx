@@ -74,6 +74,13 @@ interface PipelineStages {
   startTimeMillis: number;
   endTimeMillis: number;
   durationMillis: number;
+  lastSuccessfulRun?: {
+    durationMillis: number;
+    stages: {
+      name: string;
+      durationMillis: number;
+    }[];
+  } | null;
 }
 
 const JenkinsPage: React.FC = () => {
@@ -205,12 +212,49 @@ const JenkinsPage: React.FC = () => {
     return `${Math.round(millis / 1000)}s`;
   };
 
+  // Function to calculate elapsed time for running pipelines
+  const calculateElapsedTime = (startTimeMillis: number) => {
+    const now = Date.now();
+    const elapsed = now - startTimeMillis;
+    return Math.max(0, elapsed);
+  };
+
+  // Function to calculate progress percentage for pipeline
+  const calculatePipelineProgress = (pipeline: PipelineStatus) => {
+    if (!pipeline.building || !pipeline.stages?.lastSuccessfulRun) {
+      return 0;
+    }
+    
+    const elapsed = calculateElapsedTime(pipeline.stages.startTimeMillis);
+    const estimatedTotal = pipeline.stages.lastSuccessfulRun.durationMillis;
+    
+    if (estimatedTotal <= 0) return 0;
+    
+    const progress = Math.min((elapsed / estimatedTotal) * 100, 100);
+    return Math.round(progress);
+  };
+
+  // Function to calculate progress percentage for stage
+  const calculateStageProgress = (stage: PipelineStage, stages: PipelineStages) => {
+    if (stage.status !== 'running' || !stages.lastSuccessfulRun) {
+      return 0;
+    }
+    
+    const elapsed = calculateElapsedTime(stage.startTimeMillis);
+    const estimatedTotal = stages.lastSuccessfulRun.stages.find(s => s.name === stage.name)?.durationMillis || 0;
+    
+    if (estimatedTotal <= 0) return 0;
+    
+    const progress = Math.min((elapsed / estimatedTotal) * 100, 100);
+    return Math.round(progress);
+  };
+
   // Component to render pipeline stages
   const PipelineStages: React.FC<{ stages: PipelineStages }> = ({ stages }) => {
     return (
       <div className="pipeline-stages">
         <div className="pipeline-stages__header">
-          <h5>Pipeline Stages</h5>
+          <h5>Pipeline Stages ({stages.stages.length})</h5>
           <small>Run: {stages.runName}</small>
         </div>
         <div className="pipeline-stages__list">
@@ -240,7 +284,18 @@ const JenkinsPage: React.FC = () => {
                 {stage.status === 'running' && (
                   <div className="pipeline-stage__progress">
                     <div className="stage-progress-bar">
-                      <div className="stage-progress-fill"></div>
+                      <div 
+                        className="stage-progress-fill"
+                        style={{ width: `${calculateStageProgress(stage, stages)}%` }}
+                      ></div>
+                    </div>
+                    <div className="stage-timing">
+                      <small>Elapsed: {formatDuration(calculateElapsedTime(stage.startTimeMillis))}</small>
+                      {stages.lastSuccessfulRun && (
+                        <small>Estimated: {formatDuration(
+                          stages.lastSuccessfulRun.stages.find(s => s.name === stage.name)?.durationMillis || 0
+                        )}</small>
+                      )}
                     </div>
                   </div>
                 )}
@@ -547,24 +602,36 @@ const JenkinsPage: React.FC = () => {
                               </span>
                             </div>
                           </div>
-                          {pipeline.building && pipeline.estimatedDuration && (
+                          {pipeline.building && (
                             <div className="pipeline-card__progress">
                               <div className="progress-bar">
-                                <div className="progress-fill" style={{ width: '50%' }}></div>
+                                <div 
+                                  className="progress-fill" 
+                                  style={{ width: `${calculatePipelineProgress(pipeline)}%` }}
+                                ></div>
                               </div>
-                              <small>Estimated: {Math.round(pipeline.estimatedDuration / 1000)}s</small>
+                              <div className="pipeline-timing">
+                                {pipeline.stages?.lastSuccessfulRun ? (
+                                  <>
+                                    <small>Elapsed: {formatDuration(calculateElapsedTime(pipeline.stages.startTimeMillis))}</small>
+                                    <small>Estimated: {formatDuration(pipeline.stages.lastSuccessfulRun.durationMillis)}</small>
+                                  </>
+                                ) : (
+                                  <small>Running...</small>
+                                )}
+                              </div>
                             </div>
                           )}
-                          {pipeline.duration && !pipeline.building && (
+                          {pipeline.duration !== null && !pipeline.building && (
                             <div className="pipeline-card__duration">
                               <small>Duration: {Math.round(pipeline.duration / 1000)}s</small>
                             </div>
                           )}
                           
                           {/* Show pipeline stages if available */}
-                          {pipeline.stages && pipeline.stages.stages.length > 0 && (
+                          {pipeline.stages && pipeline.stages.stages.length > 0 ? (
                             <PipelineStages stages={pipeline.stages} />
-                          )}
+                          ) : null}
                         </div>
                       ))}
                     </div>
