@@ -73,36 +73,58 @@ export const pipelineConfigs: Record<string, {
                 #!/bin/bash
                 set -eu
 
-                # Delete existing cluster if any
-                kind delete cluster --name devopslab || true
-
-                # Create Kind config YAML
-                cat > kind-config.yaml <<EOF
+                # Check if cluster exists
+                if kind get clusters | grep -q "devopslab"; then
+                  ######################################
+                  ####### CASE 1: CLUSTER EXISTS #######
+                  ######################################
+                  echo "Cluster 'devopslab' already exists, skipping creation..."
+                  
+                  # Get kubeconfig for existing cluster
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  
+                else
+                  ##############################################
+                  ####### CASE 2: CLUSTER DOES NOT EXIST #######
+                  ##############################################
+                  echo "Cluster 'devopslab' does not exist, creating new cluster..."
+                  
+                  # Create Kind config YAML
+                  cat > kind-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
 EOF
 
-                # Create the cluster
-                kind create cluster --name devopslab --config kind-config.yaml
+                  # Create the cluster
+                  kind create cluster --name devopslab --config kind-config.yaml
 
-                # Save kubeconfig for Jenkins user
-                kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  # Save kubeconfig for Jenkins user
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
 
-                # Sanity check
-                kubectl cluster-info
-
-                # Load local Docker images into Kind
+                fi
+                
+                # Load all Docker images into new Kind cluster
+                echo "Loading images into new cluster..."
                 kind load docker-image devopslab-frontend --name devopslab
                 kind load docker-image devopslab-backend --name devopslab
                 kind load docker-image postgres:15-alpine --name devopslab
+
+                # Sanity check
+                kubectl cluster-info
                 `
          },
          { 
            name: "Predeploy Setup", 
            type: "sh", 
            command: `
+                # Delete namespace if it exists (to clean up previous deployments)
+                kubectl delete namespace devopslab --ignore-not-found=true
+                
+                # Wait a moment for cleanup
+                sleep 5
+
                 # Predeploy commands
                 kubectl apply -f deployments/k8s/namespace.yaml
                 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab --dry-run=client -o yaml | kubectl apply -f -
@@ -147,36 +169,58 @@ EOF
                 #!/bin/bash
                 set -eu
 
-                # Delete existing cluster if any
-                kind delete cluster --name devopslab || true
-
-                # Create Kind config YAML
-                cat > kind-config.yaml <<EOF
+                # Check if cluster exists
+                if kind get clusters | grep -q "devopslab"; then
+                  ######################################
+                  ####### CASE 1: CLUSTER EXISTS #######
+                  ######################################
+                  echo "Cluster 'devopslab' already exists, skipping creation..."
+                  
+                  # Get kubeconfig for existing cluster
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  
+                else
+                  ##############################################
+                  ####### CASE 2: CLUSTER DOES NOT EXIST #######
+                  ##############################################
+                  echo "Cluster 'devopslab' does not exist, creating new cluster..."
+                  
+                  # Create Kind config YAML
+                  cat > kind-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
- - role: control-plane
+- role: control-plane
 EOF
 
-                # Create the cluster
-                kind create cluster --name devopslab --config kind-config.yaml
+                  # Create the cluster
+                  kind create cluster --name devopslab --config kind-config.yaml
 
-                # Save kubeconfig for Jenkins user
-                kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  # Save kubeconfig for Jenkins user
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
 
-                # Sanity check
-                kubectl cluster-info
-
-                # Load local Docker images into Kind
+                fi
+                
+                # Load all Docker images into new Kind cluster
+                echo "Loading images into new cluster..."
                 kind load docker-image devopslab-frontend --name devopslab
                 kind load docker-image devopslab-backend --name devopslab
                 kind load docker-image postgres:15-alpine --name devopslab
+
+                # Sanity check
+                kubectl cluster-info
                 `
         },
         { 
           name: "Predeploy Setup", 
           type: "sh", 
           command: `
+                # Delete namespace if it exists (to clean up previous deployments)
+                kubectl delete namespace devopslab --ignore-not-found=true
+                
+                # Wait a moment for cleanup
+                sleep 5
+
                 # Predeploy commands
                 kubectl apply -f deployments/k8s/namespace.yaml
                 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab --dry-run=client -o yaml | kubectl apply -f -
@@ -213,36 +257,58 @@ EOF
                 #!/bin/bash
                 set -eu
 
-                # Delete existing cluster if any
-                kind delete cluster --name devopslab || true
-
-                # Create Kind config YAML
-                cat > kind-config.yaml <<EOF
+                # Check if cluster exists
+                if kind get clusters | grep -q "devopslab"; then
+                  ######################################
+                  ####### CASE 1: CLUSTER EXISTS #######
+                  ######################################
+                  echo "Cluster 'devopslab' already exists, skipping creation..."
+                  
+                  # Get kubeconfig for existing cluster
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  
+                else
+                  ##############################################
+                  ####### CASE 2: CLUSTER DOES NOT EXIST #######
+                  ##############################################
+                  echo "Cluster 'devopslab' does not exist, creating new cluster..."
+                  
+                  # Create Kind config YAML
+                  cat > kind-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
 EOF
 
-                # Create the cluster
-                kind create cluster --name devopslab --config kind-config.yaml
+                  # Create the cluster
+                  kind create cluster --name devopslab --config kind-config.yaml
 
-                # Save kubeconfig for Jenkins user
-                kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
+                  # Save kubeconfig for Jenkins user
+                  kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
 
-                # Sanity check
-                kubectl cluster-info
-
-                # Load local Docker images into Kind
+                fi
+                
+                # Load all Docker images into new Kind cluster
+                echo "Loading images into new cluster..."
                 kind load docker-image devopslab-frontend --name devopslab
                 kind load docker-image devopslab-backend --name devopslab
                 kind load docker-image postgres:15-alpine --name devopslab
+
+                # Sanity check
+                kubectl cluster-info
                 `
          },
          { 
            name: "Predeploy Setup", 
            type: "sh", 
            command: `
+                # Delete namespace if it exists (to clean up previous deployments)
+                kubectl delete namespace devopslab --ignore-not-found=true
+                
+                # Wait a moment for cleanup
+                sleep 5
+
                 # Predeploy commands
                 kubectl apply -f deployments/k8s/namespace.yaml
                 kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab --dry-run=client -o yaml | kubectl apply -f -
