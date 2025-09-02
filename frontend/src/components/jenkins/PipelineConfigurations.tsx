@@ -407,7 +407,7 @@ EOF
           Pipeline Configurations
         </h2>
         <p className="section-description">
-          Explore different pipeline configurations for each deployment type
+          Explore the pipeline configuration for each deployment type
         </p>
       </div>
 
