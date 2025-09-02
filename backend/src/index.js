@@ -292,7 +292,7 @@ const fetchPipelineStatus = async (jobName) => {
   }
 }
 
-// Get status of all pipelines
+// Get status of all pipelines -> This will be a AWS lambda function called  getPipelineStatus
 app.get('/api/pipelines/status', async (req, res) => {
   try {
     console.log('Fetching status for all pipelines...')
