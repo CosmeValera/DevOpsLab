@@ -92,7 +92,7 @@ docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devo
 docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
 docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
+docker run -d --name jenkins --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Delete images
 docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine
@@ -287,10 +287,13 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 ```bash
 # Start Build and start Jenkins container
 docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
+docker run -d --name jenkins --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Get initial admin password
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+
+# Create the .env file for the backend, so that the pipeline status page in the frontend can work
+echo -e "JENKINS_HOST=http://localhost:8080\nJENKINS_USER=admin\nJENKINS_TOKEN=$(docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword)\nPORT=3001\nNODE_ENV=development" > backend/.env
 ```
 
 ### Setup Jenkins Pipeline

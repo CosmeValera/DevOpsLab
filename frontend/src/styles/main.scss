@@ -1157,6 +1157,38 @@
     text-align: center;
   }
   
+  .section-header-pipeline-status {
+    margin-bottom: $space-6;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    @include max-md {
+      flex-direction: column;
+      gap: $space-4;
+    }
+    
+    &__left {
+      text-align: left;
+      flex: 1;
+    }
+    
+    &__right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $space-2;
+      
+      @include max-md {
+        align-items: flex-start;
+      }
+    }
+    .section-title {
+      justify-content: left;
+    }
+  }
+
+  
   .section-title {
     @include heading-2;
     display: flex;
@@ -1173,6 +1205,196 @@
     font-size: $text-lg;
     max-width: 600px;
     margin: 0 auto;
+  }
+  
+  .refresh-button {
+    @include btn-base;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $text-sm;
+    padding: $space-2 $space-3;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-md;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color-hover);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+  .last-updated {
+    font-size: $text-xs;
+    color: var(--text-secondary);
+    opacity: 0.8;
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-4;
+    background: linear-gradient(135deg, 
+      rgba($error, 0.1) 0%, 
+      rgba($error-light, 0.05) 100%);
+    border: 1px solid rgba($error, 0.2);
+    border-radius: $border-radius-lg;
+    margin-bottom: $space-6;
+    
+    .retry-button {
+      @include btn-base;
+      @include btn-secondary;
+      font-size: $text-xs;
+      padding: $space-1 $space-2;
+      margin-left: auto;
+    }
+  }
+
+  // Enhanced Global Error Message
+  .global-error-message {
+    display: flex;
+    gap: $space-4;
+    padding: $space-6;
+    background: linear-gradient(135deg, 
+      rgba($error, 0.08) 0%, 
+      rgba($error-light, 0.04) 100%);
+    border: 1px solid rgba($error, 0.15);
+    border-radius: $border-radius-xl;
+    margin-bottom: $space-6;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, $error, $error-light);
+    }
+    
+    .error-icon-container {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, 
+        rgba($error, 0.15) 0%, 
+        rgba($error-light, 0.1) 100%);
+      border-radius: $border-radius-lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $error;
+      border: 1px solid rgba($error, 0.2);
+    }
+    
+    .global-error-content {
+      flex: 1;
+      
+      h4 {
+        @include heading-4;
+        color: var(--text-primary);
+        margin-bottom: $space-2;
+        font-weight: 600;
+      }
+      
+      .error-description {
+        @include body-text;
+        color: var(--text-secondary);
+        font-size: $text-base;
+        margin-bottom: $space-4;
+        line-height: 1.5;
+      }
+      
+      .global-error-actions {
+        display: flex;
+        gap: $space-3;
+        align-items: center;
+        
+        .retry-button {
+          @include btn-base;
+          background: linear-gradient(135deg, $error 0%, $error-light 100%);
+          color: white;
+          border: none;
+          padding: $space-2 $space-4;
+          border-radius: $border-radius-md;
+          font-size: $text-sm;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: $space-2;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba($error, 0.3);
+          }
+          
+          &:active {
+            transform: translateY(0);
+          }
+        }
+        
+        .jenkins-link {
+          @include btn-base;
+          @include btn-secondary;
+          display: flex;
+          align-items: center;
+          gap: $space-2;
+          padding: $space-2 $space-4;
+          font-size: $text-sm;
+          text-decoration: none;
+          border: 1px solid var(--border-color);
+          
+          &:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-color-hover);
+          }
+        }
+      }
+    }
+  }
+  
+  .loading-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    padding: $space-8;
+    color: var(--text-secondary);
+    
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -1231,114 +1453,244 @@
   }
 }
 
-// Command Section
-.command-section {
-  h4 {
-    @include heading-4;
-    margin-bottom: $space-3;
-    color: var(--text-primary);
-    font-size: $text-sm;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
-  }
-  
-  & + .access-info {
-    margin-top: $space-6;
-  }
-}
-
-// Access Info
-.access-info {
-  &__item {
-    display: flex;
-    align-items: center;
-    gap: $space-2;
-    padding: $space-3;
-    background: rgba($primary-blue, 0.05);
-    border: 1px solid rgba($primary-blue, 0.1);
-    border-radius: $border-radius-lg;
-    color: var(--text-secondary);
-    
-    a {
-      color: $primary-blue;
-      text-decoration: none;
-      font-weight: $font-medium;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-  
-  & + .warning-section {
-    margin-top: $space-6;
-  }
-}
-
-// Warning Section
-.warning-section {
-  padding: $space-4;
-  background: linear-gradient(135deg, 
-    rgba($warning, 0.1) 0%, 
-    rgba($warning-light, 0.05) 100%);
-  border: 1px solid rgba($warning, 0.2);
+// Setup Steps
+.setup-step {
+  padding: $space-6;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: $border-radius-lg;
+  transition: all 0.2s ease;
+  margin-bottom: $space-6; // Add spacing between steps
   
-  .warning-header {
+  &:last-child {
+    margin-bottom: 0; // Remove margin from last step
+  }
+  
+  .step-header {
     display: flex;
     align-items: center;
-    gap: $space-2;
-    margin-bottom: $space-2;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: $font-bold;
+      font-size: $text-sm;
+      flex-shrink: 0;
+    }
     
     h4 {
       @include heading-4;
-      color: $warning;
-      font-size: $text-sm;
-      font-weight: $font-semibold;
+      color: var(--text-primary);
+      margin: 0;
+      font-size: $text-lg;
     }
   }
   
   p {
     @include body-text;
     color: var(--text-secondary);
-    font-size: $text-sm;
     margin-bottom: $space-3;
+    line-height: 1.6;
   }
   
-  & + .admin-info {
-    margin-top: $space-6;
+  .step-alternative {
+    margin-top: $space-4;
+    padding-top: $space-4;
+    border-top: 1px solid rgba(var(--border-color), 0.3);
+    
+    .alternative-label {
+      @include body-text;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+      font-style: italic;
+      margin-bottom: $space-3;
+      opacity: 0.8;
+    }
   }
 }
 
-// Admin Info
-.admin-info {
-  &__item {
+// Wizard Steps (for step 4)
+.wizard-steps {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  margin-top: $space-4;
+  
+  .wizard-step {
     display: flex;
     align-items: flex-start;
     gap: $space-3;
-    padding: $space-4;
-    background: linear-gradient(135deg, 
-      rgba($success, 0.1) 0%, 
-      rgba($success-light, 0.05) 100%);
-    border: 1px solid rgba($success, 0.2);
-    border-radius: $border-radius-lg;
-    color: var(--text-secondary);
+    padding: $space-3;
+    background: rgba($primary-blue, 0.03);
+    border: 1px solid rgba($primary-blue, 0.1);
+    border-radius: $border-radius-md;
+    
+    &__number {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, $primary-indigo 0%, $primary-blue 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: $font-semibold;
+      font-size: $text-xs;
+      font-family: monospace;
+    }
+    
+    &__content {
+      flex: 1;
+      
+      p {
+        margin: 0;
+        font-size: $text-sm;
+        line-height: 1.5;
+        
+        code {
+          background: rgba($primary-blue, 0.1);
+          padding: $space-1 $space-2;
+          border-radius: $border-radius-sm;
+          font-family: monospace;
+          font-size: $text-xs;
+          color: $primary-blue;
+        }
+      }
+    }
+  }
+}
+
+// Info Box
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-4;
+  background: linear-gradient(135deg, 
+    rgba($primary-blue, 0.08) 0%, 
+    rgba($primary-indigo, 0.05) 100%);
+  border: 1px solid rgba($primary-blue, 0.15);
+  border-radius: $border-radius-lg;
+  margin-top: $space-4;
+  
+  &__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: $primary-blue;
+    margin-top: 2px;
   }
   
-  &__text {
+  &__content {
     display: flex;
     flex-direction: column;
+    gap: $space-2;
+    flex: 1;
+    
+    .info-box__title {
+      @include body-text;
+      color: var(--text-primary);
+      font-weight: $font-semibold;
+      font-size: $text-sm;
+    }
+    
+    .info-box__description {
+      @include body-text;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+  }
+}
+
+// Access Info
+.access-info {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3;
+  background: rgba($primary-blue, 0.05);
+  border: 1px solid rgba($primary-blue, 0.1);
+  border-radius: $border-radius-lg;
+  color: var(--text-secondary);
+  
+  a {
+    color: $primary-blue;
+    text-decoration: none;
+    font-weight: $font-medium;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Pipeline Summary
+.pipeline-summary {
+  display: flex;
+  justify-content: center;
+  gap: $space-6;
+  margin-bottom: $space-6;
+  padding: $space-4;
+  background: linear-gradient(135deg, 
+    var(--bg-primary) 0%, 
+    var(--bg-secondary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  
+  @include max-md {
+    flex-wrap: wrap;
+    gap: $space-4;
+  }
+  
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: $space-1;
     
-    span:first-child {
-      color: var(--text-primary);
+    .summary-label {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       font-weight: $font-medium;
     }
     
-    span:last-child {
-      font-size: $text-sm;
-      opacity: 0.8;
+    .summary-value {
+      font-size: $text-xl;
+      font-weight: $font-bold;
+      color: var(--text-primary);
+      
+      &.summary-running {
+        color: $warning;
+      }
+      
+      &.summary-success {
+        color: $success;
+      }
+      
+      &.summary-failed {
+        color: $error;
+      }
+      
+      &.summary-pending {
+        color: $neutral-500;
+      }
+      
+      &.summary-neutral {
+        color: $neutral-500;
+      }
     }
   }
 }
@@ -1370,6 +1722,13 @@
     border-color: rgba($primary-blue, 0.3);
     background: linear-gradient(135deg, 
       rgba($primary-blue, 0.05) 0%, 
+      var(--bg-primary) 100%);
+  }
+  
+  &--error {
+    border-color: rgba($error, 0.3);
+    background: linear-gradient(135deg, 
+      rgba($error, 0.05) 0%, 
       var(--bg-primary) 100%);
   }
   
@@ -1426,6 +1785,64 @@
         color: var(--text-secondary);
         border: 1px solid rgba($neutral-500, 0.2);
       }
+      
+      &.status-failure {
+        background: rgba($error, 0.15);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+      }
+      
+      &.status-warning {
+        background: rgba($warning, 0.15);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+      }
+      
+      &.status-unknown {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+      
+      &.status-neutral {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+    }
+  }
+  
+  &__progress {
+    margin-top: $space-3;
+    
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba($neutral-500, 0.2);
+      border-radius: $border-radius;
+      overflow: hidden;
+      margin-bottom: $space-2;
+      
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $warning 0%, $primary-blue 100%);
+        border-radius: $border-radius;
+        transition: width 0.3s ease;
+      }
+    }
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+    }
+  }
+  
+  &__duration {
+    margin-top: $space-3;
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
     }
   }
   
@@ -1439,6 +1856,230 @@
       letter-spacing: 0.5px;
       opacity: 0.8;
     }
+  }
+}
+
+// Pipeline Stages
+.pipeline-stages {
+  margin-top: $space-4;
+  padding-top: $space-4;
+  border-top: 1px solid var(--border-color);
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-3;
+    
+    h5 {
+      @include heading-4;
+      margin: 0;
+      color: var(--text-primary);
+      font-size: $text-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    small {
+      font-size: $text-xs;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: $space-1 $space-2;
+      border-radius: $border-radius;
+      border: 1px solid var(--border-color);
+    }
+  }
+  
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+}
+
+.pipeline-stage {
+  padding: $space-3;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  transition: all $transition-normal;
+  
+  &--current {
+    border-color: rgba($primary-blue, 0.4);
+    background: linear-gradient(135deg, 
+      rgba($primary-blue, 0.05) 0%, 
+      var(--bg-secondary) 100%);
+    box-shadow: 0 2px 8px rgba($primary-blue, 0.1);
+  }
+  
+  &--running {
+    border-color: rgba($warning, 0.4);
+    background: linear-gradient(135deg, 
+      rgba($warning, 0.05) 0%, 
+      var(--bg-secondary) 100%);
+  }
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-2;
+  }
+  
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    
+    .stage-status-badge {
+      padding: $space-1 $space-2;
+      border-radius: $border-radius-md;
+      font-size: $text-xs;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &.stage-status-success {
+        background: rgba($success, 0.15);
+        color: $success;
+        border: 1px solid rgba($success, 0.2);
+      }
+      
+      &.stage-status-running {
+        background: rgba($warning, 0.15);
+        color: $warning;
+        border: 1px solid rgba($warning, 0.2);
+      }
+      
+      &.stage-status-failure {
+        background: rgba($error, 0.15);
+        color: $error;
+        border: 1px solid rgba($error, 0.2);
+      }
+      
+      &.stage-status-paused {
+        background: rgba($neutral-500, 0.15);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.2);
+      }
+      
+      &.stage-status-pending {
+        background: rgba($neutral-500, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.15);
+      }
+      
+      &.stage-status-unknown {
+        background: rgba($neutral-500, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid rgba($neutral-500, 0.15);
+      }
+    }
+  }
+  
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex: 1;
+    margin-left: $space-3;
+  }
+  
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius;
+    font-size: $text-xs;
+    font-weight: $font-semibold;
+    color: var(--text-secondary);
+  }
+  
+  &__title {
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: var(--text-primary);
+  }
+  
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &__duration {
+    font-size: $text-xs;
+    color: var(--text-secondary);
+  }
+  
+  &__progress {
+    flex: 1;
+    margin-left: $space-3;
+    
+    .stage-progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba($neutral-500, 0.2);
+      border-radius: $border-radius;
+      overflow: hidden;
+      
+      .stage-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $warning 0%, $primary-blue 100%);
+        border-radius: $border-radius;
+        animation: pulse 2s ease-in-out infinite;
+        transition: width 0.3s ease;
+      }
+    }
+  }
+}
+
+// Pipeline timing display
+.pipeline-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-2;
+  
+  small {
+    color: var(--text-secondary);
+    font-size: $text-xs;
+    
+    &:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+  }
+}
+
+// Stage timing display
+.stage-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-2;
+  
+  small {
+    color: var(--text-secondary);
+    font-size: $text-xs;
+    
+    &:first-child {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
   }
 }
 

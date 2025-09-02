@@ -34,7 +34,8 @@ RUN jenkins-plugin-cli --plugins \
     git \
     workflow-aggregator \
     pipeline-github-lib \
-    configuration-as-code
+    configuration-as-code \
+    pipeline-stage-view
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \

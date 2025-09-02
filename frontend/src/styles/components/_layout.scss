@@ -262,11 +262,15 @@
   
   &__title {
     @include heading-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: $space-6;
+    gap: $space-3;
   }
   
   &__subtitle {

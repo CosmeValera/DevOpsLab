@@ -51,7 +51,7 @@ const DockerDeployment: React.FC = () => {
           explanation: "Build a Docker image for the jenkins application with the tag 'devopslab-jenkins'"
         },
         {
-          command: "docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins",
+          command: "docker run -d --name jenkins --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins",
           explanation: "Run the jenkins container in detached mode, mapping port 8080 for Jenkins access"
         },
         {
