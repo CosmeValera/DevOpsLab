@@ -292,57 +292,6 @@ const fetchPipelineStatus = async (jobName) => {
   }
 }
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development',
-    service: 'devopslab-backend',
-    jenkins: {
-      host: JENKINS_HOST,
-      connected: true
-    }
-  })
-})
-
-// Metrics endpoint
-app.get('/metrics', (req, res) => {
-  res.status(200).json({
-    service: 'devopslab-backend',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-    memory: process.memoryUsage(),
-    uptime: process.uptime(),
-    jenkins: {
-      host: JENKINS_HOST,
-      pipelines: PIPELINE_JOBS.length
-    }
-  })
-})
-
-// API Routes
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'DevOpsLab Backend API - Jenkins Pipeline Status Service',
-    version: '1.0.0',
-    status: 'running',
-    endpoints: {
-      health: '/health',
-      metrics: '/metrics',
-      pipelines: {
-        status: '/api/pipelines/status',
-        statusById: '/api/pipelines/:jobName/status'
-      }
-    },
-    jenkins: {
-      host: JENKINS_HOST,
-      pipelines: PIPELINE_JOBS
-    }
-  })
-})
-
 // Get status of all pipelines
 app.get('/api/pipelines/status', async (req, res) => {
   try {
@@ -380,185 +329,13 @@ app.get('/api/pipelines/status', async (req, res) => {
   }
 })
 
-// Get status of a specific pipeline
-app.get('/api/pipelines/:jobName/status', async (req, res) => {
-  try {
-    const { jobName } = req.params
-    
-    if (!PIPELINE_JOBS.includes(jobName)) {
-      return res.status(404).json({
-        success: false,
-        error: 'Pipeline not found',
-        availablePipelines: PIPELINE_JOBS
-      })
-    }
-    
-    console.log(`Fetching status for pipeline: ${jobName}`)
-    
-    const pipelineStatus = await fetchPipelineStatus(jobName)
-    
-    res.json({
-      success: true,
-      timestamp: new Date().toISOString(),
-      jenkinsHost: JENKINS_HOST,
-      pipeline: pipelineStatus
-    })
-  } catch (error) {
-    console.error(`Error fetching status for ${req.params.jobName}:`, error)
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch pipeline status',
-      message: error.message,
-      timestamp: new Date().toISOString()
-    })
-  }
-})
-
-// Get Jenkins server info
-app.get('/api/jenkins/info', async (req, res) => {
-  try {
-    // Create Basic Auth header if credentials are provided
-    const authHeaders = {}
-    if (JENKINS_USER && JENKINS_TOKEN) {
-      const auth = Buffer.from(`${JENKINS_USER}:${JENKINS_TOKEN}`).toString('base64')
-      authHeaders['Authorization'] = `Basic ${auth}`
-    }
-    
-    const response = await axios.get(`${JENKINS_HOST}/api/json`, {
-      timeout: 5000,
-      headers: {
-        'Accept': 'application/json',
-        ...authHeaders
-      }
-    })
-    
-    res.json({
-      success: true,
-      timestamp: new Date().toISOString(),
-      jenkins: {
-        host: JENKINS_HOST,
-        version: response.data.version,
-        jobs: response.data.jobs?.length || 0,
-        mode: response.data.mode,
-        nodeDescription: response.data.nodeDescription,
-        nodeName: response.data.nodeName,
-        numExecutors: response.data.numExecutors,
-        description: response.data.description
-      },
-      authentication: {
-        configured: !!(JENKINS_USER && JENKINS_TOKEN),
-        user: JENKINS_USER || 'not set'
-      }
-    })
-  } catch (error) {
-    console.error('Error fetching Jenkins info:', error)
-    
-    let errorMessage = error.message
-    if (error.response) {
-      errorMessage = `HTTP ${error.response.status}: ${error.response.statusText}`
-    }
-    
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch Jenkins server info',
-      message: errorMessage,
-      timestamp: new Date().toISOString(),
-      authentication: {
-        configured: !!(JENKINS_USER && JENKINS_TOKEN),
-        user: JENKINS_USER || 'not set'
-      }
-    })
-  }
-})
-
-// Test Jenkins connection endpoint
-app.get('/api/jenkins/test', async (req, res) => {
-  try {
-    // Test without authentication first
-    let response
-    let authStatus = 'none'
-    
-    try {
-      response = await axios.get(`${JENKINS_HOST}/api/json`, {
-        timeout: 5000,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      authStatus = 'anonymous'
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Try with authentication
-        if (JENKINS_USER && JENKINS_TOKEN) {
-          const auth = Buffer.from(`${JENKINS_USER}:${JENKINS_TOKEN}`).toString('base64')
-          response = await axios.get(`${JENKINS_HOST}/api/json`, {
-            timeout: 5000,
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': `Basic ${auth}`
-            }
-          })
-          authStatus = 'authenticated'
-        } else {
-          throw new Error('Authentication required but no credentials provided')
-        }
-      } else {
-        throw error
-      }
-    }
-    
-    res.json({
-      success: true,
-      timestamp: new Date().toISOString(),
-      connection: {
-        host: JENKINS_HOST,
-        status: 'connected',
-        authentication: authStatus,
-        version: response.data.version,
-        jobs: response.data.jobs?.length || 0
-      },
-      configuration: {
-        jenkinsUser: JENKINS_USER || 'not set',
-        jenkinsToken: JENKINS_TOKEN ? 'configured' : 'not set'
-      }
-    })
-  } catch (error) {
-    console.error('Error testing Jenkins connection:', error)
-    
-    let errorMessage = error.message
-    if (error.response) {
-      errorMessage = `HTTP ${error.response.status}: ${error.response.statusText}`
-    }
-    
-    res.status(500).json({
-      success: false,
-      error: 'Failed to connect to Jenkins',
-      message: errorMessage,
-      timestamp: new Date().toISOString(),
-      connection: {
-        host: JENKINS_HOST,
-        status: 'failed'
-      },
-      configuration: {
-        jenkinsUser: JENKINS_USER || 'not set',
-        jenkinsToken: JENKINS_TOKEN ? 'configured' : 'not set'
-      }
-    })
-  }
-})
-
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
     error: 'Endpoint not found',
     availableEndpoints: {
-      health: '/health',
-      metrics: '/metrics',
-      api: '/api',
-      pipelines: '/api/pipelines/status',
-      jenkinsInfo: '/api/jenkins/info',
-      jenkinsTest: '/api/jenkins/test'
+      pipelines: '/api/pipelines/status'
     }
   })
 })
@@ -577,9 +354,6 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(port, () => {
   console.log(`🚀 DevOpsLab Backend API running on port ${port}`)
-  console.log(`📊 Health check: http://localhost:${port}/health`)
-  console.log(`📈 Metrics: http://localhost:${port}/metrics`)
-  console.log(`🔗 API docs: http://localhost:${port}/api`)
   console.log(`🔧 Jenkins integration: ${JENKINS_HOST}`)
   console.log(`📋 Monitoring pipelines: ${PIPELINE_JOBS.join(', ')}`)
 })
