@@ -1453,114 +1453,127 @@
   }
 }
 
-// Command Section
-.command-section {
-  h4 {
-    @include heading-4;
-    margin-bottom: $space-3;
-    color: var(--text-primary);
-    font-size: $text-sm;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
-  }
-  
-  & + .access-info {
-    margin-top: $space-6;
-  }
-}
-
-// Access Info
-.access-info {
-  &__item {
-    display: flex;
-    align-items: center;
-    gap: $space-2;
-    padding: $space-3;
-    background: rgba($primary-blue, 0.05);
-    border: 1px solid rgba($primary-blue, 0.1);
-    border-radius: $border-radius-lg;
-    color: var(--text-secondary);
-    
-    a {
-      color: $primary-blue;
-      text-decoration: none;
-      font-weight: $font-medium;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-  
-  & + .warning-section {
-    margin-top: $space-6;
-  }
-}
-
-// Warning Section
-.warning-section {
-  padding: $space-4;
-  background: linear-gradient(135deg, 
-    rgba($warning, 0.1) 0%, 
-    rgba($warning-light, 0.05) 100%);
-  border: 1px solid rgba($warning, 0.2);
+// Setup Steps
+.setup-step {
+  padding: $space-6;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: $border-radius-lg;
+  transition: all 0.2s ease;
   
-  .warning-header {
+  .step-header {
     display: flex;
     align-items: center;
-    gap: $space-2;
-    margin-bottom: $space-2;
+    gap: $space-3;
+    margin-bottom: $space-4;
+    
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: $font-bold;
+      font-size: $text-sm;
+      flex-shrink: 0;
+    }
     
     h4 {
       @include heading-4;
-      color: $warning;
-      font-size: $text-sm;
-      font-weight: $font-semibold;
+      color: var(--text-primary);
+      margin: 0;
+      font-size: $text-lg;
     }
   }
   
   p {
     @include body-text;
     color: var(--text-secondary);
-    font-size: $text-sm;
     margin-bottom: $space-3;
+    line-height: 1.6;
   }
   
-  & + .admin-info {
-    margin-top: $space-6;
+  .step-alternative {
+    margin-top: $space-4;
+    padding-top: $space-4;
+    border-top: 1px solid rgba(var(--border-color), 0.3);
+    
+    .alternative-label {
+      @include body-text;
+      color: var(--text-secondary);
+      font-size: $text-sm;
+      font-style: italic;
+      margin-bottom: $space-3;
+      opacity: 0.8;
+    }
   }
 }
 
-// Admin Info
-.admin-info {
-  &__item {
-    display: flex;
-    align-items: flex-start;
-    gap: $space-3;
-    padding: $space-4;
-    background: linear-gradient(135deg, 
-      rgba($success, 0.1) 0%, 
-      rgba($success-light, 0.05) 100%);
-    border: 1px solid rgba($success, 0.2);
-    border-radius: $border-radius-lg;
-    color: var(--text-secondary);
+// Info Box
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-4;
+  background: linear-gradient(135deg, 
+    rgba($primary-blue, 0.08) 0%, 
+    rgba($primary-indigo, 0.05) 100%);
+  border: 1px solid rgba($primary-blue, 0.15);
+  border-radius: $border-radius-lg;
+  margin-top: $space-4;
+  
+  &__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: $primary-blue;
+    margin-top: 2px;
   }
   
-  &__text {
+  &__content {
     display: flex;
     flex-direction: column;
-    gap: $space-1;
+    gap: $space-2;
+    flex: 1;
     
-    span:first-child {
+    .info-box__title {
+      @include body-text;
       color: var(--text-primary);
-      font-weight: $font-medium;
+      font-weight: $font-semibold;
+      font-size: $text-sm;
     }
     
-    span:last-child {
+    .info-box__description {
+      @include body-text;
+      color: var(--text-secondary);
       font-size: $text-sm;
-      opacity: 0.8;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+  }
+}
+
+// Access Info
+.access-info {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3;
+  background: rgba($primary-blue, 0.05);
+  border: 1px solid rgba($primary-blue, 0.1);
+  border-radius: $border-radius-lg;
+  color: var(--text-secondary);
+  
+  a {
+    color: $primary-blue;
+    text-decoration: none;
+    font-weight: $font-medium;
+    
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

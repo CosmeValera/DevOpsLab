@@ -329,7 +329,7 @@ const PipelineStatus: React.FC = () => {
       case 'auth_required':
         return 'Authentication required. Please configure Jenkins credentials in backend/.env file.';
       case 'auth_invalid':
-        return 'Invalid Jenkins credentials. Please check your username and token.';
+        return 'Invalid Jenkins credentials. Please check your username and token. Hint: Configure Backend Authentication which corresponds to step 4 of the Jenkins Configuration and then reload the backend server.';
       case 'connection_failed':
         return 'Cannot connect to Jenkins. Please check if Jenkins is running on port 8080.';
       case 'host_not_found':
