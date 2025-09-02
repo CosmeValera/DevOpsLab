@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Diamond background -->
+  <polygon points="16,2 28,16 16,30 4,16" fill="#7c3aed" stroke="#6d28d9" stroke-width="1"/>
+  
+  <!-- Inner diamond -->
+  <polygon points="16,8 24,16 16,24 8,16" fill="#a855f7" stroke="#ffffff" stroke-width="0.5"/>
+  
+  <!-- Central circle with data bars -->
+  <circle cx="16" cy="16" r="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  
+  <!-- Data visualization bars -->
+  <rect x="14" y="18" width="1" height="3" fill="#10b981"/>
+  <rect x="16" y="16" width="1" height="5" fill="#10b981"/>
+  <rect x="18" y="19" width="1" height="2" fill="#10b981"/>
+  
+  <!-- Corner accents -->
+  <circle cx="8" cy="8" r="1" fill="#fbbf24"/>
+  <circle cx="24" cy="8" r="1" fill="#fbbf24"/>
+  <circle cx="8" cy="24" r="1" fill="#fbbf24"/>
+  <circle cx="24" cy="24" r="1" fill="#fbbf24"/>
+  
+  <!-- Connection dots -->
+  <circle cx="16" cy="8" r="0.8" fill="#10b981"/>
+  <circle cx="16" cy="24" r="0.8" fill="#10b981"/>
+  <circle cx="8" cy="16" r="0.8" fill="#10b981"/>
+  <circle cx="24" cy="16" r="0.8" fill="#10b981"/>
+</svg>
