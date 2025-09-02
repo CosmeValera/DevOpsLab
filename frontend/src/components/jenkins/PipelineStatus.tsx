@@ -10,7 +10,7 @@ import {
   XCircle
 } from "lucide-react";
 
-// API Configuration
+// API Configuration -> This will have to use AWS LAMBDA endpoint in Production
 const API_BASE_URL = 'http://localhost:3001';
 
 // Types for pipeline status
