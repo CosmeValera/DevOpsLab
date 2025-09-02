@@ -113,9 +113,6 @@ const PipelineConfigurations: React.FC = () => {
           ######################################
           echo "Cluster 'devopslab' already exists, skipping creation..."
           
-          # Get kubeconfig for existing cluster
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-          
         else
           ##############################################
           ####### CASE 2: CLUSTER DOES NOT EXIST #######
@@ -133,10 +130,12 @@ EOF
           # Create the cluster
           kind create cluster --name devopslab --config kind-config.yaml
 
-          # Save kubeconfig for Jenkins user
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-
         fi
+        
+        # Ensure .kube directory exists
+        mkdir -p /var/jenkins_home/.kube
+        # Save kubeconfig for Jenkins user
+        kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
         
         # Load all Docker images into new Kind cluster
         echo "Loading images into new cluster..."
@@ -223,9 +222,6 @@ EOF
           ######################################
           echo "Cluster 'devopslab' already exists, skipping creation..."
           
-          # Get kubeconfig for existing cluster
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-          
         else
           ##############################################
           ####### CASE 2: CLUSTER DOES NOT EXIST #######
@@ -243,10 +239,12 @@ EOF
           # Create the cluster
           kind create cluster --name devopslab --config kind-config.yaml
 
-          # Save kubeconfig for Jenkins user
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-
         fi
+        
+        # Ensure .kube directory exists
+        mkdir -p /var/jenkins_home/.kube
+        # Save kubeconfig for Jenkins user
+        kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
         
         # Load all Docker images into new Kind cluster
         echo "Loading images into new cluster..."
@@ -331,9 +329,6 @@ EOF
           ######################################
           echo "Cluster 'devopslab' already exists, skipping creation..."
           
-          # Get kubeconfig for existing cluster
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-          
         else
           ##############################################
           ####### CASE 2: CLUSTER DOES NOT EXIST #######
@@ -351,10 +346,12 @@ EOF
           # Create the cluster
           kind create cluster --name devopslab --config kind-config.yaml
 
-          # Save kubeconfig for Jenkins user
-          kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
-
         fi
+        
+        # Ensure .kube directory exists
+        mkdir -p /var/jenkins_home/.kube
+        # Save kubeconfig for Jenkins user
+        kind get kubeconfig --name devopslab > /var/jenkins_home/.kube/config
         
         # Load all Docker images into new Kind cluster
         echo "Loading images into new cluster..."
