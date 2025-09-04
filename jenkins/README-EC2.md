@@ -1,3 +1,8 @@
+**0. Connect to your ec2:**
+```sh
+ssh -i cosme-demo-ssh.pem ubuntu@ec2-54-93-162-158.eu-central-1.compute.amazonaws.com # Change 'ec2-54...' with your DNS
+```
+
 **1. Add Dockerfile with the values of `EC2.Dockerfile`**
 
 **2. Steps for rebuild**
@@ -27,7 +32,7 @@ docker logs jenkins # To obtain the password
 git clone https://github.com/cosmevalera/devopslab
 cd devopslab
 git checkout dev
-git s # Check branch dev
+git status # Check branch dev
 
 
 # Copy the repo inside of the jenkins execution. And copy the frontend and the backend folders, inside of '/var/jenkins_home/workspace/DockerPipeline':
