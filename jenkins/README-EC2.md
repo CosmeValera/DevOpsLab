@@ -4,6 +4,7 @@
 ```sh
 # Stop current Jenkins
 docker rm -f jenkins && docker rmi -f devopslab-jenkins && docker volume rm -f jenkins_home
+docker image prune -af
 
 docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins .
 
@@ -16,13 +17,15 @@ docker run -d \
   -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   devopslab-jenkins
+
+docker logs jenkins # To obtain the password
 ```
 
 **3. Add backend and frontend in jenkins**
 ```sh
 # Clone repo
 git clone https://github.com/cosmevalera/devopslab
-cd DevOpsLab
+cd devopslab
 git checkout dev
 git s # Check branch dev
 

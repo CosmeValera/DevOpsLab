@@ -19,6 +19,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install Docker CLI
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
+    sh get-docker.sh && \
+    rm get-docker.sh
+
 # Install docker-compose v2
 RUN curl -SL "https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64" \
     -o /usr/local/bin/docker-compose && \
@@ -50,9 +55,9 @@ RUN curl https://get.helm.sh/helm-v3.12.0-linux-amd64.tar.gz | tar xz && \
 RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash && \
     mv kustomize /usr/local/bin/
 
-# Create docker group with the correct GID and add jenkins user
+# Modify existing docker group GID and add jenkins user
 ARG DOCKER_GID
-RUN groupadd -g ${DOCKER_GID} docker && \
+RUN groupmod -g ${DOCKER_GID} docker && \
     usermod -aG docker jenkins
 
 # Switch back to jenkins user
