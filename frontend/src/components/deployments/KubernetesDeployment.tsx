@@ -65,12 +65,12 @@ const KubernetesDeployment: React.FC = () => {
       description: "Deploy or delete the application manifests",
       commands: [
         {
-          command: "kubectl apply -f deployments/k8s/",
-          explanation: "Deploy all Kubernetes manifests (deployments, services, configmaps) to the cluster"
+          command: "kubectl apply -f deployments/k8s/frontend/ -f deployments/k8s/backend/",
+          explanation: "Deploy the frontend and backend Kubernetes manifests (deployment, service, configmap) to the cluster"
         },
         {
-          command: "kubectl delete -f deployments/k8s/",
-          explanation: "Delete all Kubernetes manifests (deployments, services, configmaps) to the cluster"
+          command: "kubectl delete -f deployments/k8s/frontend/ -f deployments/k8s/backend/",
+          explanation: "Delete the frontend and backend Kubernetes manifests (deployments, services, configmaps) to the cluster"
         }
       ]
     },

@@ -168,7 +168,6 @@ EOF
         sh '''
         kubectl apply -f deployments/k8s/frontend/
         kubectl apply -f deployments/k8s/backend/
-        kubectl apply -f deployments/k8s/database/
         '''
       }
     }

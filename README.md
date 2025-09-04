@@ -130,7 +130,7 @@ kubectl apply -f deployments/k8s/namespace.yaml
 
 ```bash
 # Apply all Kubernetes manifests
-kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
+kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/frontend/
 
 # Check deployment status
 kubectl get all -n devopslab
