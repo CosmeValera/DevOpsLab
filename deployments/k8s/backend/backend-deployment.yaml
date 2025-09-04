@@ -32,8 +32,6 @@ spec:
             configMapKeyRef:
               name: backend-config
               key: PORT
-        - name: DATABASE_URL
-          value: "postgresql://postgres:password@postgres-service:5432/devopslab"
         resources:
           requests:
             memory: "256Mi"

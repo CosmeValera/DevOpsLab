@@ -91,14 +91,6 @@ const DockerComposeDeployment: React.FC = () => {
             </div>
             
             <div className="verification-step">
-              <div className="verification-step__icon">🗄️</div>
-              <div className="verification-step__content">
-                <h4>Database</h4>
-                <p>Connect to PostgreSQL at <code>localhost:5432</code> with credentials from docker-compose.yml</p>
-              </div>
-            </div>
-            
-            <div className="verification-step">
               <div className="verification-step__icon">⚙️</div>
               <div className="verification-step__content">
                 <h4>Jenkins CI/CD</h4>

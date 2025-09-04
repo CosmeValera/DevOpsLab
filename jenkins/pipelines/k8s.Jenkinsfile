@@ -62,7 +62,6 @@ EOF
         echo "Loading images into new cluster..."
         kind load docker-image devopslab-frontend --name devopslab
         kind load docker-image devopslab-backend --name devopslab
-        kind load docker-image postgres:15-alpine --name devopslab
 
         # Sanity check
         kubectl cluster-info
@@ -81,7 +80,6 @@ EOF
         
         # Predeploy commands
         kubectl apply -f deployments/k8s/namespace.yaml
-        kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab --dry-run=client -o yaml | kubectl apply -f -
         '''
       }
     }
@@ -91,14 +89,13 @@ EOF
         sh '''
         kubectl apply -f deployments/k8s/frontend/
         kubectl apply -f deployments/k8s/backend/
-        kubectl apply -f deployments/k8s/database/
         '''
       }
     }
 
     stage('Check Deployment') {
       steps {
-        sh 'kubectl get all,configmap -n devopslab'
+        sh 'kubectl get all -n devopslab'
       }
     }
   }

@@ -9,8 +9,7 @@ This showcase demonstrates a complete DevOps workflow from development to produc
 ### Technology Stack
 
 - **Frontend:** React + TypeScript + Vite
-- **Backend:** Node.js + Express + TypeScript  
-- **Database:** PostgreSQL
+- **Backend:** Node.js + Express + TypeScript 
 - **Containerization:** Docker & Docker Compose
 - **Orchestration:** Kubernetes
 - **Templating:** Helm
@@ -89,13 +88,12 @@ docker build -t devopslab-backend ./backend
 docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins
 
 # Run containers
-docker run -d --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
-docker run -d --name backend --link postgres -p 3001:3001 devopslab-backend
+docker run -d --name backend -p 3001:3001 devopslab-backend
 docker run -d --name frontend -p 3000:3000 devopslab-frontend
 docker run -d --name jenkins --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins
 
 # Delete images
-docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins postgres:15-alpine
+docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins
 docker image prune -f
 ```
 
@@ -117,26 +115,22 @@ minikube start
 # Load the images inside Minikube
 minikube image load devopslab-frontend
 minikube image load devopslab-backend
-minikube image load postgres:15-alpine
 
 minikube ssh -- docker images # Check
 ```
 
-### Predeploy commands
+### Predeploy command
 
 ```bash
 # Create namespace.yaml
 kubectl apply -f deployments/k8s/namespace.yaml
-
-# Create the Postgres init ConfigMap for the database
-kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
 
 ### Deploy to Kubernetes
 
 ```bash
 # Apply all Kubernetes manifests
-kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/database/ -f deployments/k8s/frontend/
+kubectl apply -f deployments/k8s/backend/ -f deployments/k8s/frontend/
 
 # Check deployment status
 kubectl get all -n devopslab
@@ -164,14 +158,11 @@ kubectl logs -f deployment/backend -n devopslab
 > Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
 
-### Predeploy commands
+### Predeploy command
 
 ```bash
 # Create namespace.yaml
 kubectl apply -f deployments/k8s/namespace.yaml
-
-# Create the Postgres init ConfigMap for the database
-kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
 
 ### Deploy with Kustomize
@@ -209,14 +200,11 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 
 > Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
 
-### Predeploy commands
+### Predeploy command
 
 ```bash
 # Create namespace.yaml
 kubectl apply -f deployments/k8s/namespace.yaml
-
-# Create the Postgres init ConfigMap for the database
-kubectl create configmap postgres-init-script --from-file=init.sql=./db/init.sql -n devopslab
 ```
 
 ### Deploy with Helm
@@ -356,38 +344,12 @@ docker-compose -f docker-compose.test.yml up --abort-on-container-exit
 cd frontend && npm install
 cd ../backend && npm install
 
-# Start database
-docker run -d --name postgres-dev -e POSTGRES_PASSWORD=password -e POSTGRES_DB=devopslab postgres:15
-
 # Start backend (in backend directory)
 npm run dev
 
 # Start frontend (in frontend directory)
 npm run dev
 ```
-
-### Environment Variables
-
-Create `.env` files in frontend and backend directories:
-
-**Backend (.env):**
-```
-DATABASE_URL=postgresql://postgres:password@localhost:5432/devopslab
-PORT=3001
-NODE_ENV=development
-```
-
-**Frontend (.env):**
-```
-VITE_API_URL=http://localhost:3001
-```
-
-## 📊 Monitoring & Logging
-
-### Application Metrics
-
-- Frontend: Available at `http://localhost:3000/metrics`
-- Backend: Available at `http://localhost:3001/metrics`
 
 ### Logs
 
@@ -402,14 +364,6 @@ kubectl logs -f deployment/backend
 # Jenkins logs
 docker logs -f jenkins
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
 
 ## 🔗 Documentation Links
 

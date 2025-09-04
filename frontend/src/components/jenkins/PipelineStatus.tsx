@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 
 // API Configuration -> This will have to use AWS LAMBDA endpoint in Production
-const API_BASE_URL = 'http://localhost:3001';
+// const API_BASE_URL = 'http://localhost:3001/api/pipelines/status';
+const API_BASE_URL = 'https://rr5g4eiwfmwb2qcjkig54zd6vy0tnttv.lambda-url.eu-central-1.on.aws/';
+
 
 // Types for pipeline status
 interface PipelineStatus {
@@ -75,7 +77,7 @@ const PipelineStatus: React.FC = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`${API_BASE_URL}/api/pipelines/status`);
+      const response = await fetch(`${API_BASE_URL}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -31,5 +31,18 @@ pipeline {
                 '''
             }
         }
+        
+        stage('Remove Images and Services') {
+            steps {
+                sh '''
+                docker rmi -f devopslab-frontend
+                docker rm -f frontend-in-jenkins
+                docker rmi -f devopslab-backend
+                docker rm -f backend-in-jenkins
+
+                docker image prune -f # Remove tangling images
+                '''
+            }
+        }
     }
 }
