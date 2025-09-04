@@ -3,9 +3,7 @@
 **2. Steps for rebuild**
 ```sh
 # Stop current Jenkins
-docker stop jenkins
-docker rm jenkins
-docker rmi devopslab-jenkins
+docker rm -f jenkins && docker rmi -f devopslab-jenkins && docker volume rm -f jenkins_home
 
 # Get your Docker GID
 DOCKER_GID=$(getent group docker | cut -d: -f3)

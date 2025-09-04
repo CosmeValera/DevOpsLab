@@ -10,8 +10,3 @@ resources:
   - frontend-configmap.yaml
   - frontend-deployment.yaml
   - frontend-service.yaml
-  - postgres-configmap.yaml
-  - postgres-deployment.yaml
-  - postgres-pvc.yaml
-  - postgres-secret.yaml
-  - postgres-service.yaml

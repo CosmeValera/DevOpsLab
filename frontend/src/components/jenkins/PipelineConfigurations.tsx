@@ -175,7 +175,7 @@ EOF
 
     stage('Check Deployment') {
       steps {
-        sh 'kubectl get all,configmap -n devopslab'
+        sh 'kubectl get all -n devopslab'
       }
     }
   }
@@ -280,7 +280,7 @@ EOF
 
     stage('Check Deployment') {
       steps {
-        sh 'kubectl get all,configmap -n devopslab'
+        sh 'kubectl get all -n devopslab'
       }
     }
   }
@@ -385,7 +385,7 @@ EOF
 
     stage('Check Deployment') {
       steps {
-        sh 'kubectl get all,configmap -n devopslab'
+        sh 'kubectl get all -n devopslab'
       }
     }
   }

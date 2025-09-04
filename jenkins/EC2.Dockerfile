@@ -28,6 +28,14 @@ RUN curl -SL "https://github.com/docker/compose/releases/download/v2.23.3/docker
 RUN curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64 && \
     chmod +x /usr/local/bin/kind
 
+# Install plugins
+RUN jenkins-plugin-cli --plugins \
+    git \
+    workflow-aggregator \
+    pipeline-github-lib \
+    configuration-as-code \
+    pipeline-stage-view
+
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     chmod +x kubectl && \
