@@ -329,6 +329,18 @@ app.get('/api/pipelines/status', async (req, res) => {
   }
 })
 
+// Health check endpoint for Kubernetes probes
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
+    version: process.version
+  })
+})
+
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
