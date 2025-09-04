@@ -5,12 +5,7 @@
 # Stop current Jenkins
 docker rm -f jenkins && docker rmi -f devopslab-jenkins && docker volume rm -f jenkins_home
 
-# Get your Docker GID
-DOCKER_GID=$(getent group docker | cut -d: -f3)
-echo "Using Docker GID: $DOCKER_GID"
-
-# Build with the updated Dockerfile
-docker build --build-arg DOCKER_GID=$DOCKER_GID -t devopslab-jenkins -f Dockerfile .
+docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins .
 
 # Run Jenkins with host network
 docker run -d \
