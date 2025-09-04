@@ -38,4 +38,8 @@ git status # Check branch dev
 # Copy the repo inside of the jenkins execution. And copy the frontend and the backend folders, inside of '/var/jenkins_home/workspace/DockerPipeline':
 docker cp ./frontend jenkins:/var/jenkins_home/workspace/DockerPipeline
 docker cp ./backend  jenkins:/var/jenkins_home/workspace/DockerPipeline
+
+# If you want to enter
+docker exec -it jenkins sh
+cd /var/jenkins_home/workspace/DockerPipeline
 ```
