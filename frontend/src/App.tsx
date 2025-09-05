@@ -139,9 +139,10 @@ function App() {
 
           {/* Redirect routes to Home with specific tabs */}
           <Route
-            path="/deployments"
-            element={<HomeWithTab tab="deployments" />}
+            path="/introduction"
+            element={<HomeWithTab tab="introduction" />}
           />
+          <Route path="/deployments" element={<HomeWithTab tab="deployments" />} />
           <Route path="/tutorials" element={<HomeWithTab tab="tutorials" />} />
           <Route path="/jenkins" element={<HomeWithTab tab="jenkins" />} />
 

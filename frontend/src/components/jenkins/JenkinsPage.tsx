@@ -3,7 +3,6 @@ import { Zap } from "lucide-react";
 import PipelineStatus from "./PipelineStatus";
 import JenkinsConfiguration from "./JenkinsConfiguration";
 import PipelineConfigurations from "./PipelineConfigurations";
-import ArchitectureOverview from "./ArchitectureOverview";
 import QuickActions from "./QuickActions";
 
 const JenkinsPage: React.FC = () => {
@@ -27,11 +26,8 @@ const JenkinsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Architecture Overview Section */}
-      <ArchitectureOverview isProduction={isProduction} />
-
-      {/* Quick Actions Section */}
-      <QuickActions isProduction={isProduction} />
+      {/* Quick Actions Section - Only for local */}
+      {!isProduction && <QuickActions isProduction={isProduction} />}
 
       {/* Local Jenkins Configuration Section */}
       {!isProduction && <JenkinsConfiguration />}

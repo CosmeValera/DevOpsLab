@@ -2,7 +2,7 @@ import React from 'react'
 import Home from './Home'
 
 interface HomeWithTabProps {
-  tab: 'deployments' | 'tutorials' | 'jenkins'
+  tab: 'introduction' | 'deployments' | 'tutorials' | 'jenkins'
 }
 
 const HomeWithTab: React.FC<HomeWithTabProps> = ({ tab }) => {

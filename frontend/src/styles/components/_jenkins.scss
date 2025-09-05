@@ -14,11 +14,23 @@
 // ===== JENKINS HEADER =====
 .jenkins-header {
   margin-bottom: $space-12;
+  padding: $space-8;
+  background: linear-gradient(135deg,
+    rgba($primary-blue, 0.1) 0%,
+    rgba($primary-indigo, 0.05) 100%);
+  border: 1px solid rgba($primary-blue, 0.2);
+  border-radius: $border-radius-xl;
+  box-shadow: $shadow-lg;
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+  animation: slideInFromTop $transition-slow ease-out;
   
   &__content {
     @include flex-center;
     gap: $space-6;
     text-align: center;
+    width: 100%;
     
     @include md {
       text-align: left;
@@ -30,10 +42,11 @@
     @include flex-center;
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, rgba($primary-blue, 0.1) 0%, rgba($primary-indigo, 0.05) 100%);
+    background: linear-gradient(135deg, $primary-blue 0%, $primary-indigo 100%);
     border-radius: $border-radius-xl;
-    color: $primary-blue;
+    color: white;
     flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba($primary-blue, 0.3);
     
     @include md {
       width: 96px;

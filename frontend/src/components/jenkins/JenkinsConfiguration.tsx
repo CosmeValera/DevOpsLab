@@ -12,7 +12,7 @@ import CopyCommandBox from "../shared/CopyCommandBox";
 const JenkinsConfiguration = () => {
   const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL;
   const isProduction = !API_BASE_URL.includes('localhost');
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(!isProduction);
 
   return (
     <>
@@ -26,7 +26,7 @@ const JenkinsConfiguration = () => {
             </h2>
             <p className="section-description">
               {isProduction 
-                ? 'Set up Jenkins locally on your machine with Docker Compose'
+                ? 'You can set up Jenkins locally on your machine with Docker Compose. Expand this section to see the setup instructions.'
                 : 'Get Jenkins up and running in minutes with Docker Compose'
               }
             </p>

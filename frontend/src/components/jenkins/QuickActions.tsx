@@ -1,4 +1,4 @@
-import { GitBranch, ExternalLink, Code, Cloud, Play } from "lucide-react";
+import { GitBranch, ExternalLink, Code, Cloud, Play, Settings } from "lucide-react";
 
 interface QuickActionsProps {
   isProduction: boolean;
@@ -93,6 +93,24 @@ const QuickActions: React.FC<QuickActionsProps> = ({ isProduction }) => {
                 >
                   Visit Cloud
                 </a>
+              </div>
+            </div>
+            <div className="quick-action-card">
+              <div className="quick-action-icon">
+                <Settings size={24} />
+              </div>
+              <div className="quick-action-content">
+                <h4>Configure Your Own Pipeline</h4>
+                <p>Set up Jenkins locally and create custom pipelines</p>
+                <button 
+                  className="quick-action-link"
+                  onClick={() => {
+                    const jenkinsConfigSection = document.querySelector('.jenkins-section:nth-of-type(2)');
+                    jenkinsConfigSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  Setup Jenkins
+                </button>
               </div>
             </div>
             <div className="quick-action-card">
