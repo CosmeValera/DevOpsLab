@@ -22,9 +22,9 @@ function App() {
   const [activeTab, setActiveTab] = useState("");
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
-      return window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
+      return window.localStorage.getItem("theme") === "light" ? "light" : "dark";
     }
-    return "light";
+    return "dark";
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
   // Scroll to top on route change (except for main tab navigation)
   useEffect(() => {
     const path = location.pathname;
-    const mainTabs = ['/', '/deployments', '/tutorials', '/jenkins'];
+    const mainTabs = ['/', '/introduction', '/deployments', '/tutorials', '/jenkins'];
     
     // Only scroll to top if navigating to a page that's not a main tab
     if (!mainTabs.includes(path)) {
@@ -49,6 +49,7 @@ function App() {
     // No navigation on Home or main section pages (they now redirect to Home)
     if (
       path === "/" ||
+      path === "/introduction" ||
       path === "/deployments" ||
       path === "/tutorials" ||
       path === "/jenkins"
@@ -70,11 +71,6 @@ function App() {
         { id: "kustomize", label: "Kustomize", path: "/deployments/kustomize" },
         { id: "helm", label: "Helm", path: "/deployments/helm" },
       ];
-    }
-
-    // Individual tutorial pages navigation - removed to avoid duplication with tutorial layout navigation
-    if (path.startsWith("/tutorials/")) {
-      return [] as { id: string; label: string; path: string }[];
     }
 
     return [];
