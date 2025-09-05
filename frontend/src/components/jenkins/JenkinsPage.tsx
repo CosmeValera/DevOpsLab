@@ -1,13 +1,14 @@
 import React from "react";
-
 import { Zap } from "lucide-react";
 import PipelineStatus from "./PipelineStatus";
 import JenkinsConfiguration from "./JenkinsConfiguration";
 import PipelineConfigurations from "./PipelineConfigurations";
+import ArchitectureOverview from "./ArchitectureOverview";
+import QuickActions from "./QuickActions";
 
 const JenkinsPage: React.FC = () => {
   const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL;
-  const env = API_BASE_URL.includes('localhost') ? 'local' : 'production';
+  const isProduction = !API_BASE_URL.includes('localhost');
 
   return (
     <div className="jenkins-page">
@@ -26,10 +27,14 @@ const JenkinsPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Architecture Overview Section */}
+      <ArchitectureOverview isProduction={isProduction} />
+
+      {/* Quick Actions Section */}
+      <QuickActions isProduction={isProduction} />
+
       {/* Local Jenkins Configuration Section */}
-      {env === 'local' && (
-        <JenkinsConfiguration />
-      )}
+      {!isProduction && <JenkinsConfiguration />}
 
       {/* Pipeline Status Section */}
       <PipelineStatus />
@@ -38,9 +43,7 @@ const JenkinsPage: React.FC = () => {
       <PipelineConfigurations />
       
       {/* Cloud Jenkins Configuration Section */}
-      {env === 'production' && (
-        <JenkinsConfiguration />
-      )}
+      {isProduction && <JenkinsConfiguration />}
     </div>
   );
 };

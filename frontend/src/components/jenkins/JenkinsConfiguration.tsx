@@ -1,28 +1,49 @@
+import { useState } from "react";
 import { 
   Settings,
   ExternalLink,
   User,
-  Shield
+  Shield,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import CopyCommandBox from "../shared/CopyCommandBox";
 
 const JenkinsConfiguration = () => {
+  const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL;
+  const isProduction = !API_BASE_URL.includes('localhost');
+  const [isExpanded, setIsExpanded] = useState(true);
+
   return (
     <>
       {/* Quick Start Section */}
       <div className="jenkins-section">
         <div className="section-header">
-          <h2 className="section-title">
-            <Settings size={20} />
-            Jenkins Configuration
-          </h2>
-          <p className="section-description">
-            Get Jenkins up and running in minutes with Docker Compose
-          </p>
+          <div className="section-header__content">
+            <h2 className="section-title">
+              <Settings size={20} />
+              {isProduction ? 'Local Jenkins Setup' : 'Jenkins Configuration'}
+            </h2>
+            <p className="section-description">
+              {isProduction 
+                ? 'Set up Jenkins locally on your machine with Docker Compose'
+                : 'Get Jenkins up and running in minutes with Docker Compose'
+              }
+            </p>
+          </div>
+          <button 
+            className="toggle-button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
+          >
+            {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            <span>{isExpanded ? 'Hide' : 'Show'} Setup Instructions</span>
+          </button>
         </div>
 
-        <div className="jenkins-setup-card">
-          <div className="setup-card__content">
+        {isExpanded && (
+          <div className="jenkins-setup-card">
+            <div className="setup-card__content">
             {/* Step 1 */}
             <div className="setup-step">
               <div className="step-header">
@@ -157,6 +178,7 @@ const JenkinsConfiguration = () => {
             </div>
           </div>
         </div>
+        )}
       </div>
     </>
   )
