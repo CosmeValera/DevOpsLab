@@ -6,6 +6,9 @@ import JenkinsConfiguration from "./JenkinsConfiguration";
 import PipelineConfigurations from "./PipelineConfigurations";
 
 const JenkinsPage: React.FC = () => {
+  const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL;
+  const env = API_BASE_URL.includes('localhost') ? 'local' : 'production';
+
   return (
     <div className="jenkins-page">
       {/* Header Section */}
@@ -23,14 +26,21 @@ const JenkinsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Jenkins Configuration Section */}
-      <JenkinsConfiguration />
+      {/* Local Jenkins Configuration Section */}
+      {env === 'local' && (
+        <JenkinsConfiguration />
+      )}
 
       {/* Pipeline Status Section */}
       <PipelineStatus />
 
       {/* Pipeline Configurations Section */}
       <PipelineConfigurations />
+      
+      {/* Cloud Jenkins Configuration Section */}
+      {env === 'production' && (
+        <JenkinsConfiguration />
+      )}
     </div>
   );
 };
