@@ -30,7 +30,7 @@ const Home: React.FC<HomeProps> = ({ initialTab = "introduction" }) => {
       <div className="home__hero">
         <h1 className="home__title">DevOps Lab</h1>
         <p className="home__subtitle">
-          Explore different methods to deploy this application, learn through hands-on tutorials, and discover CI/CD automation with industry-standard DevOps tools.
+          Explore different deployment methods, learn through tutorials, and discover CI/CD automation with industry-standard DevOps tools.
         </p>
       </div>
 

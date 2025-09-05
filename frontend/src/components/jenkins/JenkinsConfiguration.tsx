@@ -26,8 +26,8 @@ const JenkinsConfiguration = () => {
             </h2>
             <p className="section-description">
               {isProduction 
-                ? 'You can set up Jenkins locally on your machine with Docker Compose. Expand this section to see the setup instructions.'
-                : 'Get Jenkins up and running in minutes with Docker Compose'
+                ? 'You can set up Jenkins locally on your machine with Docker. Expand this section to see the setup instructions.'
+                : 'Get Jenkins up and running in minutes'
               }
             </p>
           </div>

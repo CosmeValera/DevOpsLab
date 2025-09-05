@@ -87,6 +87,47 @@
   &:last-child {
     margin-bottom: 0;
   }
+  
+  // Section header styles
+  .section-header {
+    margin-bottom: $space-8;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    
+    @include md {
+      text-align: left;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  
+  .section-title {
+    @include heading-2;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-3;
+    
+    svg {
+      color: $primary-blue;
+      flex-shrink: 0;
+    }
+  }
+  
+  .section-description {
+    @include body-text;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 600px;
+    
+    @include md {
+      margin-left: auto;
+      text-align: right;
+    }
+  }
 }
 
 // ===== OVERVIEW CARDS =====
