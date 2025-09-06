@@ -148,20 +148,21 @@ const IntroductionPage: React.FC = () => {
         </div>
 
         <div className="navigation-guide">
+          {/* Jenkins */}
           <div 
             className="nav-card nav-card--clickable"
-            onClick={() => handleNavigation('deployments')}
+            onClick={() => handleNavigation('jenkins')}
           >
             <div className="nav-card__icon">
-              <Rocket size={24} />
+              <Zap size={24} />
             </div>
             <div className="nav-card__content">
-              <h3>Deployments</h3>
-              <p>Step-by-step deployment guides for Docker, Kubernetes, Kustomize, and Helm</p>
+              <h3>Jenkins</h3>
+              <p>CI/CD automation with live pipelines monitoring and configuration.</p>
               <div className="nav-card__features">
-                <span className="feature-tag">Interactive Commands</span>
-                <span className="feature-tag">Real-time Monitoring</span>
-                <span className="feature-tag">Best Practices</span>
+                <span className="feature-tag">Pipeline Status</span>
+                <span className="feature-tag">Interactive Jobs</span>
+                <span className="feature-tag">Configuration</span>
               </div>
               <div className="nav-card__action">
                 <Play size={16} />
@@ -171,6 +172,7 @@ const IntroductionPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Tutorials */}
           <div 
             className="nav-card nav-card--clickable"
             onClick={() => handleNavigation('tutorials')}
@@ -194,20 +196,21 @@ const IntroductionPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Deployments */}
           <div 
             className="nav-card nav-card--clickable"
-            onClick={() => handleNavigation('jenkins')}
+            onClick={() => handleNavigation('deployments')}
           >
             <div className="nav-card__icon">
-              <Zap size={24} />
+              <Rocket size={24} />
             </div>
             <div className="nav-card__content">
-              <h3>Jenkins</h3>
-              <p>CI/CD automation with live pipelines monitoring and configuration.</p>
+              <h3>Deployments</h3>
+              <p>Step-by-step deployment guides for Docker, Kubernetes, Kustomize, and Helm</p>
               <div className="nav-card__features">
-                <span className="feature-tag">Pipeline Status</span>
-                <span className="feature-tag">Interactive Jobs</span>
-                <span className="feature-tag">Configuration</span>
+                <span className="feature-tag">Interactive Commands</span>
+                <span className="feature-tag">Real-time Monitoring</span>
+                <span className="feature-tag">Best Practices</span>
               </div>
               <div className="nav-card__action">
                 <Play size={16} />
@@ -216,6 +219,7 @@ const IntroductionPage: React.FC = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
