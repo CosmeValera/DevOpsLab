@@ -7,7 +7,9 @@ import {
   Pause,
   ExternalLink,
   RefreshCw,
-  XCircle
+  XCircle,
+  Info,
+  MousePointer
 } from "lucide-react";
 
 // API Configuration
@@ -65,7 +67,8 @@ interface PipelineStages {
 }
 
 const PipelineStatus: React.FC = () => {
-
+  const isProduction = !API_BASE_URL.includes('localhost');
+  
   const [pipelineData, setPipelineData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -390,6 +393,25 @@ const PipelineStatus: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Production-specific interaction message */}
+      {isProduction && (
+        <div className="interaction-info">
+          <div className="interaction-info__icon">
+            <Info size={20} />
+          </div>
+          <div className="interaction-info__content">
+            <h4>Interactive Pipeline Monitoring</h4>
+            <p>
+              <MousePointer size={16} />
+              <strong>Click any pipeline card</strong> to visit the Jenkins job directly. You can view detailed logs, build history, and trigger new builds with <strong>anonymous access</strong> - no registration required!
+            </p>
+            <p>
+              All pipeline activities are reflected here in real-time, and you can also monitor the Jenkins server directly on the EC2 instance to see the full CI/CD process in action.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Show loading only on initial load when we have no data */}
       {loading && !pipelineData && !error && (
