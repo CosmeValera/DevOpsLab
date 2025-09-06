@@ -231,7 +231,7 @@
     }
     
     .copy-command-box {
-      margin-bottom: $space-2;
+      margin-bottom: 0.5rem; // Use 0.5rem for consistent spacing
       font-size: $text-xs;
       
       .command-content {
