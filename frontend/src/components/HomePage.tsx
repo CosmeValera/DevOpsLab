@@ -5,11 +5,11 @@ import DeploymentPage from "./deployments/DeploymentPage";
 import TutorialsPage from "./tutorials/TutorialsPage";
 import JenkinsPage from "./jenkins/JenkinsPage";
 
-interface HomeProps {
+interface HomePageProps {
   initialTab?: "introduction" | "deployments" | "tutorials" | "jenkins";
 }
 
-const Home: React.FC<HomeProps> = ({ initialTab = "introduction" }) => {
+const HomePage: React.FC<HomePageProps> = ({ initialTab = "introduction" }) => {
   const [activeTab, setActiveTab] = useState<
     "introduction" | "deployments" | "tutorials" | "jenkins"
   >(initialTab);
@@ -139,4 +139,4 @@ const Home: React.FC<HomeProps> = ({ initialTab = "introduction" }) => {
   );
 };
 
-export default Home;
+export default HomePage;
