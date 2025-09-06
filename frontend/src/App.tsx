@@ -7,8 +7,7 @@ import KubernetesDeployment from "./components/deployments/KubernetesDeployment"
 import KustomizeDeployment from "./components/deployments/KustomizeDeployment";
 import HelmDeployment from "./components/deployments/HelmDeployment";
 import Dashboard from "./components/deployments/Dashboard";
-import Home from "./components/Home";
-import HomeWithTab from "./components/HomeWithTab";
+import HomePage from "./components/HomePage";
 import DockerTutorial from "./components/tutorials/DockerTutorial";
 import KubernetesTutorial from "./components/tutorials/KubernetesTutorial";
 import KustomizeTutorial from "./components/tutorials/KustomizeTutorial";
@@ -130,17 +129,17 @@ function App() {
       {/* Main Content */}
       <main className="container">
         <Routes>
-          {/* Home with previews */}
-          <Route path="/" element={<Home />} />
+          {/* Main Home Page - defaults to Introduction */}
+          <Route path="/" element={<HomePage />} />
 
-          {/* Redirect routes to Home with specific tabs */}
+          {/* Section pages - all use HomePage with specific tabs */}
           <Route
             path="/introduction"
-            element={<HomeWithTab tab="introduction" />}
+            element={<HomePage initialTab="introduction" />}
           />
-          <Route path="/deployments" element={<HomeWithTab tab="deployments" />} />
-          <Route path="/tutorials" element={<HomeWithTab tab="tutorials" />} />
-          <Route path="/jenkins" element={<HomeWithTab tab="jenkins" />} />
+          <Route path="/jenkins" element={<HomePage initialTab="jenkins" />} />
+          <Route path="/tutorials" element={<HomePage initialTab="tutorials" />} />
+          <Route path="/deployments" element={<HomePage initialTab="deployments" />} />
 
           {/* Individual deployment pages */}
           <Route path="/deployments/docker" element={<DockerDeployment />} />
