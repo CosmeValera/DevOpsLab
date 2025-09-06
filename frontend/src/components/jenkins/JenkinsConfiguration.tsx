@@ -26,8 +26,8 @@ const JenkinsConfiguration = () => {
             </h2>
             <p className="section-description">
               {isProduction 
-                ? 'You can set up Jenkins locally on your machine with Docker Compose. Expand this section to see the setup instructions.'
-                : 'Get Jenkins up and running in minutes with Docker Compose'
+                ? 'You can set up Jenkins locally on your machine with Docker. Expand this section to see the setup instructions.'
+                : 'Get Jenkins up and running in minutes'
               }
             </p>
           </div>
@@ -67,6 +67,16 @@ const JenkinsConfiguration = () => {
                 <p className="alternative-label">(Or with docker)</p>
                 <CopyCommandBox command="docker build --build-arg DOCKER_GID=$(getent group docker | cut -d: -f3) -t devopslab-jenkins ./jenkins" />
                 <CopyCommandBox command="docker run -d --name jenkins --network host -e JENKINS_OPTS=--httpPort=8080 --restart=on-failure -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock devopslab-jenkins" />
+                
+                <div className="info-box">
+                  <div className="info-box__icon">
+                    <Settings size={16} />
+                  </div>
+                  <div className="info-box__content">
+                    <span className="info-box__title">Docker Commands Note</span>
+                    <span className="info-box__description">These commands only start Jenkins. You'll need to run the frontend and backend separately with Docker if you want the full application.</span>
+                  </div>
+                </div>
               </div>
             </div>
 

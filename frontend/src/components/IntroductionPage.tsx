@@ -9,7 +9,8 @@ import {
   Database,
   ExternalLink,
   ArrowRight,
-  Play
+  Play,
+  Compass
 } from "lucide-react";
 
 const IntroductionPage: React.FC = () => {
@@ -43,13 +44,13 @@ const IntroductionPage: React.FC = () => {
       <div className="introduction-section">
         <div className="section-header">
           <h2 className="section-title">
-            <Cloud size={20} />
+            <Server size={20} />
             Architecture Overview
           </h2>
           <p className="section-description">
             {isProduction 
-              ? 'This DevOps Lab is deployed on AWS cloud infrastructure with a modern serverless architecture'
-              : 'This DevOps Lab can run locally or in the cloud, demonstrating both development and production environments'
+              ? 'This DevOps Lab is deployed on AWS cloud infrastructure'
+              : 'This DevOps Lab can run locally or in the cloud'
             }
           </p>
         </div>
@@ -138,7 +139,7 @@ const IntroductionPage: React.FC = () => {
       <div className="introduction-section">
         <div className="section-header">
           <h2 className="section-title">
-            <ArrowRight size={20} />
+            <Compass size={20} />
             Explore the Platform
           </h2>
           <p className="section-description">

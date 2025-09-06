@@ -44,7 +44,7 @@
     rgba($neutral-800, 0.5) 100%);
   border: $border-width solid rgba($primary-blue, 0.15);
   border-radius: $border-radius-lg;
-  margin: 0;
+  margin: 0 0 0.5rem 0; // Add 0.5rem bottom margin for spacing between consecutive commands
   font-family: $font-family-mono;
   font-size: $text-sm;
   color: var(--text-primary);
