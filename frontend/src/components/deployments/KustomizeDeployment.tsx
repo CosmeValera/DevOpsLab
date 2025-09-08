@@ -120,7 +120,7 @@ const KustomizeDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Kustomize Commands</h2>
         <p className="deployment__section-description">
-          Deploy applications with environment-specific configurations using Kustomize overlays.
+          Deploy this application with environment-specific configurations using Kustomize overlays.
         </p>
         
         <div className="deployment__commands">

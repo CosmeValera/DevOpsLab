@@ -60,7 +60,7 @@ const DockerComposeDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Quick Start Commands</h2>
         <p className="deployment__section-description">
-          Deploy the complete application stack including frontend, backend and jenkins with Docker Compose.
+          Deploy this complete application stack including frontend, backend and jenkins with Docker Compose.
         </p>
         
         <div className="deployment__commands">

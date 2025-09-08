@@ -80,7 +80,7 @@ const DockerDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Basic Commands</h2>
         <p className="deployment__section-description">
-          Follow these commands to deploy the application using Docker containers.
+          Follow these commands to deploy this application using Docker containers.
         </p>
         
         <div className="deployment__commands">

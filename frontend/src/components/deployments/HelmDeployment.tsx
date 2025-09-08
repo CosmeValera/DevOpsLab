@@ -120,7 +120,7 @@ const HelmDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Helm Commands</h2>
         <p className="deployment__section-description">
-          Deploy and manage the application using Helm charts with environment-specific values.
+          Deploy and manage this application using Helm charts with environment-specific values.
         </p>
         
         <div className="deployment__commands">

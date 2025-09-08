@@ -112,7 +112,7 @@ const KubernetesDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Deployment Commands</h2>
         <p className="deployment__section-description">
-          Deploy the application to a Kubernetes cluster using kubectl and the provided manifests.
+          Deploy this application to a Kubernetes cluster using kubectl and the provided manifests.
         </p>
         
         <div className="deployment__commands">
