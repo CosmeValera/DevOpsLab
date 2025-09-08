@@ -1,8 +1,19 @@
 import React from "react";
-import { Package, Settings, Info, AlertTriangle, CheckCircle, FileText, GitBranch, Download } from "lucide-react";
+import { Package, Settings, Info, AlertTriangle, CheckCircle, FileText, GitBranch, Download, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const HelmTutorial: React.FC = () => {
+  const crossReferenceLinks = [
+    {
+      title: "Helm Deployment",
+      path: "/deployments/helm",
+      description: "Deploy this application using Helm charts with templating and release management",
+      icon: Server,
+      type: 'deployment' as const
+    }
+  ];
+
   return (
     <TutorialLayout
       title="Creating Helm Charts"
@@ -10,6 +21,12 @@ const HelmTutorial: React.FC = () => {
       estimatedReadingTime="6 minutes"
       prerequisites="Kubernetes"
       currentTutorial="helm"
+      customNextSteps={
+        <CrossReferenceLinks 
+          title="Ready to Deploy?"
+          links={crossReferenceLinks as any}
+        />
+      }
     >
       <div className="tutorial-section">
         <h2>What is Helm?</h2>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Server } from "lucide-react";
+import { Server, BookOpen } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const KubernetesDeployment: React.FC = () => {
   const commandSteps = [
@@ -149,41 +150,6 @@ const KubernetesDeployment: React.FC = () => {
                 <p>Check all resources: <code>kubectl get all -n devopslab</code></p>
               </div>
             </div>
-            
-            <div className="verification-step">
-              <div className="verification-step__icon">🔍</div>
-              <div className="verification-step__content">
-                <h4>Pod Logs</h4>
-                <p>Monitor logs: <code>kubectl logs -f deployment/frontend-deployment -n devopslab</code></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Architecture Overview */}
-      <div className="deployment__section">
-        <h2 className="deployment__section-title">Kubernetes Resources</h2>
-        <p className="deployment__section-description">
-          The deployment includes the following Kubernetes resources:
-        </p>
-        
-        <div className="configuration-overview">
-          <div className="config-service">
-            <h4>Deployments</h4>
-            <p>Manage pods for frontend, backend, and database services</p>
-          </div>
-          <div className="config-service">
-            <h4>Services</h4>
-            <p>Expose applications and enable service-to-service communication</p>
-          </div>
-          <div className="config-service">
-            <h4>ConfigMaps</h4>
-            <p>Store configuration data and database initialization scripts</p>
-          </div>
-          <div className="config-service">
-            <h4>Persistent Volumes</h4>
-            <p>Provide persistent storage for the database</p>
           </div>
         </div>
       </div>
@@ -213,14 +179,23 @@ const KubernetesDeployment: React.FC = () => {
               <p>Automatically restart failed containers and replace unhealthy nodes</p>
             </div>
           </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
-              <h3>Service Discovery</h3>
-              <p>Built-in DNS for service discovery and inter-service communication</p>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Cross-reference to tutorial */}
+      <div className="deployment-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Kubernetes Tutorial",
+              path: "/tutorials/kubernetes",
+              description: "Learn the fundamentals of Kubernetes, including pods, deployments, and services",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
       </div>
     </div>
   );

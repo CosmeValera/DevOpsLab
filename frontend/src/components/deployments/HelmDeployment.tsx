@@ -1,6 +1,7 @@
 import React from "react";
-import { Package } from "lucide-react";
+import { Package, BookOpen } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const HelmDeployment: React.FC = () => {
   const commandSteps = [
@@ -151,47 +152,12 @@ const HelmDeployment: React.FC = () => {
             </div>
             
             <div className="verification-step">
-              <div className="verification-step__icon">📦</div>
-              <div className="verification-step__content">
-                <h4>Helm Release Status</h4>
-                <p>Check release: <code>helm status devopslab</code> and <code>helm list</code></p>
-              </div>
-            </div>
-            
-            <div className="verification-step">
               <div className="verification-step__icon">📊</div>
               <div className="verification-step__content">
                 <h4>Kubernetes Resources</h4>
                 <p>Monitor resources: <code>kubectl get all -n devopslab</code></p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Helm Chart Structure */}
-      <div className="deployment__section">
-        <h2 className="deployment__section-title">Helm Chart Components</h2>
-        <p className="deployment__section-description">
-          The Helm chart includes templates and values for complete application lifecycle management:
-        </p>
-        
-        <div className="configuration-overview">
-          <div className="config-service">
-            <h4>Templates</h4>
-            <p>Kubernetes manifest templates with Go templating for dynamic values</p>
-          </div>
-          <div className="config-service">
-            <h4>Values Files</h4>
-            <p>Environment-specific configurations for dev and production deployments</p>
-          </div>
-          <div className="config-service">
-            <h4>Chart Metadata</h4>
-            <p>Chart version, dependencies, and application information</p>
-          </div>
-          <div className="config-service">
-            <h4>Hooks</h4>
-            <p>Pre and post-installation actions for database migrations and setup</p>
           </div>
         </div>
       </div>
@@ -210,25 +176,34 @@ const HelmDeployment: React.FC = () => {
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>Version Control</h3>
-              <p>Track and rollback application versions with built-in release management</p>
-            </div>
-          </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
-              <h3>Easy Rollbacks</h3>
-              <p>Quickly revert to previous working versions when issues are detected</p>
-            </div>
-          </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
               <h3>Template Engine</h3>
               <p>Powerful Go templating for dynamic manifest generation and value substitution</p>
             </div>
           </div>
+          <div className="benefit-item">
+            <div className="benefit-item__icon">✓</div>
+            <div className="benefit-item__content">
+              <h3>Version Control</h3>
+              <p>Track and rollback application versions with built-in release management</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Cross-reference to tutorial */}
+      <div className="deployment-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Helm Tutorial",
+              path: "/tutorials/helm",
+              description: "Learn to create Helm charts with templating, values, and dependencies",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
       </div>
     </div>
   );

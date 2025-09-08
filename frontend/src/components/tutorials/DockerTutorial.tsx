@@ -1,8 +1,26 @@
 import React from "react";
-import { Terminal, Package, Play, Settings, Info, AlertTriangle, CheckCircle } from "lucide-react";
+import { Terminal, Package, Play, Settings, Info, AlertTriangle, CheckCircle, Box, Layers } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const DockerTutorial: React.FC = () => {
+  const crossReferenceLinks = [
+    {
+      title: "Docker Deployment",
+      path: "/deployments/docker",
+      description: "Deploy this application using individual Docker containers with step-by-step instructions",
+      icon: Box,
+      type: 'deployment' as const
+    },
+    {
+      title: "Docker Compose Deployment",
+      path: "/deployments/docker-compose",
+      description: "Deploy the full application stack with Docker Compose for multi-service orchestration",
+      icon: Layers,
+      type: 'deployment' as const
+    }
+  ];
+
   return (
     <TutorialLayout
       title="Docker Fundamentals"
@@ -10,6 +28,12 @@ const DockerTutorial: React.FC = () => {
       estimatedReadingTime="4 minutes"
       prerequisites="Basic command line knowledge"
       currentTutorial="docker"
+      customNextSteps={
+        <CrossReferenceLinks 
+          title="Ready to Deploy?"
+          links={crossReferenceLinks as any}
+        />
+      }
     >
       <div className="tutorial-section">
         <h2>What is Docker?</h2>

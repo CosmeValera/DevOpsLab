@@ -1,8 +1,19 @@
 import React from "react";
 import { Layers, Network, Info, AlertTriangle, CheckCircle, Server, Database, Globe } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const KubernetesTutorial: React.FC = () => {
+  const crossReferenceLinks = [
+    {
+      title: "Kubernetes Deployment",
+      path: "/deployments/kubernetes",
+      description: "Learn how to deploy this application to a Kubernetes cluster with step-by-step instructions",
+      icon: Server,
+      type: 'deployment' as const
+    }
+  ];
+
   return (
     <TutorialLayout
       title="Kubernetes Introduction"
@@ -10,6 +21,12 @@ const KubernetesTutorial: React.FC = () => {
       estimatedReadingTime="4 minutes"
       prerequisites="Docker"
       currentTutorial="kubernetes"
+      customNextSteps={
+        <CrossReferenceLinks 
+          title="Ready to Deploy?"
+          links={crossReferenceLinks as any}
+        />
+      }
     >
       <div className="tutorial-section">
         <h2>What is Kubernetes?</h2>

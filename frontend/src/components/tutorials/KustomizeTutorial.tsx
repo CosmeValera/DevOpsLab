@@ -1,8 +1,19 @@
 import React from "react";
-import { Code, Layers, Settings, Info, AlertTriangle, CheckCircle, Folder, FileText, GitBranch } from "lucide-react";
+import { Code, Layers, Settings, Info, AlertTriangle, CheckCircle, Folder, FileText, GitBranch, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const KustomizeTutorial: React.FC = () => {
+  const crossReferenceLinks = [
+    {
+      title: "Kustomize Deployment",
+      path: "/deployments/kustomize",
+      description: "Deploy this application using Kustomize overlays for environment-specific configurations",
+      icon: Server,
+      type: 'deployment' as const
+    }
+  ];
+
   return (
     <TutorialLayout
       title="Kustomize Deep Dive"
@@ -10,6 +21,12 @@ const KustomizeTutorial: React.FC = () => {
       estimatedReadingTime="5 minutes"
       prerequisites="Kubernetes"
       currentTutorial="kustomize"
+      customNextSteps={
+        <CrossReferenceLinks 
+          title="Ready to Deploy?"
+          links={crossReferenceLinks as any}
+        />
+      }
     >
       <div className="tutorial-section">
         <h2>What is Kustomize?</h2>

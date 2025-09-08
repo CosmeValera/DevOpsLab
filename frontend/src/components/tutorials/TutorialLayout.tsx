@@ -9,6 +9,7 @@ interface TutorialLayoutProps {
   estimatedReadingTime: string;
   prerequisites: string;
   currentTutorial: string;
+  customNextSteps?: React.ReactNode;
 }
 
 const tutorialNavigation = [
@@ -26,6 +27,7 @@ const TutorialLayout: React.FC<TutorialLayoutProps> = ({
   estimatedReadingTime,
   prerequisites,
   currentTutorial,
+  customNextSteps,
 }) => {
 
   
@@ -83,6 +85,11 @@ const TutorialLayout: React.FC<TutorialLayoutProps> = ({
       <div className="tutorial-content">
         <article className="tutorial-article">
           {children}
+          {customNextSteps && (
+            <div className="tutorial-custom-next-steps">
+              {customNextSteps}
+            </div>
+          )}
         </article>
       </div>
 

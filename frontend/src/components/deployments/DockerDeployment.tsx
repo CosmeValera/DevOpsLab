@@ -1,6 +1,7 @@
 import React from "react";
-import { Box } from "lucide-react";
+import { Box, BookOpen } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const DockerDeployment: React.FC = () => {
   const commandSteps = [
@@ -146,14 +147,23 @@ const DockerDeployment: React.FC = () => {
               <p>Each container runs in isolation with its own resources and dependencies</p>
             </div>
           </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
-              <h3>Simplified Deployment</h3>
-              <p>Package applications with all dependencies for easy deployment anywhere</p>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Cross-reference to tutorial */}
+      <div className="deployment-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Docker Tutorial",
+              path: "/tutorials/docker",
+              description: "Master Docker fundamentals including containers, images, and Dockerfiles",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
       </div>
     </div>
   );

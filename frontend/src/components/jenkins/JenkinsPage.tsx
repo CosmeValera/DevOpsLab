@@ -1,9 +1,10 @@
 import React from "react";
-import { Zap } from "lucide-react";
+import { Zap, BookOpen } from "lucide-react";
 import PipelineStatus from "./PipelineStatus";
 import JenkinsConfiguration from "./JenkinsConfiguration";
 import PipelineConfigurations from "./PipelineConfigurations";
 import QuickActions from "./QuickActions";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const JenkinsPage: React.FC = () => {
   const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL;
@@ -40,6 +41,22 @@ const JenkinsPage: React.FC = () => {
       
       {/* Cloud Jenkins Configuration Section */}
       {isProduction && <JenkinsConfiguration />}
+
+      {/* Cross-reference to tutorial */}
+      <div className="jenkins-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Jenkins Tutorial",
+              path: "/tutorials/jenkins",
+              description: "Learn Jenkins fundamentals including pipelines, Jenkinsfiles, and CI/CD automation",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
+      </div>
     </div>
   );
 };

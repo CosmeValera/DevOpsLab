@@ -1,6 +1,7 @@
 import React from "react";
-import { Layers } from "lucide-react";
+import { Layers, BookOpen } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const DockerComposeDeployment: React.FC = () => {
   const commandSteps = [
@@ -59,7 +60,7 @@ const DockerComposeDeployment: React.FC = () => {
       <div className="deployment__section">
         <h2 className="deployment__section-title">Quick Start Commands</h2>
         <p className="deployment__section-description">
-          Deploy the complete application stack including frontend, backend, and database with Docker Compose.
+          Deploy the complete application stack including frontend, backend and jenkins with Docker Compose.
         </p>
         
         <div className="deployment__commands">
@@ -126,14 +127,23 @@ const DockerComposeDeployment: React.FC = () => {
               <p>Services can communicate with each other using service names as hostnames</p>
             </div>
           </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
-              <h3>Volume Management</h3>
-              <p>Persistent data storage and easy volume mounting for development</p>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Cross-reference to tutorial */}
+      <div className="deployment-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Docker Tutorial",
+              path: "/tutorials/docker",
+              description: "Master Docker fundamentals including containers, images, and Dockerfiles",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
       </div>
     </div>
   );

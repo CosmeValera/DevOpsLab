@@ -1,8 +1,19 @@
 import React from "react";
-import { Settings, Info, AlertTriangle, CheckCircle, Play, GitBranch, Database, Globe, FileText, Code, Package } from "lucide-react";
+import { Settings, Info, AlertTriangle, CheckCircle, Play, GitBranch, Database, Globe, FileText, Code, Package, Zap } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const JenkinsTutorial: React.FC = () => {
+  const crossReferenceLinks = [
+    {
+      title: "Jenkins Configuration",
+      path: "/jenkins",
+      description: "Set up and configure Jenkins for this application with detailed configuration steps",
+      icon: Zap,
+      type: 'page' as const
+    }
+  ];
+
   return (
     <TutorialLayout
       title="Jenkins CI/CD"
@@ -10,6 +21,12 @@ const JenkinsTutorial: React.FC = () => {
       estimatedReadingTime="5 minutes"
       prerequisites="Git basics"
       currentTutorial="jenkins"
+      customNextSteps={
+        <CrossReferenceLinks 
+          title="Ready to Configure?"
+          links={crossReferenceLinks as any}
+        />
+      }
     >
       <div className="tutorial-section">
         <h2>What is Jenkins?</h2>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Settings } from "lucide-react";
+import { Settings, BookOpen } from "lucide-react";
 import CommandSteps from "../shared/CommandSteps";
+import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
 const KustomizeDeployment: React.FC = () => {
   const commandSteps = [
@@ -149,15 +150,7 @@ const KustomizeDeployment: React.FC = () => {
                 <p>Test the API through port-forward: <code>http://localhost:3001</code></p>
               </div>
             </div>
-            
-            <div className="verification-step">
-              <div className="verification-step__icon">🔧</div>
-              <div className="verification-step__content">
-                <h4>Kustomize Preview</h4>
-                <p>Preview generated manifests: <code>kubectl kustomize deployments/kustomize/overlays/dev</code></p>
-              </div>
-            </div>
-            
+
             <div className="verification-step">
               <div className="verification-step__icon">📊</div>
               <div className="verification-step__content">
@@ -165,33 +158,6 @@ const KustomizeDeployment: React.FC = () => {
                 <p>Check dev environment: <code>kubectl get all -n devopslab</code></p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Kustomize Structure */}
-      <div className="deployment__section">
-        <h2 className="deployment__section-title">Kustomize Structure</h2>
-        <p className="deployment__section-description">
-          Kustomize organizes configurations into base resources and environment-specific overlays:
-        </p>
-        
-        <div className="configuration-overview">
-          <div className="config-service">
-            <h4>Base</h4>
-            <p>Common Kubernetes manifests shared across all environments</p>
-          </div>
-          <div className="config-service">
-            <h4>Dev Overlay</h4>
-            <p>Development-specific patches and configurations</p>
-          </div>
-          <div className="config-service">
-            <h4>Prod Overlay</h4>
-            <p>Production optimizations and security configurations</p>
-          </div>
-          <div className="config-service">
-            <h4>Patches</h4>
-            <p>Environment-specific modifications to base resources</p>
           </div>
         </div>
       </div>
@@ -210,13 +176,6 @@ const KustomizeDeployment: React.FC = () => {
           <div className="benefit-item">
             <div className="benefit-item__icon">✓</div>
             <div className="benefit-item__content">
-              <h3>No Templating Required</h3>
-              <p>Pure Kubernetes YAML without complex templating or variable substitution</p>
-            </div>
-          </div>
-          <div className="benefit-item">
-            <div className="benefit-item__icon">✓</div>
-            <div className="benefit-item__content">
               <h3>Declarative Approach</h3>
               <p>Define what you want, not how to get there, with strategic merge patches</p>
             </div>
@@ -229,6 +188,22 @@ const KustomizeDeployment: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Cross-reference to tutorial */}
+      <div className="deployment-section">
+        <CrossReferenceLinks 
+          title="Want to Learn More?"
+          links={[
+            {
+              title: "Kustomize Tutorial",
+              path: "/tutorials/kustomize",
+              description: "Learn template-free configuration management with bases, overlays, and patches",
+              icon: BookOpen,
+              type: 'tutorial' as const
+            }
+          ] as any}
+        />
       </div>
     </div>
   );
