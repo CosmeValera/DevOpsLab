@@ -472,13 +472,13 @@
 
     code {
       display: block;
-      background: rgba($neutral-900, 0.8);
+      background: var(--code-bg);
       color: var(--text-primary);
       padding: $space-3;
       border-radius: $border-radius-md;
       font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
       font-size: $text-sm;
-      border: 1px solid rgba($neutral-600, 0.3);
+      border: 1px solid var(--border-color);
       overflow-x: auto;
     }
   }
@@ -504,13 +504,13 @@
     }
 
     code {
-      background: rgba($neutral-800, 0.8);
+      background: var(--code-bg);
       color: var(--text-primary);
       padding: $space-1 $space-2;
       border-radius: $border-radius;
       font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
       font-size: $text-xs;
-      border: 1px solid rgba($neutral-600, 0.3);
+      border: 1px solid var(--border-color);
     }
   }
 }

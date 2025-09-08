@@ -869,8 +869,8 @@
 }
 
 .command-step {
-  background: rgba($neutral-800, 0.3);
-  border: $border-width solid rgba($primary-blue, 0.1);
+  background: var(--bg-secondary);
+  border: $border-width solid var(--border-color);
   border-radius: $border-radius-lg;
   padding: $space-6;
   position: relative;
@@ -960,8 +960,8 @@
 }
 
 .verification-step {
-  background: rgba($neutral-800, 0.3);
-  border: $border-width solid rgba($primary-blue, 0.1);
+  background: var(--bg-secondary);
+  border: $border-width solid var(--border-color);
   border-radius: $border-radius-lg;
   padding: $space-5;
   transition: all $transition-normal;

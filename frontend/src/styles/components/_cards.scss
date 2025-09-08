@@ -142,18 +142,14 @@
     width: 100%;
     margin-bottom: $space-6;
     padding: $space-3;
-    background: linear-gradient(135deg, 
-      rgba($neutral-800, 0.4) 0%, 
-      rgba($neutral-700, 0.2) 100%);
-    border: 1px solid rgba($primary-blue, 0.1);
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
     border-radius: $border-radius-lg;
     transition: all $transition-normal;
     
     &:hover {
       border-color: rgba($primary-blue, 0.2);
-      background: linear-gradient(135deg, 
-        rgba($neutral-800, 0.5) 0%, 
-        rgba($neutral-700, 0.3) 100%);
+      background: var(--bg-secondary);
     }
   }
   
