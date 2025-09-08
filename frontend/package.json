@@ -7,7 +7,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
-    "deploy": "set NODE_ENV=production && npm run build && wsl aws s3 sync ./dist/ s3://devopslab-cosmevalera --delete",
+    "deploy": "set NODE_ENV=production && npm run build && wsl aws s3 sync ./dist/ s3://devopslab-cosmevalera --delete && wsl aws cloudfront create-invalidation --distribution-id E2N2UT283KI5YO --paths '/*'",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
