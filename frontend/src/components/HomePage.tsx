@@ -28,7 +28,7 @@ const HomePage: React.FC<HomePageProps> = ({ initialTab = "introduction" }) => {
     <div className="home">
       {/* Hero Section */}
       <div className="home__hero">
-        <h1 className="home__title">DevOps Lab</h1>
+        <h1 className="home__title">DevOpso Lab</h1>
         <p className="home__subtitle">
           Explore different deployment methods, learn through tutorials, and discover CI/CD automation with industry-standard DevOps tools.
         </p>
