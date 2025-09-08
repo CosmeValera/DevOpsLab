@@ -20,6 +20,9 @@ const IntroductionPage: React.FC = () => {
 
   const handleNavigation = (tab: string) => {
     navigate(`/${tab}`);
+    
+    // Scroll to top when navigating from introduction cards
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
