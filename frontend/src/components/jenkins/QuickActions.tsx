@@ -1,4 +1,4 @@
-import { GitBranch, Code, Cloud, Settings } from "lucide-react";
+import { GitBranch, Cloud, Settings } from "lucide-react";
 
 const QuickActions = () => {
   const handleCloudClick = () => {
@@ -8,10 +8,6 @@ const QuickActions = () => {
   const handleJenkinsSetupClick = () => {
     const jenkinsConfigSection = document.querySelector('.jenkins-section:nth-of-type(2)');
     jenkinsConfigSection?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleGitHubClick = () => {
-    window.open('https://github.com/cosmevalera/devopslab', '_blank');
   };
 
   const handleKeyDown = (event: React.KeyboardEvent, action: () => void) => {
