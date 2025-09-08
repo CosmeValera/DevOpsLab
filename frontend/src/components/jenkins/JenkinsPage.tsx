@@ -27,7 +27,7 @@ const JenkinsPage: React.FC = () => {
       </div>
 
       {/* Quick Actions Section - Only for local */}
-      {!isProduction && <QuickActions isProduction={isProduction} />}
+      {!isProduction && <QuickActions />}
 
       {/* Local Jenkins Configuration Section */}
       {!isProduction && <JenkinsConfiguration />}
