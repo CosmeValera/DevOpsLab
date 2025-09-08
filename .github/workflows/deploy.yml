@@ -46,4 +46,4 @@ jobs:
     - name: Invalidate CloudFront (optional)
       run: |
         # Uncomment if you have CloudFront distribution
-        # aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+        aws cloudfront create-invalidation --distribution-id E2N2UT283KI5YO --paths "/*"
