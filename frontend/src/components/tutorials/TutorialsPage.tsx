@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, Clock, CheckCircle, Users, ArrowRight, Code, Container, Layers, Package, Zap } from "lucide-react";
 
@@ -8,7 +7,6 @@ const tutorialData = [
     title: "Docker Fundamentals",
     description: "Master containerization from the ground up",
     longDescription: "Dive deep into Docker's core concepts, from understanding what containers are to building and running your first applications. Learn about images, containers, Dockerfiles, and the complete container lifecycle.",
-    duration: "30 min",
     levelColor: "error",
     icon: Container,
     topics: [
@@ -19,7 +17,7 @@ const tutorialData = [
       "Multi-stage builds and optimization"
     ],
     path: "/tutorials/docker",
-    estimatedReadingTime: "15-20 minutes",
+    estimatedReadingTime: "4 minutes",
     prerequisites: "Basic command line knowledge"
   },
   {
@@ -27,7 +25,6 @@ const tutorialData = [
     title: "Kubernetes Introduction", 
     description: "Orchestrate containers at scale",
     longDescription: "Learn Kubernetes fundamentals through hands-on examples. Understand pods, deployments, services, and how they work together to create resilient, scalable applications.",
-    duration: "45 min",
     levelColor: "warning",
     icon: Layers,
     topics: [
@@ -38,15 +35,14 @@ const tutorialData = [
       "Basic troubleshooting"
     ],
     path: "/tutorials/kubernetes",
-    estimatedReadingTime: "25-30 minutes",
-    prerequisites: "Docker basics, YAML syntax"
+    estimatedReadingTime: "4 minutes",
+    prerequisites: "Docker"
   },
   {
     id: "kustomize",
     title: "Kustomize Deep Dive",
     description: "Template-free configuration management",
     longDescription: "Discover how Kustomize simplifies Kubernetes configuration management without templates. Learn bases, overlays, patches, and generators for environment-specific deployments.",
-    duration: "35 min",
     levelColor: "warning",
     icon: Code,
     topics: [
@@ -57,15 +53,14 @@ const tutorialData = [
       "Environment-specific configurations"
     ],
     path: "/tutorials/kustomize",
-    estimatedReadingTime: "20-25 minutes",
-    prerequisites: "Kubernetes basics, YAML"
+    estimatedReadingTime: "5 minutes",
+    prerequisites: "Kubernetes"
   },
   {
     id: "helm",
     title: "Creating Helm Charts",
     description: "Package and distribute applications",
     longDescription: "Learn Helm's templating system to create reusable application packages. Master chart structure, templates, values, and dependencies for professional Kubernetes deployments.",
-    duration: "60 min", 
     levelColor: "error",
     icon: Package,
     topics: [
@@ -76,15 +71,14 @@ const tutorialData = [
       "Best practices and security"
     ],
     path: "/tutorials/helm",
-    estimatedReadingTime: "35-40 minutes",
-    prerequisites: "Kubernetes, YAML, basic templating"
+    estimatedReadingTime: "6 minutes",
+    prerequisites: "Kubernetes"
   },
   {
     id: "jenkins",
     title: "Jenkins CI/CD",
     description: "Automate your development workflow",
     longDescription: "Build robust CI/CD pipelines with Jenkins. Learn pipeline concepts, Jenkinsfiles, stages, and automation strategies to streamline your development process.",
-    duration: "40 min",
     levelColor: "success", 
     icon: Zap,
     topics: [
@@ -95,12 +89,12 @@ const tutorialData = [
       "Pipeline troubleshooting"
     ],
     path: "/tutorials/jenkins",
-    estimatedReadingTime: "25-30 minutes",
-    prerequisites: "Git basics, command line"
+    estimatedReadingTime: "5 minutes",
+    prerequisites: "Git basics"
   }
 ];
 
-const TutorialsPage: React.FC = () => {
+const TutorialsPage = () => {
   const navigate = useNavigate();
 
   const handleCardClick = (path: string) => {

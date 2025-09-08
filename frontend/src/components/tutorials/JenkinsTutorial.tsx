@@ -7,8 +7,8 @@ const JenkinsTutorial: React.FC = () => {
     <TutorialLayout
       title="Jenkins CI/CD"
       description="Automate your development workflow"
-      estimatedReadingTime="25-30 minutes"
-      prerequisites="Git basics, command line"
+      estimatedReadingTime="5 minutes"
+      prerequisites="Git basics"
       currentTutorial="jenkins"
     >
       <div className="tutorial-section">
