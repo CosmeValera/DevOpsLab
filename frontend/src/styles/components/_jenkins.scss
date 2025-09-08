@@ -71,8 +71,7 @@
     @include body-text;
     margin: 0;
     font-size: $text-lg;
-    color: var(--text-secondary);
-    max-width: 600px;
+    color: var(--text-secondary);    
     
     @include md {
       font-size: $text-xl;

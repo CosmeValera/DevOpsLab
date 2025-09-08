@@ -32,10 +32,7 @@ const IntroductionPage: React.FC = () => {
           </div>
           <div className="introduction-hero__text">
             <h1 className="introduction-hero__title">DevOps Lab</h1>
-            <p className="introduction-hero__subtitle">
-              Master modern DevOps practices with hands-on learning. Deploy applications using Docker, 
-              Kubernetes, and CI/CD pipelines with real-world examples and interactive tutorials.
-            </p>
+            <p className="introduction-hero__subtitle">From Docker to deployment, interactive DevOps learning</p>
           </div>
         </div>
       </div>
@@ -157,11 +154,10 @@ const IntroductionPage: React.FC = () => {
             </div>
             <div className="nav-card__content">
               <h3>Jenkins</h3>
-              <p>CI/CD automation with live pipelines monitoring and configuration.</p>
+              <p>Interactive CI/CD automation with live pipeline monitoring and configuration.</p>
               <div className="nav-card__features">
-                <span className="feature-tag">Pipeline Status</span>
-                <span className="feature-tag">Interactive Jobs</span>
-                <span className="feature-tag">Configuration</span>
+                <span className="feature-tag">AWS cloud ready version</span>
+                <span className="feature-tag">Configure Jenkins locally</span>
               </div>
               <div className="nav-card__action">
                 <Play size={16} />
@@ -181,11 +177,13 @@ const IntroductionPage: React.FC = () => {
             </div>
             <div className="nav-card__content">
               <h3>Tutorials</h3>
-              <p>Comprehensive learning paths for each DevOps technology</p>
+              <p>Comprehensive tutorials for each DevOps technology</p>
               <div className="nav-card__features">
-                <span className="feature-tag">Beginner-friendly</span>
-                <span className="feature-tag">Hands-on Exercises</span>
-                <span className="feature-tag">Real-world Examples</span>
+                <span className="feature-tag">Docker</span>
+                <span className="feature-tag">Kubernetes</span>
+                <span className="feature-tag">Kustomize</span>
+                <span className="feature-tag">Helm</span>
+                <span className="feature-tag">Jenkins</span>
               </div>
               <div className="nav-card__action">
                 <Play size={16} />

@@ -1,7 +1,26 @@
 import { GitBranch, Code, Cloud, Settings } from "lucide-react";
 
-
 const QuickActions = () => {
+  const handleCloudClick = () => {
+    window.open('https://d3nl9bq5so9qcn.cloudfront.net', '_blank');
+  };
+
+  const handleJenkinsSetupClick = () => {
+    const jenkinsConfigSection = document.querySelector('.jenkins-section:nth-of-type(2)');
+    jenkinsConfigSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleGitHubClick = () => {
+    window.open('https://github.com/cosmevalera/devopslab', '_blank');
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent, action: () => void) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
+    }
+  };
+
   return (
     <div className="jenkins-section">
       <div className="section-header">
@@ -9,28 +28,39 @@ const QuickActions = () => {
           <GitBranch size={20} />
           Quick Actions
         </h2>
-        <p className="section-description"> Get started with your local Jenkins setup</p>
+        <p className="section-description">Use our cloud setup or configure your local Jenkins</p>
       </div>
 
       <div className="quick-actions-grid">
-        <div className="quick-action-card">
+        <button 
+          className="quick-action-card" 
+          onClick={handleCloudClick}
+          onKeyDown={(e) => handleKeyDown(e, handleCloudClick)}
+          tabIndex={0}
+          aria-label="Try Cloud Version - Experience the full AWS deployment"
+        >
           <div className="quick-action-icon">
             <Cloud size={24} />
           </div>
           <div className="quick-action-content">
             <h4>Try Cloud Version</h4>
-            <p>Experience the full AWS deployment</p>
-            <a 
-              href="http://devopslab-cosmevalera.s3-website.eu-central-1.amazonaws.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <p>Try the deployed application with AWS S3, Lambda and EC2</p>
+            <button
               className="quick-action-link"
+              tabIndex={-1}
             >
               Visit Cloud
-            </a>
+            </button>
           </div>
-        </div>
-        <div className="quick-action-card">
+        </button>
+        
+        <button 
+          className="quick-action-card" 
+          onClick={handleJenkinsSetupClick}
+          onKeyDown={(e) => handleKeyDown(e, handleJenkinsSetupClick)}
+          tabIndex={0}
+          aria-label="Configure Your Own Pipeline - Set up Jenkins locally and create custom pipelines"
+        >
           <div className="quick-action-icon">
             <Settings size={24} />
           </div>
@@ -39,32 +69,12 @@ const QuickActions = () => {
             <p>Set up Jenkins locally and create custom pipelines</p>
             <button 
               className="quick-action-link"
-              onClick={() => {
-                const jenkinsConfigSection = document.querySelector('.jenkins-section:nth-of-type(2)');
-                jenkinsConfigSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              tabIndex={-1}
             >
               Setup Jenkins
             </button>
           </div>
-        </div>
-        <div className="quick-action-card">
-          <div className="quick-action-icon">
-            <Code size={24} />
-          </div>
-          <div className="quick-action-content">
-            <h4>View Source Code</h4>
-            <p>Explore the complete project repository</p>
-            <a 
-              href="https://github.com/cosmevalera/devopslab" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="quick-action-link"
-            >
-              GitHub Repo
-            </a>
-          </div>
-        </div>
+        </button>
       </div>
     </div>
   );
