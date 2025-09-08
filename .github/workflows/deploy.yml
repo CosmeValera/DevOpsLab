@@ -43,7 +43,6 @@ jobs:
     - name: Deploy to S3
       run: aws s3 sync ./frontend/dist/ s3://devopslab-cosmevalera --delete
       
-    - name: Invalidate CloudFront (optional)
+    - name: Invalidate CloudFront
       run: |
-        # Uncomment if you have CloudFront distribution
         aws cloudfront create-invalidation --distribution-id E2N2UT283KI5YO --paths "/*"
