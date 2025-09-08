@@ -1,5 +1,5 @@
 import React from "react";
-import { Settings, Info, AlertTriangle, CheckCircle, Play, GitBranch, Database, Globe, FileText, Code, Package, Zap } from "lucide-react";
+import { Settings, Info, AlertTriangle, CheckCircle, Play, GitBranch, Globe, FileText, Package, Zap } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
@@ -91,7 +91,8 @@ const JenkinsTutorial: React.FC = () => {
         <h2>Pipeline Types</h2>
         
         <p>
-          Jenkins supports different types of pipelines, each with its own advantages and use cases.
+          Jenkins supports different ways to define your automation. The most common and recommended approach is 
+          the Declarative Pipeline.
         </p>
 
         <div className="concept-grid">
@@ -101,30 +102,19 @@ const JenkinsTutorial: React.FC = () => {
             </div>
             <h3>Declarative Pipeline</h3>
             <p>
-              A newer, more structured approach using a simplified syntax. Easier to read and write, with 
-              built-in error handling and parallel execution support.
+              The recommended approach. Uses a simple, structured syntax that's easy to read and write. 
+              Perfect for most automation needs.
             </p>
           </div>
           
           <div className="concept-card">
             <div className="concept-card__icon">
-              <Code size={24} />
+              <Settings size={24} />
             </div>
-            <h3>Scripted Pipeline</h3>
+            <h3>Freestyle Jobs</h3>
             <p>
-              Traditional Groovy-based pipelines with full programming flexibility. More powerful but 
-              requires more Groovy knowledge.
-            </p>
-          </div>
-          
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Database size={24} />
-            </div>
-            <h3>Freestyle Projects</h3>
-            <p>
-              GUI-based job configuration. Good for simple automation tasks but less flexible than 
-              pipeline-based approaches.
+              Traditional Jenkins jobs configured through the web interface. Good for simple tasks but 
+              harder to version control and share.
             </p>
           </div>
         </div>
@@ -134,27 +124,20 @@ const JenkinsTutorial: React.FC = () => {
         <h2>Creating Your First Pipeline</h2>
         
         <p>
-          Let's create a simple declarative pipeline that demonstrates the basic CI/CD workflow.
+          A Jenkins pipeline is defined in a file called Jenkinsfile. Here's a simple example that shows the basic structure:
         </p>
 
         <div className="code-example">
-          <h4>Basic Declarative Pipeline</h4>
+          <h4>Simple Jenkinsfile</h4>
           <pre className="code-block">
 {`pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
+        stage('Install') {
             steps {
-                checkout scm
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                echo 'Building the application...'
+                echo 'Installing the application...'
                 sh 'npm install'
-                sh 'npm run build'
             }
         }
         
@@ -165,163 +148,48 @@ const JenkinsTutorial: React.FC = () => {
             }
         }
         
-        stage('Deploy') {
+        stage('Create image') {
             steps {
-                echo 'Deploying to staging...'
+                echo 'Creating image...'
                 sh 'docker build -t myapp .'
-                sh 'docker push myapp:latest'
             }
-        }
-    }
-    
-    post {
-        always {
-            echo 'Pipeline completed!'
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }`}
           </pre>
         </div>
 
-        <div className="workflow-steps">
-          <div className="workflow-step">
-            <div className="workflow-step__number">1</div>
-            <div className="workflow-step__content">
-              <h4>Checkout</h4>
-              <p>Pull the latest code from your version control system (Git, SVN, etc.).</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">2</div>
-            <div className="workflow-step__content">
-              <h4>Build</h4>
-              <p>Compile your code, install dependencies, and create artifacts.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">3</div>
-            <div className="workflow-step__content">
-              <h4>Test</h4>
-              <p>Run automated tests to ensure code quality and functionality.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">4</div>
-            <div className="workflow-step__content">
-              <h4>Deploy</h4>
-              <p>Deploy the application to target environments (staging, production).</p>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>Pipeline Structure</h4>
+            <p>
+              <strong>agent any:</strong> Run on any available Jenkins agent<br/>
+              <strong>stages:</strong> Define the steps of your pipeline<br/>
+              <strong>steps:</strong> The actual commands to run in each stage
+            </p>
           </div>
         </div>
       </div>
 
       <div className="tutorial-section">
-        <h2>Pipeline Stages and Steps</h2>
+        <h2>Understanding Jenkinsfiles</h2>
         
         <p>
-          Understanding the structure of pipelines is crucial for creating effective CI/CD workflows.
+          A Jenkinsfile is a text file that defines your pipeline. It's stored in your code repository 
+          and version controlled along with your application code.
         </p>
 
-        <div className="dockerfile-instructions">
-          <h4>Pipeline Components</h4>
-          <div className="instruction-list">
-            <div className="instruction-item">
-              <code>pipeline</code>
-              <span>Top-level block that defines the entire pipeline</span>
-            </div>
-            <div className="instruction-item">
-              <code>agent</code>
-              <span>Specifies where the pipeline will execute</span>
-            </div>
-            <div className="instruction-item">
-              <code>stages</code>
-              <span>Contains a sequence of stage blocks</span>
-            </div>
-            <div className="instruction-item">
-              <code>stage</code>
-              <span>Defines a conceptual segment of the pipeline</span>
-            </div>
-            <div className="instruction-item">
-              <code>steps</code>
-              <span>Contains the actual commands to execute</span>
-            </div>
-            <div className="instruction-item">
-              <code>post</code>
-              <span>Defines actions to run after pipeline completion</span>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>Key Benefits</h4>
+            <p>
+              <strong>Version Control:</strong> Your pipeline is stored with your code<br/>
+              <strong>Reproducible:</strong> Same pipeline runs the same way every time<br/>
+              <strong>Collaborative:</strong> Team can review and modify pipeline changes
+            </p>
           </div>
-        </div>
-
-        <div className="code-example">
-          <h4>Advanced Pipeline with Parallel Execution</h4>
-          <pre className="code-block">
-{`pipeline {
-    agent any
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        
-        stage('Build and Test') {
-            parallel {
-                stage('Unit Tests') {
-                    steps {
-                        sh 'npm run test:unit'
-                    }
-                }
-                stage('Integration Tests') {
-                    steps {
-                        sh 'npm run test:integration'
-                    }
-                }
-                stage('Build') {
-                    steps {
-                        sh 'npm run build'
-                    }
-                }
-            }
-        }
-        
-        stage('Security Scan') {
-            steps {
-                sh 'npm audit'
-                sh 'snyk test'
-            }
-        }
-        
-        stage('Deploy to Staging') {
-            when {
-                branch 'develop'
-            }
-            steps {
-                sh 'kubectl apply -f k8s/staging/'
-            }
-        }
-        
-        stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
-            steps {
-                input 'Deploy to production?'
-                sh 'kubectl apply -f k8s/production/'
-            }
-        }
-    }
-}`}
-          </pre>
         </div>
       </div>
 
@@ -445,7 +313,7 @@ const JenkinsTutorial: React.FC = () => {
             </div>
             <h3>Version Control</h3>
             <p>
-              Git, SVN, Mercurial - Jenkins can trigger builds on code changes, pull requests, and merges.
+              Git: Jenkins can trigger builds on code changes, pull requests, and merges.
             </p>
           </div>
           
@@ -455,7 +323,7 @@ const JenkinsTutorial: React.FC = () => {
             </div>
             <h3>Container Platforms</h3>
             <p>
-              Docker, Kubernetes - Build and deploy containerized applications with automated pipelines.
+              Docker, Kubernetes: Build and deploy containerized applications with automated pipelines.
             </p>
           </div>
           
@@ -465,7 +333,7 @@ const JenkinsTutorial: React.FC = () => {
             </div>
             <h3>Cloud Platforms</h3>
             <p>
-              AWS, Azure, GCP - Deploy to cloud platforms with native integrations and plugins.
+              AWS, Azure, GCP: Deploy to cloud platforms with native integrations and plugins.
             </p>
           </div>
         </div>
@@ -555,25 +423,39 @@ const JenkinsTutorial: React.FC = () => {
       </div>
 
       <div className="tutorial-section">
-        <h2>Next Steps</h2>
+        <h2>Key Takeaways</h2>
         
-        <p>
-          You now understand the fundamentals of Jenkins CI/CD! You've learned how to create pipelines, 
-          integrate with various tools, and implement best practices for automated software delivery.
-        </p>
-        
-        <div className="next-steps">
-          <div className="next-step">
-            <h4>Practice</h4>
-            <p>Set up a Jenkins server and create your first pipeline for a real project</p>
+        <div className="best-practices">
+          <div className="practice-item practice-item--good">
+            <CheckCircle size={20} />
+            <div>
+              <h4>Pipelines Automate Your Workflow</h4>
+              <p>Pipelines define the steps to build, test, and deploy your application automatically.</p>
+            </div>
           </div>
-          <div className="next-step">
-            <h4>Explore</h4>
-            <p>Learn about Jenkins plugins, shared libraries, and advanced pipeline features</p>
+          
+          <div className="practice-item practice-item--good">
+            <CheckCircle size={20} />
+            <div>
+              <h4>Jobs are Individual Tasks</h4>
+              <p>Jobs are the individual automation tasks that Jenkins can run. Pipelines are made up of multiple jobs.</p>
+            </div>
           </div>
-          <div className="next-step">
-            <h4>Master</h4>
-            <p>Combine all the DevOps tools you've learned to create comprehensive CI/CD pipelines</p>
+          
+          <div className="practice-item practice-item--good">
+            <CheckCircle size={20} />
+            <div>
+              <h4>Jenkinsfiles Define Your Pipeline</h4>
+              <p>Jenkinsfiles are text files that define your pipeline. They're stored in your code repository and version controlled.</p>
+            </div>
+          </div>
+          
+          <div className="practice-item practice-item--warning">
+            <AlertTriangle size={20} />
+            <div>
+              <h4>Start Simple</h4>
+              <p>Begin with basic pipelines that build and test your application. Learn advanced features like parallel execution later.</p>
+            </div>
           </div>
         </div>
       </div>

@@ -5,16 +5,15 @@ const tutorialData = [
   {
     id: "docker",
     title: "Docker Fundamentals",
-    description: "Master containerization from the ground up",
-    longDescription: "Dive deep into Docker's core concepts, from understanding what containers are to building and running your first applications. Learn about images, containers, Dockerfiles, and the complete container lifecycle.",
+    description: "Learn containerization basics",
+    longDescription: "Understand what containers are and how to use Docker to package and run applications. Learn about images, containers, and Dockerfiles.",
     levelColor: "error",
     icon: Container,
     topics: [
-      "Container fundamentals and isolation",
-      "Docker images and registries", 
-      "Writing effective Dockerfiles",
-      "Container lifecycle management",
-      "Multi-stage builds and optimization"
+      "What are containers and images",
+      "Building and running containers", 
+      "Writing Dockerfiles",
+      "Basic Docker commands"
     ],
     path: "/tutorials/docker",
     estimatedReadingTime: "4 minutes",
@@ -24,15 +23,14 @@ const tutorialData = [
     id: "kubernetes",
     title: "Kubernetes Introduction", 
     description: "Orchestrate containers at scale",
-    longDescription: "Learn Kubernetes fundamentals through hands-on examples. Understand pods, deployments, services, and how they work together to create resilient, scalable applications.",
+    longDescription: "Learn the basics of Kubernetes: pods, deployments, and services. Understand how to run and manage containerized applications in a cluster.",
     levelColor: "warning",
     icon: Layers,
     topics: [
-      "Pods and their lifecycle",
-      "Deployments and scaling",
-      "Services and networking",
-      "ConfigMaps and Secrets",
-      "Basic troubleshooting"
+      "What is Kubernetes and why use it",
+      "Pods, Deployments, and Services",
+      "Basic kubectl commands",
+      "Scaling and managing applications"
     ],
     path: "/tutorials/kubernetes",
     estimatedReadingTime: "4 minutes",
@@ -40,16 +38,14 @@ const tutorialData = [
   },
   {
     id: "kustomize",
-    title: "Kustomize Deep Dive",
-    description: "Template-free configuration management",
-    longDescription: "Discover how Kustomize simplifies Kubernetes configuration management without templates. Learn bases, overlays, patches, and generators for environment-specific deployments.",
+    title: "Kustomize Basics",
+    description: "Manage configurations without templates",
+    longDescription: "Learn how to customize Kubernetes configurations for different environments using Kustomize's simple base and overlay approach.",
     levelColor: "warning",
     icon: Code,
     topics: [
-      "Base and overlay architecture",
-      "Strategic merge patches",
-      "JSON patch operations",
-      "ConfigMap and Secret generators",
+      "Base and overlay concept",
+      "Simple patches and customizations",
       "Environment-specific configurations"
     ],
     path: "/tutorials/kustomize",
@@ -58,35 +54,32 @@ const tutorialData = [
   },
   {
     id: "helm",
-    title: "Creating Helm Charts",
-    description: "Package and distribute applications",
-    longDescription: "Learn Helm's templating system to create reusable application packages. Master chart structure, templates, values, and dependencies for professional Kubernetes deployments.",
+    title: "Helm Basics",
+    description: "Package applications for Kubernetes",
+    longDescription: "Learn the fundamentals of Helm: charts, releases, and values. Understand how to package and deploy applications with simple templating.",
     levelColor: "error",
     icon: Package,
     topics: [
-      "Chart structure and organization",
-      "Template syntax and functions",
-      "Values and value overrides",
-      "Chart dependencies and repositories",
-      "Best practices and security"
+      "What are Helm charts and releases",
+      "Basic templating with values",
+      "Installing and managing applications"
     ],
     path: "/tutorials/helm",
-    estimatedReadingTime: "6 minutes",
+    estimatedReadingTime: "5 minutes",
     prerequisites: "Kubernetes"
   },
   {
     id: "jenkins",
     title: "Jenkins CI/CD",
     description: "Automate your development workflow",
-    longDescription: "Build robust CI/CD pipelines with Jenkins. Learn pipeline concepts, Jenkinsfiles, stages, and automation strategies to streamline your development process.",
+    longDescription: "Learn the basics of Jenkins: pipelines, jobs, and Jenkinsfiles. Understand how to automate building, testing, and deploying applications.",
     levelColor: "success", 
     icon: Zap,
     topics: [
-      "Pipeline concepts and stages",
-      "Declarative vs Scripted pipelines",
-      "Jenkinsfile best practices",
-      "CI/CD automation strategies",
-      "Pipeline troubleshooting"
+      "What is CI/CD and why use Jenkins",
+      "Creating pipelines and jobs",
+      "Writing simple Jenkinsfiles",
+      "Basic automation concepts"
     ],
     path: "/tutorials/jenkins",
     estimatedReadingTime: "5 minutes",

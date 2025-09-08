@@ -1,5 +1,5 @@
 import React from "react";
-import { Package, Settings, Info, AlertTriangle, CheckCircle, FileText, GitBranch, Download, Server } from "lucide-react";
+import { Package, Settings, Info, AlertTriangle, CheckCircle, GitBranch, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
@@ -16,9 +16,9 @@ const HelmTutorial: React.FC = () => {
 
   return (
     <TutorialLayout
-      title="Creating Helm Charts"
-      description="Package and distribute applications"
-      estimatedReadingTime="6 minutes"
+      title="Helm Basics"
+      description="Package applications for Kubernetes"
+      estimatedReadingTime="5 minutes"
       prerequisites="Kubernetes"
       currentTutorial="helm"
       customNextSteps={
@@ -32,7 +32,7 @@ const HelmTutorial: React.FC = () => {
         <h2>What is Helm?</h2>
         <p>
           Helm is the package manager for Kubernetes. It simplifies the deployment and management of Kubernetes applications 
-          by packaging them into charts - a collection of files that describe a related set of Kubernetes resources.
+          by packaging them into charts (a collection of files that describe a related set of Kubernetes resources).
         </p>
         
         <div className="info-box">
@@ -90,94 +90,60 @@ const HelmTutorial: React.FC = () => {
         <h2>Chart Structure</h2>
         
         <p>
-          A Helm chart follows a specific directory structure that organizes templates, values, and metadata 
-          in a standardized way.
+          A Helm chart is a collection of files organized in a specific directory structure. The most important files are:
         </p>
 
         <div className="code-example">
-          <h4>Chart Directory Structure</h4>
+          <h4>Basic Chart Structure</h4>
           <pre className="code-block">
 {`myapp/
-├── Chart.yaml          # Chart metadata
-├── values.yaml         # Default values
-├── charts/             # Dependencies
-├── templates/          # Template files
-│   ├── deployment.yaml
-│   ├── service.yaml
-│   ├── configmap.yaml
-│   ├── _helpers.tpl    # Template helpers
-│   └── NOTES.txt       # Usage notes
-└── .helmignore         # Files to ignore`}
+├── Chart.yaml          # Chart information
+├── values.yaml         # Default configuration
+└── templates/          # Kubernetes files
+    ├── deployment.yaml
+    └── service.yaml`}
           </pre>
         </div>
 
         <div className="info-box">
           <Info size={20} />
           <div>
-            <h4>Best Practice</h4>
+            <h4>Simple Start</h4>
             <p>
-              Use the <code>helm create</code> command to generate a new chart with the proper structure and example files. 
-              This ensures you follow Helm best practices from the start.
+              Use <code>helm create myapp</code> to generate a new chart with example files. This gives you a working 
+              starting point that you can customize.
             </p>
           </div>
         </div>
       </div>
 
       <div className="tutorial-section">
-        <h2>Chart.yaml - Metadata</h2>
+        <h2>Chart.yaml - Basic Information</h2>
         
         <p>
-          The Chart.yaml file contains metadata about your chart, including name, version, description, and dependencies.
+          The Chart.yaml file contains basic information about your chart. You only need a few essential fields to get started.
         </p>
 
         <div className="code-example">
-          <h4>Chart.yaml Example</h4>
+          <h4>Simple Chart.yaml</h4>
           <pre className="code-block">
 {`apiVersion: v2
 name: myapp
-description: A Helm chart for MyApp
-type: application
+description: A simple web application
 version: 0.1.0
-appVersion: "1.0.0"
-keywords:
-  - web
-  - application
-home: https://github.com/myorg/myapp
-sources:
-  - https://github.com/myorg/myapp
-maintainers:
-  - name: Your Name
-    email: your.email@example.com
-dependencies:
-  - name: postgresql
-    version: 12.x.x
-    repository: https://charts.bitnami.com/bitnami`}
+appVersion: "1.0.0"`}
           </pre>
         </div>
 
-        <div className="dockerfile-instructions">
-          <h4>Key Fields</h4>
-          <div className="instruction-list">
-            <div className="instruction-item">
-              <code>apiVersion</code>
-              <span>Helm API version (v2 for Helm 3)</span>
-            </div>
-            <div className="instruction-item">
-              <code>name</code>
-              <span>Chart name (must be lowercase, no spaces)</span>
-            </div>
-            <div className="instruction-item">
-              <code>version</code>
-              <span>Chart version (semantic versioning)</span>
-            </div>
-            <div className="instruction-item">
-              <code>appVersion</code>
-              <span>Version of the application being deployed</span>
-            </div>
-            <div className="instruction-item">
-              <code>dependencies</code>
-              <span>Other charts this chart depends on</span>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>Key Fields</h4>
+            <p>
+              <strong>name:</strong> Your chart name <br/>
+              <strong>version:</strong> Chart version <br/>
+              <strong>appVersion:</strong> Version of your application
+            </p>
           </div>
         </div>
       </div>
@@ -186,221 +152,104 @@ dependencies:
         <h2>Values.yaml - Configuration</h2>
         
         <p>
-          The values.yaml file contains the default configuration values for your chart. These values can be 
-          overridden during installation or upgrade.
+          The values.yaml file contains default configuration values for your chart. These values can be 
+          customized when installing or upgrading your application.
         </p>
 
         <div className="code-example">
-          <h4>values.yaml Example</h4>
+          <h4>Simple values.yaml</h4>
           <pre className="code-block">
 {`# Default values for myapp
 replicaCount: 1
 
 image:
   repository: nginx
-  pullPolicy: IfNotPresent
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-serviceAccount:
-  create: true
-  annotations: {}
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-
-securityContext: {}
+  tag: "latest"
 
 service:
   type: ClusterIP
   port: 80
 
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-
 resources:
   limits:
     cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}`}
-          </pre>
-        </div>
-      </div>
-
-      <div className="tutorial-section">
-        <h2>Templates - The Heart of Helm</h2>
-        
-        <p>
-          Templates are Kubernetes manifest files with embedded Go template syntax. They allow you to create 
-          dynamic, configurable Kubernetes resources.
-        </p>
-
-        <div className="code-example">
-          <h4>Deployment Template Example</h4>
-          <pre className="code-block">
-{`apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "myapp.fullname" . }}
-  labels:
-    {{- include "myapp.labels" . | nindent 4 }}
-spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
-  selector:
-    matchLabels:
-      {{- include "myapp.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      labels:
-        {{- include "myapp.selectorLabels" . | nindent 8 }}
-    spec:
-      containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}`}
+    memory: 128Mi`}
           </pre>
         </div>
 
-        <div className="dockerfile-instructions">
-          <h4>Template Functions</h4>
-          <div className="instruction-list">
-            <div className="instruction-item">
-              <code>{`{{ .Values.field }}`}</code>
-              <span>Access values from values.yaml</span>
-            </div>
-            <div className="instruction-item">
-              <code>{`{{ include "helper" . }}`}</code>
-              <span>Include helper templates</span>
-            </div>
-            <div className="instruction-item">
-              <code>{`{{- if condition }}`}</code>
-              <span>Conditional blocks</span>
-            </div>
-            <div className="instruction-item">
-              <code>{`{{ toYaml .Values.data }}`}</code>
-              <span>Convert to YAML</span>
-            </div>
-            <div className="instruction-item">
-              <code>{`{{ nindent 4 }}`}</code>
-              <span>Add indentation</span>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>How Values Work</h4>
+            <p>
+              Values are like variables that you can change without modifying your Kubernetes files. 
+              You can override them when installing: <code>helm install myapp ./myapp --set replicaCount=3</code>
+            </p>
           </div>
         </div>
       </div>
 
       <div className="tutorial-section">
-        <h2>Helper Templates</h2>
+        <h2>Templates - Simple Templating</h2>
         
         <p>
-          Helper templates (_helpers.tpl) contain reusable template functions that can be called from other templates. 
-          They help reduce duplication and maintain consistency.
+          Templates are Kubernetes files with placeholders that get replaced with values. This allows you to 
+          customize your application without changing the files.
         </p>
 
         <div className="code-example">
-          <h4>_helpers.tpl Example</h4>
+          <h4>Simple Deployment Template</h4>
           <pre className="code-block">
-{`{{/*
-Expand the name of the chart.
-*/}}
-{{- define "myapp.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{/*
-Create a default fully qualified app name.
-*/}}
-{{- define "myapp.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{/*
-Common labels
-*/}}
-{{- define "myapp.labels" -}}
-helm.sh/chart: {{ include "myapp.chart" . }}
-{{ include "myapp.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}`}
+{`apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80`}
           </pre>
+        </div>
+
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>Template Basics</h4>
+            <p>
+              <strong>{`{{ .Values.replicaCount }}`}</strong> - Gets the replicaCount from values.yaml<br/>
+              <strong>{`{{ .Values.image.repository }}`}</strong> - Gets the image repository<br/>
+              <strong>{`{{ .Values.image.tag }}`}</strong> - Gets the image tag
+            </p>
+          </div>
         </div>
       </div>
 
       <div className="tutorial-section">
         <h2>Essential Helm Commands</h2>
         
+        <p>
+          Here are the most important Helm commands you'll use to work with charts and releases:
+        </p>
+        
         <div className="commands-grid">
           <div className="command-card">
-            <h4>Chart Development</h4>
+            <h4>Basic Commands</h4>
             <div className="command-list">
               <div className="command-item">
                 <code>helm create myapp</code>
                 <span>Create new chart</span>
               </div>
-              <div className="command-item">
-                <code>helm lint myapp</code>
-                <span>Validate chart</span>
-              </div>
-              <div className="command-item">
-                <code>helm package myapp</code>
-                <span>Package chart</span>
-              </div>
-              <div className="command-item">
-                <code>helm template myapp</code>
-                <span>Render templates</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="command-card">
-            <h4>Chart Installation</h4>
-            <div className="command-list">
               <div className="command-item">
                 <code>helm install myapp ./myapp</code>
                 <span>Install chart</span>
@@ -410,10 +259,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
                 <span>Upgrade release</span>
               </div>
               <div className="command-item">
-                <code>helm rollback myapp 1</code>
-                <span>Rollback release</span>
-              </div>
-              <div className="command-item">
                 <code>helm uninstall myapp</code>
                 <span>Uninstall release</span>
               </div>
@@ -421,23 +266,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
           </div>
           
           <div className="command-card">
-            <h4>Repository Management</h4>
+            <h4>Useful Commands</h4>
             <div className="command-list">
               <div className="command-item">
-                <code>helm repo add bitnami</code>
-                <span>Add repository</span>
+                <code>helm list</code>
+                <span>List all releases</span>
               </div>
               <div className="command-item">
-                <code>helm repo update</code>
-                <span>Update repositories</span>
+                <code>helm status myapp</code>
+                <span>Check release status</span>
               </div>
               <div className="command-item">
-                <code>helm search repo</code>
-                <span>Search charts</span>
+                <code>helm template myapp</code>
+                <span>Preview generated YAML</span>
               </div>
               <div className="command-item">
-                <code>helm repo list</code>
-                <span>List repositories</span>
+                <code>helm lint myapp</code>
+                <span>Validate chart</span>
               </div>
             </div>
           </div>
@@ -445,160 +290,39 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
       </div>
 
       <div className="tutorial-section">
-        <h2>Dependencies and Charts</h2>
-        
-        <p>
-          Helm charts can depend on other charts, allowing you to compose complex applications from smaller, 
-          reusable components.
-        </p>
-
-        <div className="workflow-steps">
-          <div className="workflow-step">
-            <div className="workflow-step__number">1</div>
-            <div className="workflow-step__content">
-              <h4>Define Dependencies</h4>
-              <p>Add dependencies to your Chart.yaml file with version constraints.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">2</div>
-            <div className="workflow-step__content">
-              <h4>Update Dependencies</h4>
-              <p>Run <code>helm dependency update</code> to download and update dependencies.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">3</div>
-            <div className="workflow-step__content">
-              <h4>Build Chart</h4>
-              <p>Dependencies are included when you package or install the chart.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="code-example">
-          <h4>Dependencies Example</h4>
-          <pre className="code-block">
-{`dependencies:
-  - name: postgresql
-    version: 12.x.x
-    repository: https://charts.bitnami.com/bitnami
-    condition: postgresql.enabled
-  - name: redis
-    version: 17.x.x
-    repository: https://charts.bitnami.com/bitnami
-    condition: redis.enabled`}
-          </pre>
-        </div>
-      </div>
-
-      <div className="tutorial-section">
-        <h2>Best Practices</h2>
+        <h2>Key Takeaways</h2>
         
         <div className="best-practices">
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use Semantic Versioning</h4>
-              <p>Follow semantic versioning (MAJOR.MINOR.PATCH) for your chart versions to indicate compatibility.</p>
+              <h4>Charts are Packages</h4>
+              <p>Charts are collections of Kubernetes files that define how to deploy an application. They're like installers for Kubernetes.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Provide Sensible Defaults</h4>
-              <p>Set reasonable default values in values.yaml that work for most common use cases.</p>
+              <h4>Releases are Running Instances</h4>
+              <p>When you install a chart, it becomes a release. You can have multiple releases of the same chart with different configurations.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use Helper Templates</h4>
-              <p>Create reusable helper templates to reduce duplication and maintain consistency across your templates.</p>
+              <h4>Values are Configuration</h4>
+              <p>Values let you customize your application without changing the chart files. They're like settings you can adjust.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--warning">
             <AlertTriangle size={20} />
             <div>
-              <h4>Validate Your Charts</h4>
-              <p>Always run <code>helm lint</code> and <code>helm template</code> to validate your charts before packaging.</p>
+              <h4>Start Simple</h4>
+              <p>Begin with basic charts and simple templating. Learn advanced features like hooks and dependencies later.</p>
             </div>
-          </div>
-          
-          <div className="practice-item practice-item--warning">
-            <AlertTriangle size={20} />
-            <div>
-              <h4>Document Your Values</h4>
-              <p>Add comments to your values.yaml file to explain what each value does and provide usage examples.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="tutorial-section">
-        <h2>Advanced Features</h2>
-        
-        <div className="concept-grid">
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <FileText size={24} />
-            </div>
-            <h3>Hooks</h3>
-            <p>
-              Pre-install, post-install, pre-upgrade, and post-upgrade hooks allow you to run jobs before or after 
-              chart operations.
-            </p>
-          </div>
-          
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Download size={24} />
-            </div>
-            <h3>Chart Repositories</h3>
-            <p>
-              Publish your charts to repositories like Helm Hub, Artifact Hub, or private repositories for 
-              easy distribution and installation.
-            </p>
-          </div>
-          
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Settings size={24} />
-            </div>
-            <h3>Plugins</h3>
-            <p>
-              Extend Helm functionality with plugins for additional commands, validation, or integration with 
-              external tools.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="tutorial-section">
-        <h2>Next Steps</h2>
-        
-        <p>
-          You now understand how to create and manage Helm charts! In the next tutorial, we'll explore Jenkins 
-          and learn how to automate your CI/CD pipelines.
-        </p>
-        
-        <div className="next-steps">
-          <div className="next-step">
-            <h4>Practice</h4>
-            <p>Create a Helm chart for a simple web application with multiple environments</p>
-          </div>
-          <div className="next-step">
-            <h4>Explore</h4>
-            <p>Learn about Helm hooks, plugins, and advanced templating techniques</p>
-          </div>
-          <div className="next-step">
-            <h4>Continue</h4>
-            <p>Move on to Jenkins for CI/CD automation</p>
           </div>
         </div>
       </div>

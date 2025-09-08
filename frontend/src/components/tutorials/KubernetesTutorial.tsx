@@ -1,5 +1,5 @@
 import React from "react";
-import { Layers, Network, Info, AlertTriangle, CheckCircle, Server, Database, Globe } from "lucide-react";
+import { Layers, Network, Info, AlertTriangle, CheckCircle, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
 
@@ -90,42 +90,33 @@ const KubernetesTutorial: React.FC = () => {
         <h2>Understanding Pods</h2>
         
         <p>
-          Pods are the fundamental building blocks of Kubernetes applications. Each Pod represents a single instance of a 
-          running process in your cluster and can contain one or more containers.
+          Pods are the smallest unit you can deploy in Kubernetes. Think of a Pod as a wrapper around one or more containers 
+          that share the same network and storage. Most of the time, you'll have one container per Pod.
         </p>
 
         <div className="code-example">
-          <h4>Basic Pod Example</h4>
+          <h4>Simple Pod Example</h4>
           <pre className="code-block">
 {`apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-pod
-  labels:
-    app: nginx
+  name: my-app
 spec:
   containers:
-  - name: nginx
+  - name: my-app
     image: nginx:latest
     ports:
-    - containerPort: 80
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
-      limits:
-        memory: "128Mi"
-        cpu: "500m"`}
+    - containerPort: 80`}
           </pre>
         </div>
 
         <div className="info-box">
           <Info size={20} />
           <div>
-            <h4>Pod Lifecycle</h4>
+            <h4>Key Point</h4>
             <p>
-              Pods go through several phases: Pending, Running, Succeeded, Failed, Unknown. Understanding these phases 
-              helps you troubleshoot issues and monitor your applications.
+              While you can create Pods directly, you usually don't. Instead, you use Deployments to manage Pods for you, 
+              which provides automatic scaling and self-healing.
             </p>
           </div>
         </div>
@@ -135,257 +126,132 @@ spec:
         <h2>Deployments: Managing Pods</h2>
         
         <p>
-          While you can create Pods directly, it's better to use Deployments. Deployments provide declarative updates 
-          for Pods and ReplicaSets, ensuring your application is always running with the desired number of replicas.
+          Deployments are the recommended way to manage Pods. They ensure your application runs with the desired number of 
+          replicas and automatically replace failed Pods. Think of a Deployment as a manager that keeps your Pods running.
         </p>
 
         <div className="code-example">
-          <h4>Deployment Example</h4>
+          <h4>Simple Deployment Example</h4>
           <pre className="code-block">
 {`apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+  name: my-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: my-app
   template:
     metadata:
       labels:
-        app: nginx
+        app: my-app
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.21
+      - name: my-app
+        image: nginx:latest
         ports:
-        - containerPort: 80
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"`}
+        - containerPort: 80`}
           </pre>
         </div>
 
-        <div className="workflow-steps">
-          <div className="workflow-step">
-            <div className="workflow-step__number">1</div>
-            <div className="workflow-step__content">
-              <h4>Create Deployment</h4>
-              <p>Define your application with desired replicas and container specifications.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">2</div>
-            <div className="workflow-step__content">
-              <h4>Kubernetes Creates ReplicaSet</h4>
-              <p>Kubernetes automatically creates a ReplicaSet to manage the Pod replicas.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">3</div>
-            <div className="workflow-step__content">
-              <h4>Pods Are Scheduled</h4>
-              <p>Pods are created and scheduled across available nodes in the cluster.</p>
-            </div>
-          </div>
-          
-          <div className="workflow-step">
-            <div className="workflow-step__number">4</div>
-            <div className="workflow-step__content">
-              <h4>Health Monitoring</h4>
-              <p>Kubernetes continuously monitors Pod health and replaces failed Pods automatically.</p>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>What Deployments Do</h4>
+            <p>
+              Deployments automatically create and manage Pods. If a Pod fails, Kubernetes creates a new one. 
+              If you want more replicas, Kubernetes creates them. It's like having an automatic system administrator.
+            </p>
           </div>
         </div>
       </div>
 
       <div className="tutorial-section">
-        <h2>Services: Networking and Load Balancing</h2>
+        <h2>Services: Making Pods Accessible</h2>
         
         <p>
-          Services provide stable networking for your Pods. They abstract away the complexity of Pod IP addresses 
-          and provide load balancing across multiple Pod instances.
+          Services provide a stable way to access your Pods. Since Pods can be created and destroyed, their IP addresses 
+          change. Services give you a stable IP address and DNS name to access your application.
         </p>
 
-        <div className="concept-grid">
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Network size={24} />
-            </div>
-            <h3>ClusterIP</h3>
-            <p>
-              Default service type. Exposes the service on a cluster-internal IP. Only reachable from within the cluster.
-            </p>
-          </div>
-          
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Globe size={24} />
-            </div>
-            <h3>NodePort</h3>
-            <p>
-              Exposes the service on each Node's IP at a static port. Accessible from outside the cluster.
-            </p>
-          </div>
-          
-          <div className="concept-card">
-            <div className="concept-card__icon">
-              <Database size={24} />
-            </div>
-            <h3>LoadBalancer</h3>
-            <p>
-              Exposes the service externally using a cloud provider's load balancer. Automatically creates NodePort and ClusterIP.
-            </p>
-          </div>
-        </div>
-
         <div className="code-example">
-          <h4>Service Example</h4>
+          <h4>Simple Service Example</h4>
           <pre className="code-block">
 {`apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: my-app-service
 spec:
   selector:
-    app: nginx
+    app: my-app
   ports:
-  - protocol: TCP
-    port: 80
+  - port: 80
     targetPort: 80
-  type: LoadBalancer`}
+  type: ClusterIP`}
           </pre>
         </div>
-      </div>
 
-      <div className="tutorial-section">
-        <h2>Configuration Management</h2>
-        
-        <p>
-          Kubernetes provides several ways to manage configuration data for your applications, including ConfigMaps 
-          and Secrets for non-sensitive and sensitive data respectively.
-        </p>
-
-        <div className="commands-grid">
-          <div className="command-card">
-            <h4>ConfigMaps</h4>
-            <div className="command-list">
-              <div className="command-item">
-                <code>kubectl create configmap</code>
-                <span>Create from files or literals</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl get configmaps</code>
-                <span>List all ConfigMaps</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl describe configmap</code>
-                <span>View ConfigMap details</span>
-              </div>
-            </div>
+        <div className="info-box">
+          <Info size={20} />
+          <div>
+            <h4>How Services Work</h4>
+            <p>
+              Services act like a load balancer in front of your Pods. When you access the service, Kubernetes automatically 
+              routes traffic to one of your healthy Pods. If a Pod fails, the service stops sending traffic to it.
+            </p>
           </div>
-          
-          <div className="command-card">
-            <h4>Secrets</h4>
-            <div className="command-list">
-              <div className="command-item">
-                <code>kubectl create secret</code>
-                <span>Create from files or literals</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl get secrets</code>
-                <span>List all Secrets</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl describe secret</code>
-                <span>View Secret details</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="code-example">
-          <h4>ConfigMap Example</h4>
-          <pre className="code-block">
-{`apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: app-config
-data:
-  database_url: "postgresql://localhost:5432/myapp"
-  log_level: "info"
-  max_connections: "100"`}
-          </pre>
         </div>
       </div>
 
       <div className="tutorial-section">
         <h2>Essential kubectl Commands</h2>
         
+        <p>
+          kubectl is the command-line tool for interacting with Kubernetes. Here are the most important commands you'll use:
+        </p>
+        
         <div className="commands-grid">
           <div className="command-card">
-            <h4>Cluster Information</h4>
+            <h4>Basic Commands</h4>
             <div className="command-list">
-              <div className="command-item">
-                <code>kubectl cluster-info</code>
-                <span>Display cluster info</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl get nodes</code>
-                <span>List cluster nodes</span>
-              </div>
-              <div className="command-item">
-                <code>kubectl get namespaces</code>
-                <span>List namespaces</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="command-card">
-            <h4>Resource Management</h4>
-            <div className="command-list">
-              <div className="command-item">
-                <code>kubectl apply -f file.yaml</code>
-                <span>Create/update resources</span>
-              </div>
               <div className="command-item">
                 <code>kubectl get pods</code>
                 <span>List all pods</span>
               </div>
               <div className="command-item">
-                <code>kubectl describe pod</code>
-                <span>Detailed pod info</span>
+                <code>kubectl get deployments</code>
+                <span>List all deployments</span>
               </div>
               <div className="command-item">
-                <code>kubectl logs pod-name</code>
-                <span>View pod logs</span>
+                <code>kubectl get services</code>
+                <span>List all services</span>
+              </div>
+              <div className="command-item">
+                <code>kubectl apply -f file.yaml</code>
+                <span>Create/update resources</span>
               </div>
             </div>
           </div>
           
           <div className="command-card">
-            <h4>Scaling and Updates</h4>
+            <h4>Useful Commands</h4>
             <div className="command-list">
               <div className="command-item">
-                <code>kubectl scale deployment</code>
-                <span>Scale deployments</span>
+                <code>kubectl describe pod pod-name</code>
+                <span>Get detailed pod info</span>
               </div>
               <div className="command-item">
-                <code>kubectl rollout status</code>
-                <span>Check rollout status</span>
+                <code>kubectl logs pod-name</code>
+                <span>View pod logs</span>
               </div>
               <div className="command-item">
-                <code>kubectl rollout undo</code>
-                <span>Rollback deployment</span>
+                <code>kubectl scale deployment my-app --replicas=5</code>
+                <span>Scale deployment</span>
+              </div>
+              <div className="command-item">
+                <code>kubectl delete -f file.yaml</code>
+                <span>Delete resources</span>
               </div>
             </div>
           </div>
@@ -393,46 +259,38 @@ data:
       </div>
 
       <div className="tutorial-section">
-        <h2>Best Practices</h2>
+        <h2>Key Takeaways</h2>
         
         <div className="best-practices">
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use Deployments Instead of Pods</h4>
-              <p>Deployments provide automatic scaling, rolling updates, and self-healing capabilities.</p>
+              <h4>Pods Run Your Containers</h4>
+              <p>Pods are the smallest unit in Kubernetes. They wrap your containers and provide shared networking and storage.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Set Resource Limits</h4>
-              <p>Always define resource requests and limits to prevent resource contention and ensure fair scheduling.</p>
+              <h4>Deployments Manage Pods</h4>
+              <p>Use Deployments to manage Pods. They provide automatic scaling, self-healing, and rolling updates.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use Labels and Selectors</h4>
-              <p>Organize your resources with meaningful labels for better management and filtering.</p>
+              <h4>Services Provide Access</h4>
+              <p>Services give you a stable way to access your Pods. They act like load balancers and provide stable IP addresses.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--warning">
             <AlertTriangle size={20} />
             <div>
-              <h4>Don't Store Secrets in ConfigMaps</h4>
-              <p>Use Kubernetes Secrets for sensitive data and consider external secret management solutions for production.</p>
-            </div>
-          </div>
-          
-          <div className="practice-item practice-item--warning">
-            <AlertTriangle size={20} />
-            <div>
-              <h4>Plan for High Availability</h4>
-              <p>Use multiple replicas and spread Pods across different nodes to ensure application availability.</p>
+              <h4>Start Simple</h4>
+              <p>Begin with basic Pods, Deployments, and Services. Learn advanced features like ConfigMaps and Secrets later.</p>
             </div>
           </div>
         </div>

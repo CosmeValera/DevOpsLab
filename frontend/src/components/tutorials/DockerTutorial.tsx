@@ -24,7 +24,7 @@ const DockerTutorial: React.FC = () => {
   return (
     <TutorialLayout
       title="Docker Fundamentals"
-      description="Master containerization from the ground up"
+      description="Learn containerization basics"
       estimatedReadingTime="4 minutes"
       prerequisites="Basic command line knowledge"
       currentTutorial="docker"
@@ -291,38 +291,38 @@ CMD ["npm", "start"]`}
       </div>
 
       <div className="tutorial-section">
-        <h2>Best Practices</h2>
+        <h2>Key Takeaways</h2>
         
         <div className="best-practices">
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use Multi-stage Builds</h4>
-              <p>Reduce image size by using multiple FROM statements to separate build and runtime dependencies.</p>
+              <h4>Images are Templates</h4>
+              <p>Think of images as blueprints that define how to create a container. They're read-only and reusable.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Optimize Layer Caching</h4>
-              <p>Order Dockerfile instructions from least to most frequently changing to maximize cache usage.</p>
+              <h4>Containers are Running Instances</h4>
+              <p>Containers are the actual running applications created from images. They're isolated and portable.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--good">
             <CheckCircle size={20} />
             <div>
-              <h4>Use .dockerignore</h4>
-              <p>Exclude unnecessary files from the build context to speed up builds and reduce image size.</p>
+              <h4>Dockerfiles are Recipes</h4>
+              <p>Dockerfiles contain step-by-step instructions for building images. They make your setup reproducible.</p>
             </div>
           </div>
           
           <div className="practice-item practice-item--warning">
             <AlertTriangle size={20} />
             <div>
-              <h4>Avoid Running as Root</h4>
-              <p>Create a non-root user in your Dockerfile and switch to it for better security.</p>
+              <h4>Start Simple</h4>
+              <p>Begin with basic Dockerfiles and gradually learn advanced features like multi-stage builds and optimization.</p>
             </div>
           </div>
         </div>
