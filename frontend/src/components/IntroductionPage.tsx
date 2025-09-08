@@ -89,8 +89,7 @@ const IntroductionPage: React.FC = () => {
               </div>
               <div className="architecture-note">
                 <p>
-                  <strong>Want to explore locally?</strong> You can build this entire system on your own machine 
-                  by following the setup instructions in the Jenkins section.
+                  <strong>Want to explore locally?</strong> You can build this entire system on your own machine by following the setup instructions in the Deployments section.
                 </p>
               </div>
             </div>
