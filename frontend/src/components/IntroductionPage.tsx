@@ -119,7 +119,7 @@ const IntroductionPage: React.FC = () => {
                 <p>
                   <strong>Try the cloud version:</strong> 
                   <a 
-                    href="http://devopslab-cosmevalera.s3-website.eu-central-1.amazonaws.com" 
+                    href="https://d3nl9bq5so9qcn.cloudfront.net/introduction" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="cloud-link"
@@ -205,11 +205,13 @@ const IntroductionPage: React.FC = () => {
             </div>
             <div className="nav-card__content">
               <h3>Deployments</h3>
-              <p>Step-by-step deployment guides for Docker, Kubernetes, Kustomize, and Helm</p>
+              <p>Step-by-step deployment guides to build this whole application using devops tools like Docker or Kubernetes</p>
               <div className="nav-card__features">
-                <span className="feature-tag">Interactive Commands</span>
-                <span className="feature-tag">Real-time Monitoring</span>
-                <span className="feature-tag">Best Practices</span>
+                <span className="feature-tag">Docker</span>
+                <span className="feature-tag">Docker Compose</span>
+                <span className="feature-tag">Kubernetes</span>
+                <span className="feature-tag">Kustomize</span>
+                <span className="feature-tag">Helm</span>
               </div>
               <div className="nav-card__action">
                 <Play size={16} />
