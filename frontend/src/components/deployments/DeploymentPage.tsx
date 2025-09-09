@@ -30,7 +30,7 @@ const deploymentMethods = [
   {
     id: "docker-compose",
     title: "Docker Compose",
-    description: "Deploy the full application stack (frontend, backend, database) with one command using Docker Compose",
+    description: "Deploy the full application stack (frontend, backend, jenkins) with one command using Docker Compose",
     icon: <Layers />,
     path: "/deployments/docker-compose",
     commands: [

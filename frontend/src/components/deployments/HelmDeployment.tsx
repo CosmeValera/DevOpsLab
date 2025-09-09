@@ -53,7 +53,7 @@ const HelmDeployment: React.FC = () => {
     },
     {
       title: "Predeploy Setup",
-      description: "Set up the Kubernetes namespace and configure the database initialization",
+      description: "Set up the Kubernetes namespace",
       commands: [
         {
           command: "kubectl apply -f deployments/k8s/namespace.yaml",

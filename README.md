@@ -27,24 +27,22 @@ cd devopslab
 docker-compose up -d
 ```
 
-Visit `http://localhost:3000` to see the application running.
-
-> To access the jenkins password execute: `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
+Visit `http://localhost:3000` to see the frontend running.
 
 ## 📁 Project Structure
 
 ```
 devopslab/
-├── frontend/                 # React + TypeScript + Vite app
-├── backend/                  # Node.js + Express + TypeScript API
-├── db/                       # Database setup scripts & seeds
+├── .github/                 # Workflow to upload frontend changes to AWS S3
+├── frontend/                # React + TypeScript + Vite app
+├── backend/                 # Node.js + Express + TypeScript API
 ├── deployments/
-│   ├── docker/              # Docker Compose & Dockerfiles
 │   ├── k8s/                 # Raw Kubernetes manifests
 │   ├── helm/                # Helm charts
 │   └── kustomize/           # Kustomize overlays
-├── jenkins/                 # Jenkins pipeline setup
-└── README.md               # This file
+├── jenkins/                 # Jenkins pipeline setup locally and EC2
+├── lambda/                  # Set up lambda
+└── README.md                # This file
 ```
 
 > Check the commands for each technology [here](./README-command.md)
