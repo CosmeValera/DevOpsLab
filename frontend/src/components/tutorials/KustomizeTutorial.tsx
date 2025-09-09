@@ -2,6 +2,7 @@ import React from "react";
 import { Info, AlertTriangle, CheckCircle, Folder, FileText, GitBranch, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
+import VideoResource from "../shared/VideoResource";
 
 const KustomizeTutorial: React.FC = () => {
   const crossReferenceLinks = [
@@ -316,6 +317,14 @@ spec:
           </div>
         </div>
       </div>
+
+      {/* Video Resource */}
+      <VideoResource
+        title="Kustomize Tutorial for Beginners"
+        url="https://www.youtube.com/watch?v=spCdNeNCuFU"
+        description="Master Kustomize with this comprehensive video tutorial covering base configurations, overlays, patches, and environment management."
+        thumbnail="https://img.youtube.com/vi/spCdNeNCuFU/hqdefault.jpg"
+      />
     </TutorialLayout>
   );
 };

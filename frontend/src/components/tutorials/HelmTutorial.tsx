@@ -2,6 +2,7 @@ import React from "react";
 import { Package, Settings, Info, AlertTriangle, CheckCircle, GitBranch, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
+import VideoResource from "../shared/VideoResource";
 
 const HelmTutorial: React.FC = () => {
   const crossReferenceLinks = [
@@ -326,6 +327,14 @@ spec:
           </div>
         </div>
       </div>
+
+      {/* Video Resource */}
+      <VideoResource
+        title="Helm Tutorial for Beginners"
+        url="https://www.youtube.com/watch?v=-ykwb1d0DXU"
+        description="Learn Helm from scratch with this detailed video tutorial covering charts, releases, values, and templating concepts."
+        thumbnail="https://img.youtube.com/vi/-ykwb1d0DXU/hqdefault.jpg"
+      />
     </TutorialLayout>
   );
 };

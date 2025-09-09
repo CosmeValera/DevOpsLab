@@ -2,6 +2,7 @@ import React from "react";
 import { Settings, Info, AlertTriangle, CheckCircle, Play, GitBranch, Globe, FileText, Package, Zap } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
+import VideoResource from "../shared/VideoResource";
 
 const JenkinsTutorial: React.FC = () => {
   const crossReferenceLinks = [
@@ -459,6 +460,14 @@ const JenkinsTutorial: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Video Resource */}
+      <VideoResource
+        title="Jenkins CI/CD Tutorial"
+        url="https://www.youtube.com/watch?v=6YZvp2GwT0A"
+        description="Master Jenkins CI/CD with this comprehensive video tutorial covering pipelines, Jenkinsfiles, automation, and best practices."
+        thumbnail="https://img.youtube.com/vi/6YZvp2GwT0A/hqdefault.jpg"
+      />
     </TutorialLayout>
   );
 };

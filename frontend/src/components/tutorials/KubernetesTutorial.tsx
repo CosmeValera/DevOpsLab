@@ -2,6 +2,7 @@ import React from "react";
 import { Layers, Network, Info, AlertTriangle, CheckCircle, Server } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
+import VideoResource from "../shared/VideoResource";
 
 const KubernetesTutorial: React.FC = () => {
   const crossReferenceLinks = [
@@ -319,6 +320,14 @@ spec:
           </div>
         </div>
       </div>
+
+      {/* Video Resource */}
+      <VideoResource
+        title="Kubernetes Tutorial for Beginners"
+        url="https://www.youtube.com/watch?v=s_o8dwzRlu4"
+        description="Learn Kubernetes fundamentals with this detailed video tutorial covering pods, deployments, services, and cluster management."
+        thumbnail="https://img.youtube.com/vi/s_o8dwzRlu4/hqdefault.jpg"
+      />
     </TutorialLayout>
   );
 };

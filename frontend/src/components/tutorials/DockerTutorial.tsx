@@ -2,6 +2,7 @@ import React from "react";
 import { Terminal, Package, Play, Settings, Info, AlertTriangle, CheckCircle, Box, Layers } from "lucide-react";
 import TutorialLayout from "./TutorialLayout";
 import CrossReferenceLinks from "../shared/CrossReferenceLinks";
+import VideoResource from "../shared/VideoResource";
 
 const DockerTutorial: React.FC = () => {
   const crossReferenceLinks = [
@@ -351,6 +352,14 @@ CMD ["npm", "start"]`}
           </div>
         </div>
       </div>
+
+      {/* Video Resource */}
+      <VideoResource
+        title="Docker Tutorial for Beginners"
+        url="https://www.youtube.com/watch?v=pg19Z8LL06w"
+        description="Watch this comprehensive video tutorial to learn Docker fundamentals including containers, images, Dockerfiles, and best practices."
+        thumbnail="https://img.youtube.com/vi/pg19Z8LL06w/hqdefault.jpg"
+      />
     </TutorialLayout>
   );
 };
