@@ -26,8 +26,6 @@ Explore different deployment methods, learn through tutorials, and discover CI/C
 
 ![Interactive jenkins](./readme-content/interactive-jenkins.gif)
 
-✨ The most rewarding aspect was integrating AWS S3, Lambda, and EC2 so users could build pipelines on Jenkins, while S3 displayed live pipeline status through Lambda calls to the Jenkins server.
-
 ## 🚀 Get Started
 Experience DevOpsLab in two ways:
 
@@ -37,7 +35,7 @@ Experience DevOpsLab in two ways:
 
 ![cloud-pipeline-status-working](./readme-content/cloud-pipeline-status-working.png)
 
-> Learn how AWS S3, CloudFront, EC2, Lambda, and IAM were configured to build this cloud architecture [here](./README-aws.md) or in the cloud setup guide.
+> Learn how AWS S3, CloudFront, EC2, Lambda, and IAM were configured to build this cloud architecture [here](./README-aws.md).
 
 ### 💻 Local Development
 
