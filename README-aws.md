@@ -1,58 +1,93 @@
-## S3
-![alt text](./readme-content/aws/s3.png)
+# ☁️ AWS Cloud Architecture Setup
 
-Configured with static webpage.
-![alt text](./readme-content/aws/s3-static-webpage.png)
+This guide explains how DevOpsLab's cloud infrastructure was configured using AWS services to create a functional CI/CD experience.
 
+## 🗂️ S3 - Frontend Hosting
 
-With CloudFront. CloudFront is to have HTTPS in my S3.
-![alt text](./readme-content/aws/s3-cloudfront.png)
+**Bucket:**
 
-## IAM
-I have an user called cosme-cli, with this user I can connect to the EC2 for the jenkins server. And I can push the code. It has permissions policies for the **S3** and for the invalidation (something to avoid cache in **Cloudfront**)
+![S3 Bucket](./readme-content/aws/s3.png)
 
-![alt text](./readme-content/aws/iam.png)
+**Static Website Hosting:**
+Configured S3 bucket to serve the React frontend as a static website.
 
+![S3 Static Website](./readme-content/aws/s3-static-webpage.png)
 
-## Lambda
-Lambda code
-![alt text](./readme-content/aws/lambda-code.png)
+**CloudFront Integration:**
+CloudFront CDN provides HTTPS support and global content delivery for the S3-hosted frontend.
 
-Lambda monitor screen
-![alt text](./readme-content/aws/lambda-monitor.png)
+![S3 CloudFront](./readme-content/aws/s3-cloudfront.png)
 
-## EC2
-![alt text](./readme-content/aws/ec2.png)
+## 🔐 IAM - Access Management
 
-I can connect in my WSL with my pem permissions to my EC2:
+**CLI User Setup:**
+Created `cosme-cli` user for programmatic access to AWS services, enabling:
+- EC2 SSH connections for Jenkins server management
+- S3 deployment and content updates
+- CloudFront cache invalidation to ensure fresh content delivery
 
-![alt text](./readme-content/aws/ec2-wsl.png)
+![IAM Configuration](./readme-content/aws/iam.png)
 
-Here is where I created the Jenkins and configured it.
+## ⚡ Lambda - API Backend
 
+**Function Implementation:**
+Lambda function handles API calls from the frontend to retrieve Jenkins pipeline status in real-time.
 
-This is the page that can be visited by anyone anonymously:
-![alt text](./readme-content/aws/ec2-jenkins-anonymous.png)
+![Lambda Code](./readme-content/aws/lambda-code.png)
 
-However, I can register with admin
+**Monitoring Dashboard:**
+Track function performance, invocations, and error rates.
 
-![alt text](./readme-content/aws/ec2-jenkins-admin-login.png)
-![alt text](./readme-content/aws/ec2-jenkins-admin-dashboard.png)
+![Lambda Monitor](./readme-content/aws/lambda-monitor.png)
 
-And with admin, I configured the pipelines and I also configured the Matrix-based permissions so that anonymous uses can see the different pipelines and can build them, but not configure them for example.
+## 🖥️ EC2 - Jenkins Server
 
-![alt text](./readme-content/aws/ec2-jenkins-admin-matrix-permissions.png)
+**Instance Overview:**
+![EC2 Instance](./readme-content/aws/ec2.png)
 
-I also configured a volume for the EC2, since the initial 8GB of storage were too little. Since in my EC2 I have a jenkins server, where I am hosting, docker, kuberentes, kustomize, helm, and a kind cluster, that are creating images for the backend and the frontend.
+**SSH Access:**
+Connect to EC2 instance via WSL using PEM key authentication:
 
-![alt text](./readme-content/aws/ec2-volume.png)
+![EC2 WSL Connection](./readme-content/aws/ec2-wsl.png)
 
-## AWS cost and pricing
-The cost of these 3 services is around 20 dollars per month. Luckily, right now at 10th September 2025, I'm still under the free plan so I don't have to pay anything since I have up to $200 to use in 6 months. Divided by service, per month:
+**Jenkins Configuration:**
+The EC2 instance hosts a fully configured Jenkins server with:
+- Docker, Kubernetes, Kustomize, and Helm installed
+- Kind cluster for container orchestration
+- Automated pipeline builds for frontend and backend
 
-- S3: ≈$1
-- Lambda: ≈$4
-- EC2: ≈$15
-- Total: ≈$20
+**Public Access:**
+Anonymous users can view and trigger pipelines:
 
-![alt text](./readme-content/aws/aws-cost-and-pricing.png)
+![Jenkins Anonymous Access](./readme-content/aws/ec2-jenkins-anonymous.png)
+
+**Admin Dashboard:**
+Full administrative control for pipeline configuration:
+
+![Jenkins Admin Login](./readme-content/aws/ec2-jenkins-admin-login.png)
+
+![Jenkins Admin Dashboard](./readme-content/aws/ec2-jenkins-admin-dashboard.png)
+
+**Security & Permissions:**
+Matrix-based security allows anonymous users to view and build pipelines while restricting configuration access to administrators.
+
+![Jenkins Matrix Permissions](./readme-content/aws/ec2-jenkins-admin-matrix-permissions.png)
+
+**Storage Expansion:**
+Added additional EBS volume since the default 8GB was insufficient for Docker images, Kubernetes clusters, and Jenkins workspace requirements.
+
+![EC2 Volume](./readme-content/aws/ec2-volume.png)
+
+## 💰 Cost Analysis
+
+**Monthly Infrastructure Costs:**
+- **S3**: ~$1 (storage and requests)
+- **Lambda**: ~$4 (function invocations)
+- **EC2**: ~$15 (t2.micro instance + EBS volume)
+- **Total**: ~$20/month
+
+Currently operating under AWS Free Tier with $200 credit valid for 6 months.
+
+![AWS Cost Breakdown](./readme-content/aws/aws-cost-and-pricing.png)
+
+> This architecture demonstrates how to integrate multiple AWS services to create a production-ready CI/CD pipeline with real-time monitoring capabilities.
