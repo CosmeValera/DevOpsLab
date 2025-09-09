@@ -35,9 +35,9 @@ Experience DevOpsLab in two ways:
 
 [Visit the live AWS deployment](https://d3nl9bq5so9qcn.cloudfront.net/). It is fully configured and ready to explore!
 
-
 ![cloud-pipeline-status-working](./readme-content/cloud-pipeline-status-working.png)
 
+> Learn how AWS S3, CloudFront, EC2, Lambda, and IAM were configured to build this cloud architecture [here](./README-aws.md) or in the cloud setup guide.
 
 ### 💻 Local Development
 
@@ -70,4 +70,4 @@ Follow the **Jenkins Configuration** section to complete setup. Once configured,
 
 Unlike the cloud version, local deployment gives you complete Jenkins control to build custom pipelines.
 
-> Check the commands to build the whole project with other technologies like Docker, Kubernetes or Helm [here](./README-command.md), or in the deployments section.
+> Check deployment commands for Docker, Kubernetes, Kustomize and Helm [here](./README-command.md) or in the deployments section.

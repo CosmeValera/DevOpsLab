@@ -19,6 +19,7 @@ docker-compose up -d
 ##
 ## Frontend: localhost:3000
 ## Backend:  localhost:3001
+## Jenkins:  localhost:8080
 
 # Stop services
 docker-compose down
@@ -30,7 +31,7 @@ docker-compose ps
 docker-compose logs -f
 ```
 
-### Manual Docker Commands
+### Docker Commands
 
 ```bash
 # Build images
@@ -48,7 +49,7 @@ docker rmi -f devopslab-frontend devopslab-backend devopslab-jenkins
 docker image prune -f
 ```
 
-## ☸️ Kubernetes Deployment (Vanilla)
+## ☸️ Kubernetes Deployment
 
 ### Prerequisites
 - kubectl
@@ -252,69 +253,6 @@ The Jenkins pipeline includes:
 3. **Build Images Stage:** Build Docker images
 4. **Deploy Stage:** Deploy to local Docker environment
 5. **Cleanup Stage:** Clean up old images
-
-### Manual Pipeline Execution
-
-```bash
-# Run pipeline locally (if you have Jenkins CLI)
-jenkins-cli.jar build devopslab-pipeline
-
-# Or trigger via webhook
-curl -X POST http://localhost:8080/job/devopslab-pipeline/build
-```
-
-## 🧪 Testing
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm test
-```
-
-### Backend Tests
-
-```bash
-cd backend
-npm test
-```
-
-### Integration Tests
-
-```bash
-# Run with Docker Compose
-docker-compose -f docker-compose.test.yml up --abort-on-container-exit
-```
-
-## 🔧 Development
-
-### Local Development Setup
-
-```bash
-# Install dependencies
-cd frontend && npm install
-cd ../backend && npm install
-
-# Start backend (in backend directory)
-npm run dev
-
-# Start frontend (in frontend directory)
-npm run dev
-```
-
-### Logs
-
-```bash
-# Docker Compose logs
-docker-compose logs -f
-
-# Kubernetes logs
-kubectl logs -f deployment/frontend
-kubectl logs -f deployment/backend
-
-# Jenkins logs
-docker logs -f jenkins
-```
 
 ## 🔗 Documentation Links
 
