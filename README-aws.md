@@ -69,7 +69,7 @@ Full administrative control for pipeline configuration:
 ![Jenkins Admin Dashboard](./readme-content/aws/ec2-jenkins-admin-dashboard.png)
 
 **Security & Permissions:**
-Matrix-based security allows anonymous users to view and build pipelines while restricting configuration access to administrators.
+Matrix-based security allows anonymous users to view and build pipelines.
 
 ![Jenkins Matrix Permissions](./readme-content/aws/ec2-jenkins-admin-matrix-permissions.png)
 
@@ -83,7 +83,7 @@ Added additional EBS volume since the default 8GB was insufficient for Docker im
 **Monthly Infrastructure Costs:**
 - **S3**: ~$1 (storage and requests)
 - **Lambda**: ~$4 (function invocations)
-- **EC2**: ~$15 (t2.micro instance + EBS volume)
+- **EC2**: ~$15 (t3-small instance + EBS volume)
 - **Total**: ~$20/month
 
 Currently operating under AWS Free Tier with $200 credit valid for 6 months.

@@ -107,7 +107,7 @@ kubectl logs -f deployment/backend -n devopslab
 
 ### First steps
 
-> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment` section).
 
 
 ### Predeploy command
@@ -150,7 +150,7 @@ kubectl port-forward svc/backend-service 3001:80 -n devopslab
 
 ### First steps
 
-> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment (Vanilla)` section).
+> Remember to start Miniikube and load the images into Minikube in case you haven't yet (you can find how in the `☸️ Kubernetes Deployment` section).
 
 ### Predeploy command
 
