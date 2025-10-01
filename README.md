@@ -13,7 +13,7 @@ Explore different deployment methods, learn through tutorials, and discover CI/C
   - **AWS EC2** → Jenkins server
 
 ## 🎬 Demo
-[Open the AWS S3](https://d3nl9bq5so9qcn.cloudfront.net/) to view the frontend app!
+[Open the AWS S3](https://devopslab.cosmevalera.dev/) to view the frontend app!
 
 **General Overview:**
 *Navigate through the different sections: Introduction, Jenkins pipelines, tutorials, and deployment guides.*
@@ -31,7 +31,7 @@ Experience DevOpsLab in two ways:
 
 ### ☁️ Cloud Version (Recommended):
 
-[Visit the live AWS deployment](https://d3nl9bq5so9qcn.cloudfront.net/). It is fully configured and ready to explore!
+[Visit the live AWS deployment](https://devopslab.cosmevalera.dev/). It is fully configured and ready to explore!
 
 ![cloud-pipeline-status-working](./readme-content/cloud-pipeline-status-working.png)
 

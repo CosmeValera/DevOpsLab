@@ -119,7 +119,7 @@ const IntroductionPage: React.FC = () => {
                 <p>
                   <strong>Try the cloud version:</strong> 
                   <a 
-                    href="https://d3nl9bq5so9qcn.cloudfront.net/introduction" 
+                    href="https://devopslab.cosmevalera.dev/introduction" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="cloud-link"

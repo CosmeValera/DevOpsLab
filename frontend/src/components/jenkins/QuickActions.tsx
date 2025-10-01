@@ -2,7 +2,7 @@ import { GitBranch, Cloud, Settings } from "lucide-react";
 
 const QuickActions = () => {
   const handleCloudClick = () => {
-    window.open('https://d3nl9bq5so9qcn.cloudfront.net', '_blank');
+    window.open('https://devopslab.cosmevalera.dev/', '_blank');
   };
 
   const handleJenkinsSetupClick = () => {

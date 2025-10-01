@@ -81,10 +81,10 @@ Added additional EBS volume since the default 8GB was insufficient for Docker im
 ## 💰 Cost Analysis
 
 **Monthly Infrastructure Costs:**
-- **S3**: ~$1 (storage and requests)
-- **Lambda**: ~$4 (function invocations)
-- **EC2**: ~$15 (t3-small instance + EBS volume)
-- **Total**: ~$20/month
+- **S3**: $0.01 (storage and requests)
+- **Lambda**: $3.14 (function invocations)
+- **EC2**: $21.86 (t3-small instance + EBS volume)
+- **Total**: ~$25/month
 
 Currently operating under AWS Free Tier with $200 credit valid for 6 months.
 
